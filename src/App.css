@@ -8,5 +8,10 @@
   grid-template-columns: 2fr 10fr;
   grid-gap:10px;
 }
+.app-wrapper-content{
+  grid-area: c;
+  background-color: cornflowerblue;
+  border-radius: 10px;
+}
 
 
