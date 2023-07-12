@@ -1,0 +1,10 @@
+.header{
+    grid-area: h;
+    background-color: aquamarine;
+    border-radius: 10px;
+}
+.header img {
+    margin-left: 10px;
+    width: 60px;
+    border-radius: 50%;
+}
