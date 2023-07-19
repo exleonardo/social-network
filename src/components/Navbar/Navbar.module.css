@@ -3,10 +3,11 @@
     background-color: aqua;
     border-radius: 10px;
 }
-.item{
-    color: #967fff;
 
+.item a{
+    text-decoration: none;
+    color : white;
 }
-.item.active{
+.item a.active{
     color : rgba(255, 0, 35, 0.98);
 }
