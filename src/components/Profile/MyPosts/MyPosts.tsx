@@ -9,14 +9,18 @@ export type PostsTypeProps = {
 }
 
 const MyPosts = (props:PostsTypeProps) => {
-  const postsElements = props.posts.map((el) => <Post id={ el.id } message={ el.message } likesCount={ el.likesCount }/>)
-
+  const postsElements = props.posts.map((el,index) => <Post key={index} id={ el.id } message={ el.message } likesCount={ el.likesCount }/>)
+    let newPostElement = React.createRef<HTMLTextAreaElement>()
+    const addPost = ()=>{
+let text = newPostElement.current?.value;
+alert(text)
+    }
   return (
     <div className={ s.postsBlock }><h3>My Posts</h3>
       <div>
-        <div><textarea></textarea></div>
+        <div><textarea ref={newPostElement}/></div>
         <div>
-          <button>add post</button>
+          <button onClick={addPost}>add post</button>
         </div>
       </div>
       <div className={ s.posts }>
