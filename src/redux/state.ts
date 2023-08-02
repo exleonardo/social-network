@@ -87,5 +87,4 @@ export type RootStateType = {
     dialogsPage: DialogsPageType;
     sidebar: SidebarType
 }
-
 export default store
