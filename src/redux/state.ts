@@ -88,5 +88,4 @@ export type RootStateType = {
     sidebar: SidebarType
 }
 
-
 export default store
