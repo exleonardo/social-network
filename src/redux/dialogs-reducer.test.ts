@@ -1,4 +1,4 @@
-import state , {DialogsPageType} from "./state";
+import state , {DialogsPageType} from "./store";
 import dialogsReducer , {sendMessageCreator , updateNewMessageBodyCreator} from "./dialogs-reducer";
 
 test("message should be added to correct array",()=>{

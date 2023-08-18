@@ -4,7 +4,7 @@ import Post from './Post/Post';
 import {
     ActionType ,
     PostsType ,
-} from '../../../redux/state';
+} from '../../../redux/store';
 import {addPostActionCreator , updateNewPostTextCreator} from "../../../redux/profile-reducer";
 
 

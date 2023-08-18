@@ -1,5 +1,5 @@
 
-import  { ProfilePageType} from "./state";
+import  { ProfilePageType} from "./store";
 import profileReducer , {addPostActionCreator , updateNewPostTextCreator} from "./profile-reducer";
 
     test("message should be added to correct post",()=>{
