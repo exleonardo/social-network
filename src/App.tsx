@@ -7,13 +7,10 @@ import {Route} from 'react-router-dom';
 import News from './components/News/News';
 import Setting from './components/Setting/Setting';
 import Music from './components/Music/Music';
-import {StoreReduxType} from "./redux/redux-store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
-export type AppTypeProps = {
-    store: StoreReduxType
-}
+export type AppTypeProps = {}
 
 function App(props: AppTypeProps) {
 
@@ -22,9 +19,9 @@ function App(props: AppTypeProps) {
             <Header/>
             <Navbar/>
             <div className="app-wrapper-content">
-                <Route path="/dialogs" render={() => <DialogsContainer store={props.store}/>}/>
+                <Route path="/dialogs" render={() => <DialogsContainer/>}/>
                 <Route path="/profile"
-                       render={() => <Profile store={props.store}/>}/>
+                       render={() => <Profile/>}/>
                 <Route path="/news" render={() => <News/>}/>
                 <Route path="/music" render={() => <Music/>}/>
                 <Route path="/setting" render={() => <Setting/>}/>

@@ -3,6 +3,12 @@ import dialogsReducer , {sendMessageCreator , updateNewMessageBodyCreator} from 
 import sidebarReducer from "./sidebar-reducer";
 
 
+export type ActionType =
+    ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof updateNewPostTextCreator>
+    | ReturnType<typeof updateNewMessageBodyCreator>
+    | ReturnType<typeof sendMessageCreator>
+
 export type StoreType = {
     _state: RootStateType
     getState: () => RootStateType
@@ -11,11 +17,7 @@ export type StoreType = {
     dispatch: (action: ActionType) => void
 }
 
-export type ActionType =
-    ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextCreator>
-    | ReturnType<typeof updateNewMessageBodyCreator>
-    | ReturnType<typeof sendMessageCreator>
+
 export let store: StoreType = {
     _state: {
         profilePage: {

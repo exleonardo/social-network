@@ -15,6 +15,7 @@ export type PostsTypeProps = {
 const MyPosts = (props: PostsTypeProps) => {
     const postsElements = props.posts.map ( (el , index) => <Post key={index} id={el.id} message={el.message}
                                                                   likesCount={el.likesCount}/> )
+
     const onAddPost = () => {
         props.addPost();
         // props.dispatch ( addPostActionCreator ( props.newPostText ) )
