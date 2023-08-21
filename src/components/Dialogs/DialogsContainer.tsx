@@ -1,30 +1,31 @@
-import React , {ChangeEvent} from 'react';
-import {sendMessageCreator , updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
-import {StoreReduxType} from "../../redux/redux-store";
+import {ChangeEvent} from 'react';
+import {InitialStateType , sendMessageCreator , updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
-import StoreContext from "../../StoreContext";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {AppStateType} from "../../redux/redux-store";
 
-
-type DialogsPropsType = {}
-const DialogsContainer = (props: DialogsPropsType) => {
-
-    return (
-        <StoreContext.Consumer>
-            {(store: StoreReduxType) => {
-
-                const state = store.getState ().dialogsPage
-                const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-                    store.dispatch ( updateNewMessageBodyCreator ( e.currentTarget.value ) )
-                }
-                const onSendMessageClick = () => {
-                    store.dispatch ( sendMessageCreator () )
-                }
-
-                return <Dialogs dialogsPage={state} updateNewMessageBody={onNewMessageChange}
-                                sendMessage={onSendMessageClick}/>
-
-            }}
-        </StoreContext.Consumer>);
-};
-
+export type DialogsPropsType = MapStateDialogsType & MapDispatchDialogsType
+export type MapStateDialogsType = {
+    dialogsPage: InitialStateType
+}
+const mapStateDialogsToProps = (state: AppStateType): MapStateDialogsType => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
+}
+export type MapDispatchDialogsType = {
+    updateNewMessageBody: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    sendMessage: () => void
+}
+const mapDispatchDialogsToProps = (dispatch: Dispatch): MapDispatchDialogsType => {
+    return {
+        updateNewMessageBody: (e: ChangeEvent<HTMLTextAreaElement>) => {
+            debugger
+            dispatch ( updateNewMessageBodyCreator ( e.currentTarget.value ) )
+        } ,
+        sendMessage: () => dispatch ( sendMessageCreator () )
+    }
+}
+const DialogsContainer = connect ( mapStateDialogsToProps , mapDispatchDialogsToProps ) ( Dialogs )
 export default DialogsContainer;

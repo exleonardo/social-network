@@ -2,27 +2,22 @@ import React , {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from './DialogsItem/DialogsItem';
 import {Message} from './Message/Message';
-import {DialogsPageType , DialogsType , MessagesType} from '../../redux/store';
+import {DialogsType , MessagesType} from '../../redux/store';
+import {DialogsPropsType} from "./DialogsContainer";
 
 
-
-type DialogsPropsType = {
-    updateNewMessageBody:(e: ChangeEvent<HTMLTextAreaElement>)=>void
-    sendMessage:()=>void
-    dialogsPage:DialogsPageType
-}
 const Dialogs = (props: DialogsPropsType) => {
     const state = props.dialogsPage
 
-    const dialogsElements = state.dialogs.map ( (el:DialogsType) => <DialogItem name={el.name} id={el.id}/> )
+    const dialogsElements = state.dialogs.map ( (el: DialogsType) => <DialogItem name={el.name} id={el.id}/> )
 
-    const messagesElements = state.messages.map ( (el:MessagesType) => <Message message={el.message} id={el.id}/> )
+    const messagesElements = state.messages.map ( (el: MessagesType) => <Message message={el.message} id={el.id}/> )
     const newMessageBody = state.newMessageBody;
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewMessageBody(e)
+        props.updateNewMessageBody ( e )
     }
     const onSendMessageClick = () => {
-        props.sendMessage()
+        props.sendMessage ()
     }
     return (
         <div className={s.dialogs}>
