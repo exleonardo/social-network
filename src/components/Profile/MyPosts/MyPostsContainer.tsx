@@ -25,7 +25,7 @@ export type MapDispatchPostsToProps = {
 }
 const mapDispatchPostsToProps = (dispatch: Dispatch): MapDispatchPostsToProps => {
     return {
-        addPost: () => dispatch ( addPostActionCreator ( store.getState ().dialogsPage.newMessageBody ) ) ,
+        addPost: () => dispatch ( addPostActionCreator ( store.getState ().profilePage.newPostText ) ) ,
         updateNewPostText: (e: ChangeEvent<HTMLTextAreaElement>) => {
             dispatch ( updateNewPostTextCreator ( e.currentTarget.value ) )
         }

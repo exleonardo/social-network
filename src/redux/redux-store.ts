@@ -13,4 +13,5 @@ export type AppStateType = ReturnType<typeof rootReducer>
 const store = createStore ( rootReducer );
 export type StoreReduxType = typeof store
 
+
 export default store
