@@ -21,7 +21,6 @@ export type MapDispatchDialogsType = {
 const mapDispatchDialogsToProps = (dispatch: Dispatch): MapDispatchDialogsType => {
     return {
         updateNewMessageBody: (e: ChangeEvent<HTMLTextAreaElement>) => {
-            debugger
             dispatch ( updateNewMessageBodyCreator ( e.currentTarget.value ) )
         } ,
         sendMessage: () => dispatch ( sendMessageCreator () )
