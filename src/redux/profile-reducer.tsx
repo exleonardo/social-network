@@ -5,8 +5,8 @@ const ADD_POST = 'ADD-POST';
 
 let initialState = {
     posts: [
-        { id: '1' , message: 'Hi how are you' , likesCount: '1' } ,
-        { id: '2' , message: 'It\'s my post ' , likesCount: '23' }
+        { id: 1 , message: 'Hi how are you' , likesCount: '1' } ,
+        { id: 2 , message: 'It\'s my post ' , likesCount: '23' }
     ] ,
     newPostText: 'It-kamasutra.com' ,
 } as ProfilePageType
@@ -15,7 +15,11 @@ export type initialStateType = typeof initialState
 const profileReducer = (state: initialStateType = initialState , action: ActionType): initialStateType => {
     switch (action.type) {
         case ADD_POST:
-            return { ...state , posts: [...state.posts , { id: '5' , message: action.newPostText , likesCount: '5' }] , newPostText: "" }
+            return {
+                ...state ,
+                posts: [...state.posts , { id: 5 , message: action.newPostText , likesCount: '5' }] ,
+                newPostText: ""
+            }
         case UPDATE_NEW_POST_TEXT:
             return { ...state , newPostText: action.postMessage }
         default :

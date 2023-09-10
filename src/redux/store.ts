@@ -22,8 +22,8 @@ export let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
-                { id: '1' , message: 'Hi how are you' , likesCount: '1' } ,
-                { id: '2' , message: 'It\'s my post ' , likesCount: '23' }
+                { id: 1 , message: 'Hi how are you' , likesCount: '1' } ,
+                { id: 2 , message: 'It\'s my post ' , likesCount: '23' }
             ] ,
             newPostText: 'It-kamasutra.com'
         } ,
@@ -61,7 +61,7 @@ export let store: StoreType = {
 }
 
 export type PostsType = {
-    id: string;
+    id: number;
     message: string;
     likesCount: string
 }

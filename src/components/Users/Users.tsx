@@ -2,7 +2,14 @@ import React from "react";
 import userPhoto from "../../assets/images/yoda_star_wars_icon_131348.png";
 import axios from "axios";
 import {UsersType} from "./UsersContainer";
+import {UsersInfoType} from "../../redux/users-reducer";
 
+
+type UserDataType = {
+    items: UsersInfoType[],
+    totalCount: number;
+    error: string;
+}
 type Setting = {
     withCredentials: boolean;
 }
@@ -13,12 +20,12 @@ const setting: Setting = {
 class Users extends React.Component<UsersType> {
     constructor(props: UsersType) {
         super ( props );
-        axios.get ( "https://social-network.samuraijs.com/api/1.0/users/" , setting ).then ( (response) => {
+        axios.get <UserDataType> ( "https://social-network.samuraijs.com/api/1.0/users/" , setting ).then ( (response) => {
             this.props.setUsers ( response.data.items )
         } )
 
     }
-    
+
 
     render() {
         return (
