@@ -8,39 +8,20 @@ type UsersLocationType = {
 }
 export type UsersInfoType = {
     id: string,
-    photoUrl: string
-    followed: boolean,
-    fullName: string,
-    status: string,
+    photos: {
+        small: string | null;
+        large: string | null;
+    }
+    followed: boolean;
+    name: string;
+    status: string;
     location: UsersLocationType
 }
 type UsersType = {
     users: UsersInfoType[]
 }
 const initialState: UsersType = {
-    users: [{
-        id: "1" ,
-        photoUrl: "https://cdn.icon-icons.com/icons2/2126/PNG/72/yoda_star_wars_icon_131348.png" ,
-        followed: false ,
-        fullName: "Dmitry" ,
-        status: "I'm a boss" ,
-        location: { city: "Minsk" , country: "Belarus" }
-    } , {
-        id: "2" ,
-        photoUrl: 'https://cdn.icon-icons.com/icons2/2126/PNG/72/darth_maul_star_wars_icon_131347.png' ,
-        followed: true ,
-        fullName: "Sasha" ,
-        status: "I'm a boss" ,
-        location: { city: "Moscow" , country: "Russia" }
-    } ,
-        {
-            id: "3" ,
-            photoUrl: "https://cdn.icon-icons.com/icons2/2126/PNG/72/the_emperor_star_wars_icon_131346.png" ,
-            followed: true ,
-            fullName: "Andrey" ,
-            status: "I'm a boss too" ,
-            location: { city: "Kiev" , country: "Ukraine" }
-        }]
+    users: []
 }
 const usersReducer = (state: UsersType = initialState , action: ActionType): UsersType => {
     switch (action.type) {

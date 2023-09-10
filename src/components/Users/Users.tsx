@@ -1,35 +1,41 @@
 import React from 'react';
-
-import s from "./Users.module.css"
 import {UsersType} from "./UsersContainer";
+import axios from "axios";
+import userPhoto from '../../assets/images/yoda_star_wars_icon_131348.png'
 
 
+type UserPhoto = {
+    small: string;
+    large: string
+}
+type UsersGetType = {
+    name: string,
+    id: number,
+    uniqueUrlName: string,
+    photos: UserPhoto,
+    status: string,
+    followed: boolean
+}
+type Users = {
+    items: UsersGetType[],
+    totalCount: number,
+    error: string
+}
+type Setting = {
+    withCredentials: boolean;
+}
+const setting: Setting = {
+    withCredentials: true ,
+}
 const Users = (props: UsersType) => {
+
     if ( props.users.length === 0 ) {
-        props.setUsers ( [{
-            id: "1" ,
-            photoUrl: "https://cdn.icon-icons.com/icons2/2126/PNG/72/yoda_star_wars_icon_131348.png" ,
-            followed: false ,
-            fullName: "Dmitry" ,
-            status: "I'm a boss" ,
-            location: { city: "Minsk" , country: "Belarus" }
-        } , {
-            id: "2" ,
-            photoUrl: 'https://cdn.icon-icons.com/icons2/2126/PNG/72/darth_maul_star_wars_icon_131347.png' ,
-            followed: true ,
-            fullName: "Sasha" ,
-            status: "I'm a boss" ,
-            location: { city: "Moscow" , country: "Russia" }
-        } ,
-            {
-                id: "3" ,
-                photoUrl: "https://cdn.icon-icons.com/icons2/2126/PNG/72/the_emperor_star_wars_icon_131346.png" ,
-                followed: true ,
-                fullName: "Andrey" ,
-                status: "I'm a boss too" ,
-                location: { city: "Kiev" , country: "Ukraine" }
-            }] )
+        axios.get ( "https://social-network.samuraijs.com/api/1.0/users/" , setting ).then ( (response) => {
+            props.setUsers ( response.data.items )
+            console.log ( response )
+        } )
     }
+
 
     return (
         <div>
@@ -37,7 +43,7 @@ const Users = (props: UsersType) => {
                 <div key={el.id}>
                     <span>
                         <div>
-                            <img src={el.photoUrl} alt="avatar"/>
+                            <img src={el.photos.small ? el.photos.small : userPhoto} alt="avatar"/>
                         </div>
                         <div>
                             {el.followed
@@ -51,11 +57,11 @@ const Users = (props: UsersType) => {
                     </span>
                     <span>
                         <span>
-                            <div>{el.fullName}</div>
+                            <div>{el.name}</div>
                             <div>{el.status}</div></span>
                         <span>
-                            <div>{el.location.country}</div>
-                            <div>{el.location.city}</div>
+                            <div>{"el.location.country"}</div>
+                            <div>{"el.location.city"}</div>
                         </span>
                     </span>
                 </div> )}

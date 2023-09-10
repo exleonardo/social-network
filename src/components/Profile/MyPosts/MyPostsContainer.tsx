@@ -29,7 +29,6 @@ const mapDispatchPostsToProps = (dispatch: Dispatch): MapDispatchPostsToProps =>
         updateNewPostText: (e: ChangeEvent<HTMLTextAreaElement>) => {
             dispatch ( updateNewPostTextCreator ( e.currentTarget.value ) )
         }
-
     }
 }
 const MyPostsContainer = connect ( mapStatePostsToProps , mapDispatchPostsToProps ) ( MyPosts )
