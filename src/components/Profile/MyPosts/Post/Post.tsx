@@ -4,7 +4,7 @@ import s from "./Post.module.css"
 type PostType = {
     message: string;
     likesCount: string
-    id: string
+    id: number
 }
 const Post: React.FC<PostType> = (props) => {
     return (

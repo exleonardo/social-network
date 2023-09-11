@@ -18,14 +18,11 @@ const setting: Setting = {
 }
 
 class Users extends React.Component<UsersType> {
-    constructor(props: UsersType) {
-        super ( props );
+    componentDidMount() {
         axios.get <UserDataType> ( "https://social-network.samuraijs.com/api/1.0/users/" , setting ).then ( (response) => {
             this.props.setUsers ( response.data.items )
         } )
-
     }
-
 
     render() {
         return (

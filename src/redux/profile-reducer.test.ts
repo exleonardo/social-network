@@ -5,8 +5,8 @@ let startState: ProfilePageType
 beforeEach ( () => {
     startState = {
         posts: [
-            { id: '1' , message: 'Hi how are you' , likesCount: '1' } ,
-            { id: '2' , message: 'It\'s my post ' , likesCount: '23' }
+            { id: 1 , message: 'Hi how are you' , likesCount: '1' } ,
+            { id: 2 , message: 'It\'s my post ' , likesCount: '23' }
         ] ,
         newPostText: 'It-kamasutra.com'
     }
@@ -21,7 +21,7 @@ test ( "message should be added to correct post" , () => {
 } )
 
 test ( "newPostText should be added" , () => {
-   
+
     const action = updateNewPostTextCreator ( "test message" );
     const endState = profileReducer ( startState , action )
 
