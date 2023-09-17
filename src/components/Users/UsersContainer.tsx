@@ -27,8 +27,8 @@ type UserDataType = {
     error: string;
 }
 type Headers = {
-    ["Acces-Control-Allow-Method"]: string;
-    ["Acces-Control-Allow-Origin"]: string;
+    [key: string]: string;
+
 }
 type Setting = {
     withCredentials: boolean;
@@ -36,8 +36,7 @@ type Setting = {
 }
 const setting: Setting = {
     headers: {
-        "Acces-Control-Allow-Method": "GET,PUT,POST,DELETE,PATCH,OPTIONS" ,
-        "Acces-Control-Allow-Origin": "*"
+        "API-KEY": "f3eb22c4-26f8-436d-a4bb-37315a600abf"
     } ,
     withCredentials: true ,
 }
