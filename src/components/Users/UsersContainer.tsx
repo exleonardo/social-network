@@ -26,10 +26,19 @@ type UserDataType = {
     totalCount: number;
     error: string;
 }
+type Headers = {
+    ["Acces-Control-Allow-Method"]: string;
+    ["Acces-Control-Allow-Origin"]: string;
+}
 type Setting = {
     withCredentials: boolean;
+    headers: Headers
 }
 const setting: Setting = {
+    headers: {
+        "Acces-Control-Allow-Method": "GET,PUT,POST,DELETE,PATCH,OPTIONS" ,
+        "Acces-Control-Allow-Origin": "*"
+    } ,
     withCredentials: true ,
 }
 
