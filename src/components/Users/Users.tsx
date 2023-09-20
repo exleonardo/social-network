@@ -19,7 +19,6 @@ const Users = (props: UsersTypeProps) => {
     for (let i = 1; i <= pagesCount; i += 1) {
         pages.push ( i );
     }
-
     let slicedPages;
     let curPage = props.currentPage;
     if ( curPage - 3 < 0 ) {
