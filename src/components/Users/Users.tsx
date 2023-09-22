@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/yoda_star_wars_icon_131348.png";
 import {UsersInfoType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import {socialNetworkAPI} from "../API/socialNetworkAPI";
 
 type UsersTypeProps = {
     totalUsersCount: number;
@@ -49,10 +50,19 @@ const Users = (props: UsersTypeProps) => {
                         <div>
                             {el.followed
                                 ? <button onClick={() => {
-                                    props.unfollow ( el.id )
+                                    socialNetworkAPI.getUnfollow ( el.id ).then ( (res) => {
+                                        if ( res.data.resultCode === 0 ) {
+                                            props.unfollow ( el.id )
+                                        }
+                                    } )
                                 }}>Follow</button>
                                 : <button onClick={() => {
-                                    props.follow ( el.id )
+                                    socialNetworkAPI.getFollow ( el.id ).then ( (res) => {
+                                        if ( res.data.resultCode === 0 ) {
+                                            props.follow ( el.id )
+                                        }
+                                    } )
+
                                 }}>Unfollow</button>}
                         </div>
                     </span>

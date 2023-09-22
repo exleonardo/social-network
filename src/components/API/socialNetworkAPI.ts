@@ -56,6 +56,11 @@ type AuthMeType = {
     "fieldsErrors": [],
     "resultCode": number
 }
+type ResponseType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
+}
 const instanse = axios.create ( { baseURL: "https://social-network.samuraijs.com/api/1.0/" , ...setting } )
 
 export const socialNetworkAPI = {
@@ -63,6 +68,12 @@ export const socialNetworkAPI = {
         return instanse.get<ProfileUserType> ( `profile/${userId}/` )
     } ,
     getAuthMe() {
-        return instanse.get<AuthMeType> ( `/auth/me` )
+        return instanse.get<AuthMeType> ( `auth/me` )
+    } ,
+    getFollow(userId: number) {
+        return instanse.post<ResponseType> ( `follow/${userId}` )
+    } ,
+    getUnfollow(userId: number) {
+        return instanse.delete<ResponseType> ( `follow/${userId}` )
     }
 }
