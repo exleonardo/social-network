@@ -1,10 +1,23 @@
-.header{
+.header {
     grid-area: h;
     background-color: aquamarine;
     border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
 }
+
 .header img {
     margin-left: 10px;
     width: 60px;
     border-radius: 50%;
+}
+
+.loginBlock {
+    align-self: center;
+    margin-right: 10px;
+}
+
+.loginBlock a {
+    text-decoration: none;
+    color: darkcyan;
 }

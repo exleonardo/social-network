@@ -45,10 +45,24 @@ export type ProfileUserType = {
         large: string
     }
 }
+type DataAuthMe = {
+    id: number,
+    login: string,
+    email: string
+}
+type AuthMeType = {
+    data: DataAuthMe,
+    "messages": [],
+    "fieldsErrors": [],
+    "resultCode": number
+}
 const instanse = axios.create ( { baseURL: "https://social-network.samuraijs.com/api/1.0/" , ...setting } )
 
 export const socialNetworkAPI = {
     getProfileUser(userId: string) {
         return instanse.get<ProfileUserType> ( `profile/${userId}/` )
+    } ,
+    getAuthMe() {
+        return instanse.get<AuthMeType> ( `/auth/me` )
     }
 }
