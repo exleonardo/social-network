@@ -1,3 +1,5 @@
+import {UsersInfoType} from "../components/API/socialNetworkAPI";
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
@@ -12,16 +14,7 @@ type ActionType =
     | ReturnType<typeof setUsersTotalCount>
     | ReturnType<typeof toggleIsFetching>
 
-export type UsersInfoType = {
-    id: number,
-    photos: {
-        small: string | null;
-        large: string | null;
-    }
-    followed: boolean;
-    name: string;
-    status: string;
-}
+
 type UsersType = {
     users: UsersInfoType[];
     pageSize: number;

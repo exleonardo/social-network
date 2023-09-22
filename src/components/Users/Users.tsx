@@ -1,9 +1,8 @@
 import React from 'react';
 import s from "./Users.module.css";
 import userPhoto from "../../assets/images/yoda_star_wars_icon_131348.png";
-import {UsersInfoType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import {socialNetworkAPI} from "../API/socialNetworkAPI";
+import {socialNetworkAPI , UsersInfoType} from "../API/socialNetworkAPI";
 
 type UsersTypeProps = {
     totalUsersCount: number;

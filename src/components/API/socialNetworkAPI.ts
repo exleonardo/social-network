@@ -8,21 +8,6 @@ const setting = {
     withCredentials: true ,
 }
 
-type UserDataType = {
-    items: UsersInfoType[],
-    totalCount: number;
-    error: string;
-}
-export type UsersInfoType = {
-    id: number,
-    photos: {
-        small: string | null;
-        large: string | null;
-    }
-    followed: boolean;
-    name: string;
-    status: string;
-}
 export type UsersContactType = {
     github: string
     vk: string
@@ -61,9 +46,28 @@ type ResponseType<D = {}> = {
     messages: Array<string>
     data: D
 }
+type UserDataType = {
+    items: UsersInfoType[],
+    totalCount: number;
+    error: string;
+}
+export type UsersInfoType = {
+    id: number,
+    photos: {
+        small: string | null;
+        large: string | null;
+    }
+    followed: boolean;
+    name: string;
+    status: string;
+}
+
 const instanse = axios.create ( { baseURL: "https://social-network.samuraijs.com/api/1.0/" , ...setting } )
 
 export const socialNetworkAPI = {
+    getUsers(currentPage: number = 1 , pageSize: number = 5) {
+        return instanse.get<UserDataType> ( `users/?page=${currentPage}&count=${pageSize}` ).then ( (res) => res.data )
+    } ,
     getProfileUser(userId: string) {
         return instanse.get<ProfileUserType> ( `profile/${userId}/` )
     } ,
