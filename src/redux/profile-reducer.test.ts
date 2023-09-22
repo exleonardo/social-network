@@ -8,7 +8,8 @@ beforeEach ( () => {
             { id: 1 , message: 'Hi how are you' , likesCount: '1' } ,
             { id: 2 , message: 'It\'s my post ' , likesCount: '23' }
         ] ,
-        newPostText: 'It-kamasutra.com'
+        newPostText: 'It-kamasutra.com' ,
+        profile: null
     }
 } )
 test ( "message should be added to correct post" , () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import s from "./Users.module.css";
 import userPhoto from "../../assets/images/yoda_star_wars_icon_131348.png";
 import {UsersInfoType} from "../../redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 type UsersTypeProps = {
     totalUsersCount: number;
@@ -42,7 +43,8 @@ const Users = (props: UsersTypeProps) => {
                 <div key={el.id}>
                     <span>
                         <div>
-                            <img src={el.photos.small ? el.photos.small : userPhoto} alt="avatar"/>
+                            <NavLink to={'/profile/' + el.id}>
+                            <img src={el.photos.small ? el.photos.small : userPhoto} alt="avatar"/></NavLink>
                         </div>
                         <div>
                             {el.followed

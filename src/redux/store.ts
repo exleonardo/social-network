@@ -1,9 +1,10 @@
 import profileReducer , {addPostActionCreator , updateNewPostTextCreator} from "./profile-reducer";
 import dialogsReducer , {sendMessageCreator , updateNewMessageBodyCreator} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
+import {ProfileUserType} from "../components/API/socialNetworkAPI";
 
 
-export type ActionType =
+type ActionType =
     ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostTextCreator>
     | ReturnType<typeof updateNewMessageBodyCreator>
@@ -25,7 +26,8 @@ export let store: StoreType = {
                 { id: 1 , message: 'Hi how are you' , likesCount: '1' } ,
                 { id: 2 , message: 'It\'s my post ' , likesCount: '23' }
             ] ,
-            newPostText: 'It-kamasutra.com'
+            newPostText: 'It-kamasutra.com' ,
+            profile: null
         } ,
         dialogsPage: {
             dialogs: [
@@ -69,7 +71,8 @@ export type DialogsType = { id: string, name: string }
 export type MessagesType = { id: string; message: string }
 export type ProfilePageType = {
     posts: PostsType[];
-    newPostText: string
+    newPostText: string;
+    profile: null | ProfileUserType
 }
 export type DialogsPageType = {
     dialogs: DialogsType[];
