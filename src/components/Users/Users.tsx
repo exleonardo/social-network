@@ -4,6 +4,7 @@ import userPhoto from "../../assets/images/yoda_star_wars_icon_131348.png";
 import {NavLink} from "react-router-dom";
 import {socialNetworkAPI , UsersInfoType} from "../API/socialNetworkAPI";
 
+
 type UsersTypeProps = {
     totalUsersCount: number;
     pageSize: number;
@@ -11,7 +12,9 @@ type UsersTypeProps = {
     onPageChanged: (page: number) => void;
     users: UsersInfoType[];
     follow: (userId: number) => void;
-    unfollow: (userId: number) => void
+    unfollow: (userId: number) => void;
+    toggleFollowingProgress: (isFetching: boolean , userId: number) => void
+    followingInProgress: Array<number>
 
 }
 const Users = (props: UsersTypeProps) => {
@@ -48,21 +51,28 @@ const Users = (props: UsersTypeProps) => {
                         </div>
                         <div>
                             {el.followed
-                                ? <button onClick={() => {
-                                    socialNetworkAPI.getUnfollow ( el.id ).then ( (res) => {
-                                        if ( res.data.resultCode === 0 ) {
-                                            props.unfollow ( el.id )
-                                        }
-                                    } )
-                                }}>Follow</button>
-                                : <button onClick={() => {
-                                    socialNetworkAPI.getFollow ( el.id ).then ( (res) => {
-                                        if ( res.data.resultCode === 0 ) {
-                                            props.follow ( el.id )
-                                        }
-                                    } )
 
-                                }}>Unfollow</button>}
+                                ? <button
+                                    disabled={props.followingInProgress.some ( (id) => id === el.id )}
+                                    onClick={() => {
+
+                                        props.toggleFollowingProgress ( true , el.id )
+                                        socialNetworkAPI.getUnfollow ( el.id ).then ( (res) => {
+                                            if ( res.data.resultCode === 0 ) props.unfollow ( el.id )
+                                            props.toggleFollowingProgress ( false , el.id )
+                                        } )
+
+                                    }}>Follow</button>
+                                : <button
+                                    disabled={props.followingInProgress.some ( (id) => id === el.id )}
+                                    onClick={() => {
+                                        props.toggleFollowingProgress ( true , el.id )
+                                        socialNetworkAPI.getFollow ( el.id ).then ( (res) => {
+                                            if ( res.data.resultCode === 0 ) props.follow ( el.id )
+                                            props.toggleFollowingProgress ( false , el.id )
+                                        } )
+
+                                    }}>Unfollow</button>}
                         </div>
                     </span>
                     <span>
