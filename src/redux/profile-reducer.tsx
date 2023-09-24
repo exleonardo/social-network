@@ -1,12 +1,13 @@
 import {sendMessageCreator , updateNewMessageBodyCreator} from "./dialogs-reducer";
-import {ProfileUserType} from "../components/API/socialNetworkAPI";
+import {ProfileUserType , socialNetworkAPI} from "../components/API/socialNetworkAPI";
 import {ProfilePageType} from "./store";
+import {AppThunk} from "./redux-store";
 
-const SET_URER_PROFILE = 'SET-USER-PROFILE'
+const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
 
-export type ActionType =
+export type ProfileReducerActionType =
     ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostTextCreator>
     | ReturnType<typeof updateNewMessageBodyCreator>
@@ -24,7 +25,7 @@ let initialState = {
 type InitialState = typeof initialState
 
 
-const profileReducer = (state: InitialState = initialState , action: ActionType): InitialState => {
+const profileReducer = (state: InitialState = initialState , action: ProfileReducerActionType): InitialState => {
     switch (action.type) {
         case ADD_POST:
             return {
@@ -34,7 +35,7 @@ const profileReducer = (state: InitialState = initialState , action: ActionType)
             }
         case UPDATE_NEW_POST_TEXT:
             return { ...state , newPostText: action.postMessage }
-        case SET_URER_PROFILE:
+        case SET_USER_PROFILE:
             return { ...state , profile: action.profile }
         default :
             return state
@@ -53,6 +54,14 @@ export const updateNewPostTextCreator = (text: string) => ({
     postMessage: text
 } as const)
 export const setUserProfile = (profile: ProfileUserType) => ({
-    type: SET_URER_PROFILE ,
+    type: SET_USER_PROFILE ,
     profile
 }) as const
+
+export const userProfile = (userId: string): AppThunk => {
+    return async dispatch => {
+        socialNetworkAPI.getProfileUser ( userId ).then ( (response) => {
+            dispatch ( setUserProfile ( response.data ) )
+        } )
+    }
+}

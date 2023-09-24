@@ -1,4 +1,5 @@
-import {UsersInfoType} from "../components/API/socialNetworkAPI";
+import {socialNetworkAPI , UsersInfoType} from "../components/API/socialNetworkAPI";
+import {AppThunk} from "./redux-store";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -7,16 +8,15 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
-type ActionType =
-    ReturnType<typeof follow>
-    | ReturnType<typeof unfollow>
+export type UserReducerActionType =
+    ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setUsersTotalCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof toggleFollowingProgress>
 
-type ProgressType = {}
 type UsersType = {
     users: UsersInfoType[];
     pageSize: number;
@@ -33,7 +33,7 @@ const initialState: UsersType = {
     isFetching: false ,
     followingInProgress: []
 }
-const usersReducer = (state: UsersType = initialState , action: ActionType): UsersType => {
+const usersReducer = (state: UsersType = initialState , action: UserReducerActionType): UsersType => {
 
     switch (action.type) {
 
@@ -65,8 +65,8 @@ const usersReducer = (state: UsersType = initialState , action: ActionType): Use
     }
 };
 
-export const follow = (userId: number) => ({ type: FOLLOW , userId } as const)
-export const unfollow = (userId: number) => ({ type: UNFOLLOW , userId } as const)
+export const followSuccess = (userId: number) => ({ type: FOLLOW , userId } as const)
+export const unfollowSuccess = (userId: number) => ({ type: UNFOLLOW , userId } as const)
 export const setUsers = (users: UsersInfoType[]) => ({ type: SET_USERS , users } as const)
 export const setCurrentPage = (currentPage: number) => ({ type: SET_CURRENT_PAGE , currentPage } as const)
 export const setUsersTotalCount = (totalUsersCount: number) => ({
@@ -77,8 +77,32 @@ export const toggleIsFetching = (isFetching: boolean) => {
     return ({ type: TOGGLE_IS_FETCHING , isFetching }) as const
 }
 export const toggleFollowingProgress = (isFetching: boolean , userId: number) => ({
-
     type: TOGGLE_IS_FOLLOWING_PROGRESS , isFetching , userId
 } as const)
+export const getUsers = (currentPage: number = 1 , pageSize: number = 5): AppThunk => async dispatch => {
+    dispatch ( toggleIsFetching ( true ) )
+    dispatch ( setCurrentPage ( currentPage ) )
+    const data = await socialNetworkAPI.getUsers ( currentPage , pageSize )
+    dispatch ( setUsers ( data.items ) )
+    dispatch ( setUsersTotalCount ( data.totalCount ) )
+    dispatch ( toggleIsFetching ( false ) )
+}
+export const follow = (userId: number): AppThunk => {
+    return async dispatch => {
+        dispatch ( toggleFollowingProgress ( true , userId ) )
+        const res = await socialNetworkAPI.unfollow ( userId )
+        if ( res.data.resultCode === 0 ) dispatch ( unfollowSuccess ( userId ) )
+        dispatch ( toggleFollowingProgress ( false , userId ) )
+
+    };
+}
+export const unfollow = (userId: number): AppThunk => {
+    return async dispatch => {
+        dispatch ( toggleFollowingProgress ( true , userId ) )
+        const res = await socialNetworkAPI.follow ( userId )
+        if ( res.data.resultCode === 0 ) dispatch ( followSuccess ( userId ) )
+        dispatch ( toggleFollowingProgress ( false , userId ) )
+    };
+}
 
 export default usersReducer;

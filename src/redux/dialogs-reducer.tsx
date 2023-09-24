@@ -1,5 +1,5 @@
 import {DialogsPageType} from "./store";
-import {ActionType} from "./profile-reducer";
+import {ProfileReducerActionType} from "./profile-reducer";
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE'
@@ -20,7 +20,7 @@ let initialState = {
     newMessageBody: ''
 } as DialogsPageType
 export type InitialStateType = typeof initialState
-const dialogsReducer = (state: InitialStateType = initialState , action: ActionType): InitialStateType => {
+const dialogsReducer = (state: InitialStateType = initialState , action: ProfileReducerActionType): InitialStateType => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
             return { ...state , newMessageBody: action.body }
