@@ -1,18 +1,12 @@
 import React from "react";
 import Header from "./Header";
-import {socialNetworkAPI} from "../API/socialNetworkAPI";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {setAuthUserData} from "../../redux/auth-reducer";
+import {authMe} from "../../redux/auth-reducer";
 
 class HeaderContainer extends React.Component<PropsType> {
     componentDidMount() {
-        socialNetworkAPI.getAuthMe ().then ( (res) => {
-            if ( res.data.resultCode === 0 ) {
-                const { id , login , email } = res.data.data
-                this.props.setAuthUserData ( id , login , email )
-            }
-        } )
+        this.props.authMe ()
     }
 
     render() {
@@ -30,10 +24,10 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
 }
 type PropsType = MapStateToProps & MapDispatchToProps
 type MapDispatchToProps = {
-    setAuthUserData: (userId: number , login: string , email: string) => void
+    authMe: () => void
 }
 type MapStateToProps = {
     isAuth: boolean,
     login: string | null
 }
-export default connect ( mapStateToProps , { setAuthUserData } ) ( HeaderContainer )
+export default connect ( mapStateToProps , { authMe } ) ( HeaderContainer )

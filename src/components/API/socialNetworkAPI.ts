@@ -62,22 +62,22 @@ export type UsersInfoType = {
     status: string;
 }
 
-const instanse = axios.create ( { baseURL: "https://social-network.samuraijs.com/api/1.0/" , ...setting } )
+const instance = axios.create ( { baseURL: "https://social-network.samuraijs.com/api/1.0/" , ...setting } )
 
 export const socialNetworkAPI = {
     getUsers(currentPage: number = 1 , pageSize: number = 5) {
-        return instanse.get<UserDataType> ( `users/?page=${currentPage}&count=${pageSize}` ).then ( (res) => res.data )
+        return instance.get<UserDataType> ( `users/?page=${currentPage}&count=${pageSize}` ).then ( res => res.data )
     } ,
     getProfileUser(userId: string) {
-        return instanse.get<ProfileUserType> ( `profile/${userId}/` )
+        return instance.get<ProfileUserType> ( `profile/${userId}/` )
     } ,
     getAuthMe() {
-        return instanse.get<AuthMeType> ( `auth/me` )
+        return instance.get<AuthMeType> ( `auth/me` )
     } ,
-    getFollow(userId: number) {
-        return instanse.post<ResponseType> ( `follow/${userId}` )
+    follow(userId: number) {
+        return instance.post<ResponseType> ( `follow/${userId}` )
     } ,
-    getUnfollow(userId: number) {
-        return instanse.delete<ResponseType> ( `follow/${userId}` )
+    unfollow(userId: number) {
+        return instance.delete<ResponseType> ( `follow/${userId}` )
     }
 }
