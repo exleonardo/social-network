@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import {ProfileUserType} from "../API/socialNetworkAPI";
 import {connect} from "react-redux";
-import {userProfile} from "../../redux/profile-reducer";
+import {getUserProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
@@ -12,7 +12,7 @@ class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if ( !userId ) userId = "2"
-        this.props.userProfile ( userId )
+        this.props.getUserProfile ( userId )
     }
 
     render() {
@@ -39,7 +39,7 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
     }
 }
 type MapDispatchToProps = {
-    userProfile: (userId: string) => void
+    getUserProfile: (userId: string) => void
 }
 const withUrlDataContainerComponent = withRouter ( ProfileContainer )
-export default connect ( mapStateToProps , { userProfile } ) ( withUrlDataContainerComponent )
+export default connect ( mapStateToProps , { getUserProfile } ) ( withUrlDataContainerComponent )

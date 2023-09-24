@@ -2,11 +2,11 @@ import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {authMe} from "../../redux/auth-reducer";
+import {getAuthUserData} from "../../redux/auth-reducer";
 
 class HeaderContainer extends React.Component<PropsType> {
     componentDidMount() {
-        this.props.authMe ()
+        this.props.getAuthUserData ()
     }
 
     render() {
@@ -24,10 +24,10 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
 }
 type PropsType = MapStateToProps & MapDispatchToProps
 type MapDispatchToProps = {
-    authMe: () => void
+    getAuthUserData: () => void
 }
 type MapStateToProps = {
     isAuth: boolean,
     login: string | null
 }
-export default connect ( mapStateToProps , { authMe } ) ( HeaderContainer )
+export default connect ( mapStateToProps , { getAuthUserData } ) ( HeaderContainer )

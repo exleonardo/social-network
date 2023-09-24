@@ -21,13 +21,14 @@ export type AuthReducerActionType = ReturnType<typeof setAuthUserData>
 const authReducer = (state: InitialState = initialState , action: AuthReducerActionType): InitialState => {
     switch (action.type) {
         case SET_USER_DATA:
-            return { ...state , ...action.data }
+            return { ...state , ...action.data , isAuth: true }
         default :
             return state
     }
 
 }
 export const setAuthUserData = (userId: number , login: string , email: string) => {
+    debugger
     return ({
         type: SET_USER_DATA ,
         data: {
@@ -37,7 +38,7 @@ export const setAuthUserData = (userId: number , login: string , email: string) 
         }
     } as const)
 }
-export const authMe = (): AppThunk => {
+export const getAuthUserData = (): AppThunk => {
     return async dispatch => {
         const res = await socialNetworkAPI.getAuthMe ()
         if ( res.data.resultCode === 0 ) {
@@ -45,6 +46,6 @@ export const authMe = (): AppThunk => {
             dispatch ( setAuthUserData ( id , login , email ) )
         }
     }
-        
+
 }
 export default authReducer

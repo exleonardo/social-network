@@ -58,7 +58,7 @@ export const setUserProfile = (profile: ProfileUserType) => ({
     profile
 }) as const
 
-export const userProfile = (userId: string): AppThunk => {
+export const getUserProfile = (userId: string): AppThunk => {
     return async dispatch => {
         socialNetworkAPI.getProfileUser ( userId ).then ( (response) => {
             dispatch ( setUserProfile ( response.data ) )
