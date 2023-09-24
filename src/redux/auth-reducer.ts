@@ -1,5 +1,5 @@
 import {AppThunk} from "./redux-store";
-import {socialNetworkAPI} from "../components/API/socialNetworkAPI";
+import {socialNetworkAPI} from "../API/socialNetworkAPI";
 
 const SET_USER_DATA = 'SET-USER-DATA';
 
@@ -27,25 +27,19 @@ const authReducer = (state: InitialState = initialState , action: AuthReducerAct
     }
 
 }
-export const setAuthUserData = (userId: number , login: string , email: string) => {
-    debugger
-    return ({
-        type: SET_USER_DATA ,
-        data: {
-            userId ,
-            login ,
-            email
-        }
-    } as const)
-}
-export const getAuthUserData = (): AppThunk => {
-    return async dispatch => {
-        const res = await socialNetworkAPI.getAuthMe ()
-        if ( res.data.resultCode === 0 ) {
-            const { id , login , email } = res.data.data
-            dispatch ( setAuthUserData ( id , login , email ) )
-        }
+export const setAuthUserData = (userId: number , login: string , email: string) => ({
+    type: SET_USER_DATA ,
+    data: {
+        userId ,
+        login ,
+        email
     }
-
+} as const)
+export const getAuthUserData = (): AppThunk => async dispatch => {
+    const res = await socialNetworkAPI.getAuthMe ()
+    if ( res.data.resultCode === 0 ) {
+        const { id , login , email } = res.data.data
+        dispatch ( setAuthUserData ( id , login , email ) )
+    }
 }
 export default authReducer

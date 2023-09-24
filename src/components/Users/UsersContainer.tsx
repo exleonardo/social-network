@@ -8,7 +8,8 @@ import {
 import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {UsersInfoType} from "../API/socialNetworkAPI";
+import {UsersInfoType} from "../../API/socialNetworkAPI";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 
 class UsersContainer extends React.Component<UsersType> {
@@ -70,13 +71,13 @@ const mapStateToProps = (state: AppStateType): mapStateUsersToProps => {
 //         }
 //     }
 // }
-export default connect ( mapStateToProps , {
+export default withAuthRedirect ( connect ( mapStateToProps , {
     follow ,
     unfollow ,
     setCurrentPage ,
     toggleFollowingProgress ,
     getUsers
-} ) ( UsersContainer );
+} ) ( UsersContainer ) );
 
 //type
 type mapStateUsersToProps = {

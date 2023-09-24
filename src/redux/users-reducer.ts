@@ -1,4 +1,4 @@
-import {socialNetworkAPI , UsersInfoType} from "../components/API/socialNetworkAPI";
+import {socialNetworkAPI , UsersInfoType} from "../API/socialNetworkAPI";
 import {AppThunk} from "./redux-store";
 
 const FOLLOW = "FOLLOW";

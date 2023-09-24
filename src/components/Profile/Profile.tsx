@@ -1,7 +1,7 @@
 import React , {ReactNode} from 'react';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ProfileUserType} from "../API/socialNetworkAPI";
+import {ProfileUserType} from "../../API/socialNetworkAPI";
 
 
 type ProfileTypeProps = {

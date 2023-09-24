@@ -2,7 +2,7 @@ import React from 'react';
 import s from "./Users.module.css";
 import userPhoto from "../../assets/images/yoda_star_wars_icon_131348.png";
 import {NavLink} from "react-router-dom";
-import {UsersInfoType} from "../API/socialNetworkAPI";
+import {UsersInfoType} from "../../API/socialNetworkAPI";
 
 
 type UsersTypeProps = {

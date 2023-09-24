@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./ProfileInfo.module.css"
-import {ProfileUserType} from "../../API/socialNetworkAPI";
+import {ProfileUserType} from "../../../API/socialNetworkAPI";
 import Preloader from "../../common/Preloader/Preloader";
 
 type ProfileInfoType = {

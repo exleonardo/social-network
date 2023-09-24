@@ -1,7 +1,7 @@
 import profileReducer , {addPostActionCreator , updateNewPostTextCreator} from "./profile-reducer";
 import dialogsReducer , {sendMessageCreator , updateNewMessageBodyCreator} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
-import {ProfileUserType} from "../components/API/socialNetworkAPI";
+import {ProfileUserType} from "../API/socialNetworkAPI";
 
 
 type ActionType =

@@ -1,5 +1,5 @@
 import {sendMessageCreator , updateNewMessageBodyCreator} from "./dialogs-reducer";
-import {ProfileUserType , socialNetworkAPI} from "../components/API/socialNetworkAPI";
+import {ProfileUserType , socialNetworkAPI} from "../API/socialNetworkAPI";
 import {ProfilePageType} from "./store";
 import {AppThunk} from "./redux-store";
 
