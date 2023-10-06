@@ -30,7 +30,7 @@ const Users = (props: UsersTypeProps) => {
     } else {
         slicedPages = pages.slice ( curPage - 3 , curPage + 2 );
     }
-    console.log ( slicedPages , props.currentPage )
+
     return (
         <div>
             <div>
