@@ -5,12 +5,14 @@ import {ProfileUserType} from "../../API/socialNetworkAPI";
 
 
 type ProfileTypeProps = {
-    profile: null | ProfileUserType
+    profile: null | ProfileUserType;
+    status: string;
+    updateStatus: (status: string) => void;
 }
 const Profile = (props: ProfileTypeProps) => {
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <MyPostsContainer/>
         </div>
     );

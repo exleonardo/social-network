@@ -1,11 +1,12 @@
 import {sendMessageCreator , updateNewMessageBodyCreator} from "./dialogs-reducer";
-import {ProfileUserType , socialNetworkAPI} from "../API/socialNetworkAPI";
+import {profileAPI , ProfileUserType} from "../API/socialNetworkAPI";
 import {ProfilePageType} from "./store";
 import {AppThunk} from "./redux-store";
 
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
+const SET_STATUS = 'SET-STATUS'
 
 export type ProfileReducerActionType =
     ReturnType<typeof addPostActionCreator>
@@ -13,6 +14,7 @@ export type ProfileReducerActionType =
     | ReturnType<typeof updateNewMessageBodyCreator>
     | ReturnType<typeof sendMessageCreator>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatusAC>
 
 let initialState = {
     posts: [
@@ -20,7 +22,8 @@ let initialState = {
         { id: 2 , message: 'It\'s my post ' , likesCount: '23' }
     ] ,
     newPostText: 'It-kamasutra.com' ,
-    profile: null
+    profile: null ,
+    status: 'Hi'
 } as ProfilePageType
 type InitialState = typeof initialState
 
@@ -37,6 +40,8 @@ const profileReducer = (state: InitialState = initialState , action: ProfileRedu
             return { ...state , newPostText: action.postMessage }
         case SET_USER_PROFILE:
             return { ...state , profile: action.profile }
+        case SET_STATUS:
+            return { ...state , status: action.status }
         default :
             return state
     }
@@ -48,6 +53,7 @@ export const addPostActionCreator = (text: string) => ({
     type: ADD_POST ,
     newPostText: text
 } as const)
+export const setStatusAC = (status: string) => ({ type: SET_STATUS , status } as const)
 
 export const updateNewPostTextCreator = (text: string) => ({
     type: UPDATE_NEW_POST_TEXT ,
@@ -57,11 +63,25 @@ export const setUserProfile = (profile: ProfileUserType) => ({
     type: SET_USER_PROFILE ,
     profile
 }) as const
-
+//Thunk
 export const getUserProfile = (userId: string): AppThunk => {
     return async dispatch => {
-        socialNetworkAPI.getProfileUser ( userId ).then ( (response) => {
-            dispatch ( setUserProfile ( response.data ) )
-        } )
+        const response = await profileAPI.getProfileUser ( userId )
+        dispatch ( setUserProfile ( response.data ) )
+    }
+}
+export const getStatus = (status: string): AppThunk => {
+    return async dispatch => {
+        profileAPI.getStatus ( status ).then ( res => dispatch ( setStatusAC ( res.data ) ) )
+    }
+}
+export const updateStatus = (status: string): AppThunk => {
+    return async dispatch => {
+        profileAPI.updateStatus ( status ).then ( res => {
+                if ( res.data.resultCode === 0 ) {
+                    dispatch ( setStatusAC ( status ) )
+                }
+            }
+        )
     }
 }

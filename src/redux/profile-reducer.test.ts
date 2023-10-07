@@ -9,7 +9,8 @@ beforeEach ( () => {
             { id: 2 , message: 'It\'s my post ' , likesCount: '23' }
         ] ,
         newPostText: 'It-kamasutra.com' ,
-        profile: null
+        profile: null ,
+        status: ''
     }
 } )
 test ( "message should be added to correct post" , () => {

@@ -27,7 +27,8 @@ export let store: StoreType = {
                 { id: 2 , message: 'It\'s my post ' , likesCount: '23' }
             ] ,
             newPostText: 'It-kamasutra.com' ,
-            profile: null
+            profile: null ,
+            status: ''
         } ,
         dialogsPage: {
             dialogs: [
@@ -72,7 +73,8 @@ export type MessagesType = { id: string; message: string }
 export type ProfilePageType = {
     posts: PostsType[];
     newPostText: string;
-    profile: null | ProfileUserType
+    profile: null | ProfileUserType,
+    status: string
 }
 export type DialogsPageType = {
     dialogs: DialogsType[];
