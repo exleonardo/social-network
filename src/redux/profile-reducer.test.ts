@@ -1,5 +1,5 @@
 import {ProfilePageType} from "./store";
-import profileReducer , {addPostActionCreator , updateNewPostTextCreator} from "./profile-reducer";
+import profileReducer , {addPostActionCreator} from "./profile-reducer";
 
 let startState: ProfilePageType
 beforeEach ( () => {
@@ -22,11 +22,5 @@ test ( "message should be added to correct post" , () => {
     expect ( endState.posts[endState.posts.length - 1].message ).toBe ( "test message" )
 } )
 
-test ( "newPostText should be added" , () => {
 
-    const action = updateNewPostTextCreator ( "test message" );
-    const endState = profileReducer ( startState , action )
-
-    expect ( endState.newPostText ).toBe ( "test message" );
-} )
 

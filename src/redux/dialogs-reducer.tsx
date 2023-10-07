@@ -1,7 +1,6 @@
 import {DialogsPageType} from "./store";
 import {ProfileReducerActionType} from "./profile-reducer";
 
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE'
 
 let initialState = {
@@ -17,25 +16,23 @@ let initialState = {
         { id: '2' , message: 'How is you it-camasutra' } ,
         { id: '3' , message: 'yo' }
     ] ,
-    newMessageBody: ''
 } as DialogsPageType
 export type InitialStateType = typeof initialState
 const dialogsReducer = (state: InitialStateType = initialState , action: ProfileReducerActionType): InitialStateType => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY:
-            return { ...state , newMessageBody: action.body }
         case SEND_MESSAGE:
-            let body = state.newMessageBody
-            return { ...state , messages: [...state.messages , { id: '4' , message: body }] , newMessageBody: "" }
+            let body = action.newMessageBody
+            return {
+                ...state ,
+                messages: [...state.messages , { id: '4' , message: body }] ,
+                newMessageBody: body
+            }
         default:
             return state
     }
 };
 export default dialogsReducer;
 
-export const sendMessageCreator = () => ({
-    type: SEND_MESSAGE
-} as const)
-export const updateNewMessageBodyCreator = (text: string) => ({
-    type: UPDATE_NEW_MESSAGE_BODY , body: text
+export const sendMessageCreator = (newMessageBody: string) => ({
+    type: SEND_MESSAGE , newMessageBody
 } as const)

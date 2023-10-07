@@ -1,13 +1,11 @@
-import profileReducer , {addPostActionCreator , updateNewPostTextCreator} from "./profile-reducer";
-import dialogsReducer , {sendMessageCreator , updateNewMessageBodyCreator} from "./dialogs-reducer";
+import profileReducer , {addPostActionCreator} from "./profile-reducer";
+import dialogsReducer , {sendMessageCreator} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import {ProfileUserType} from "../API/socialNetworkAPI";
 
 
 type ActionType =
     ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextCreator>
-    | ReturnType<typeof updateNewMessageBodyCreator>
     | ReturnType<typeof sendMessageCreator>
 
 export type StoreType = {
