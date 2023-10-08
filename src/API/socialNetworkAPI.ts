@@ -68,9 +68,6 @@ export const socialNetworkAPI = {
     getUsers(currentPage: number = 1 , pageSize: number = 5) {
         return instance.get<UserDataType> ( `users/?page=${currentPage}&count=${pageSize}` ).then ( res => res.data )
     } ,
-    getAuthMe() {
-        return instance.get<AuthMeType> ( `auth/me` )
-    } ,
     follow(userId: number) {
         return instance.post<ResponseType> ( `follow/${userId}` )
     } ,
@@ -88,4 +85,20 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put<ResponseType> ( `profile/status/` , { status: status } )
     }
+}
+export const authAPI = {
+    me() {
+        return instance.get<AuthMeType> ( `auth/me` )
+    } ,
+    login(email: string , password: string , rememberMe: boolean = false) {
+        return instance.post<ResponseType<{ userId: number }>> ( 'auth/login' , {
+            email: email ,
+            password: password ,
+            rememberMe: rememberMe
+        } );
+    } ,
+    logOut() {
+        return instance.delete<ResponseType> ( 'auth/login' );
+    }
+
 }
