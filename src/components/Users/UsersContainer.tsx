@@ -1,15 +1,10 @@
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {
-    follow , getUsers ,
-    setCurrentPage ,
-    toggleFollowingProgress , unfollow ,
-} from "../../redux/users-reducer";
+import {follow , getUsers , setCurrentPage , toggleFollowingProgress , unfollow ,} from "../../redux/users-reducer";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {UsersInfoType} from "../../API/socialNetworkAPI";
-import withAuthRedirect from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 
@@ -55,7 +50,7 @@ export default compose<React.ComponentType> ( connect ( mapStateToProps , {
     setCurrentPage ,
     toggleFollowingProgress ,
     getUsers
-} ) , withAuthRedirect ) ( UsersContainer )
+} ) ) ( UsersContainer )
 
 //type
 type mapStateUsersToProps = {

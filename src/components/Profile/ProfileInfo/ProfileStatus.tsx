@@ -21,6 +21,7 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
         } )
         this.props.updateStatus ( this.state.status )
     }
+
     onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         if ( e.currentTarget.value.length <= 300 ) {
             this.setState ( {
@@ -29,11 +30,11 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
         }
     }
 
-    // componentDidUpdate(prevProps: ProfileStatusType , prevState: LocalStateType) {
-    //     if ( prevState.status !== prevProps.status ) {
-    //         this.setState ( { status: this.props.status } )
-    //     }
-    // }
+    componentDidUpdate(prevProps: ProfileStatusType , prevState: LocalStateType) {
+        if ( prevProps.status !== this.props.status ) {
+            this.setState ( { status: this.props.status } )
+        }
+    }
 
     render() {
         return (
@@ -41,7 +42,7 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
                 {!this.state.editMode &&
                     <div>
                         <span
-                            onDoubleClick={this.activateEditMode}>{this.props.status.length > 0 ? this.props.status : 'Enter status'}</span>
+                            onDoubleClick={this.activateEditMode}>{this.props.status || 'Enter status'}</span>
                     </div>
                 }
                 {this.state.editMode &&
