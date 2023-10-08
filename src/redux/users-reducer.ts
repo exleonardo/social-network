@@ -79,7 +79,7 @@ export const toggleIsFetching = (isFetching: boolean) => {
 export const toggleFollowingProgress = (isFetching: boolean , userId: number) => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS , isFetching , userId
 } as const)
-export const getUsers = (currentPage: number = 1 , pageSize: number = 5): AppThunk => async dispatch => {
+export const requesUsers = (currentPage: number = 1 , pageSize: number = 5): AppThunk => async dispatch => {
     dispatch ( toggleIsFetching ( true ) )
     dispatch ( setCurrentPage ( currentPage ) )
     const data = await socialNetworkAPI.getUsers ( currentPage , pageSize )
