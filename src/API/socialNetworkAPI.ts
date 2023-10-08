@@ -37,9 +37,9 @@ type DataAuthMe = {
 }
 type AuthMeType = {
     data: DataAuthMe,
-    "messages": [],
-    "fieldsErrors": [],
-    "resultCode": number
+    messages: [],
+    fieldsErrors: [],
+    resultCode: number
 }
 type ResponseType<D = {}> = {
     resultCode: number

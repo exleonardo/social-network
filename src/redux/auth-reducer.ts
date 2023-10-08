@@ -1,5 +1,6 @@
 import {AppThunk} from "./redux-store";
 import {authAPI} from "../API/socialNetworkAPI";
+import {stopSubmit} from "redux-form";
 
 
 const SET_USER_DATA = 'SET-USER-DATA';
@@ -38,20 +39,24 @@ export const setAuthUserData = (userId: number | null , login: string | null , e
     }
 } as const)
 export const getAuthUserData = (): AppThunk => async dispatch => {
-    const res = await authAPI.me ()
-    if ( res.data.resultCode === 0 ) {
-        const { id , login , email } = res.data.data
-        dispatch ( setAuthUserData ( id , login , email , true ) )
-    }
+    authAPI.me ().then ( res => {
+        if ( res.data.resultCode === 0 ) {
+            const { id , login , email } = res.data.data
+            dispatch ( setAuthUserData ( id , login , email , true ) )
+        }
+
+    } )
 }
 //thunk
 export const login = (email: string , password: string , rememberMe: boolean): AppThunk => async dispatch => {
     authAPI.login ( email , password , rememberMe ).then ( res => {
         if ( res.data.resultCode === 0 ) {
             dispatch ( getAuthUserData () )
+        } else {
+            let message = res.data.messages.length > 0 ? res.data.messages[0] : 'Some Error'
+            dispatch ( stopSubmit ( 'login' , { _error: message } ) )
         }
     } )
-
 }
 export const logOut = (): AppThunk => async dispatch => {
     const res = await authAPI.logOut ()

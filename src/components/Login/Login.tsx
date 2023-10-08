@@ -6,26 +6,31 @@ import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
+import s from '../common/FormsControls/FormsControls.module.css'
 
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+
     return (
         <form onSubmit={props.handleSubmit}>
             <div><Field validate={[required]} name={'login'} placeholder={'login'} component={Input}/></div>
             <div><Field validate={[required]} name={'password'} placeholder={'password'} type={'password'}
                         component={Input}/></div>
             <div><Field name={'rememberMe'} type="checkbox" component={Input}/>remember me</div>
+            {props.error && <div className={s.formSummaryError}>{props.error}</div>}
             <div>
                 <button>Login</button>
             </div>
+
         </form>
     );
 };
 const LoginReduxForm = reduxForm<FormDataType> ( {
-    form: 'email'
+    form: 'login'
 } ) ( LoginForm )
 
 const Login = (props: LoginType) => {
+
     const onSubmit = (formData: FormDataType) => {
         const { login , password , rememberMe } = formData
         props.login ( login , password , rememberMe )
