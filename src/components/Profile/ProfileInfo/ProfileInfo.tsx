@@ -3,6 +3,7 @@ import s from "./ProfileInfo.module.css"
 import {ProfileUserType} from "../../../API/socialNetworkAPI";
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./profileStatusWithHooks";
 
 type ProfileInfoType = {
     profile: null | ProfileUserType;
@@ -15,7 +16,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
     }
     return (
         <div>
-            <div className={s.descriptionBlock}><img src={props.profile.photos.small} alt=""/> <ProfileStatus
+            <div className={s.descriptionBlock}><img src={props.profile.photos.small} alt=""/> <ProfileStatusWithHooks
                 updateStatus={props.updateStatus}
                 status={props.status}/></div>
         </div>
