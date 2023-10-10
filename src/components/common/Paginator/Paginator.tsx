@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import s from './Paginator.module.css'
 
 type PaginatorType = {
@@ -9,26 +9,37 @@ type PaginatorType = {
 }
 const Paginator: React.FC<PaginatorType> = ({ totalUsersCount , pageSize , currentPage , onPageChanged }) => {
     let pagesCount = Math.ceil ( totalUsersCount / pageSize );
-    let pages = [];
+    let pages: Array<number> = [];
+    const [page , setPage] = useState ( 0 )
     for (let i = 1; i <= pagesCount; i += 1) {
         pages.push ( i );
     }
     let slicedPages;
-    let curPage = currentPage;
-    if ( curPage - 3 < 0 ) {
-        slicedPages = pages.slice ( 0 , 5 );
+    if ( page - 5 <= 0 ) {
+        slicedPages = pages.slice ( page , page + 5 );
     } else {
-        slicedPages = pages.slice ( curPage - 3 , curPage + 2 );
+        slicedPages = pages.slice ( page , page + 5 );
     }
+
+    const nextPage = () => {
+        setPage ( (state) => state + 5 );
+    }
+    const backPage = () => {
+        setPage ( (state) => state - 5 );
+    }
+
     return (
         <div>
+            {page > 1 && <button onClick={backPage}>back</button>}
             {slicedPages.map ( (el , index) => {
-                return <span key={index}
-                             className={currentPage === el ? s.selectedPage : ''}
-                             onClick={() => onPageChanged ( el )}
+                return <><span key={index}
+                               className={currentPage === el ? s.selectedPage : ''}
+                               onClick={() => onPageChanged ( el )}
                 >{el}
-                            </span>
+
+                            </span> </>
             } )}
+            <button onClick={nextPage}>next</button>
         </div>
     );
 };

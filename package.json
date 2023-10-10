@@ -33,7 +33,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "eslintConfig": {
     "extends": [
@@ -54,6 +56,15 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "7.4.6",
+    "@storybook/addon-interactions": "7.4.6",
+    "@storybook/addon-links": "7.4.6",
+    "@storybook/addon-onboarding": "1.0.8",
+    "@storybook/blocks": "7.4.6",
+    "@storybook/preset-create-react-app": "7.4.6",
+    "@storybook/react": "7.4.6",
+    "@storybook/react-webpack5": "7.4.6",
+    "@storybook/testing-library": "0.2.2",
     "@types/node": "16.7.13",
     "@types/react": "17.0.20",
     "@types/react-dom": "17.0.9",
@@ -61,6 +72,10 @@
     "@types/react-router-dom": "5.3.3",
     "@types/react-test-renderer": "17.0.1",
     "@types/redux-form": "8.3.3",
-    "@types/uuid": "8.3.4"
+    "@types/uuid": "8.3.4",
+    "babel-plugin-named-exports-order": "0.0.2",
+    "prop-types": "15.8.1",
+    "storybook": "7.4.6",
+    "webpack": "5.88.2"
   }
 }
