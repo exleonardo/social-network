@@ -1,4 +1,4 @@
-import {AnyAction , applyMiddleware , combineReducers , createStore} from "redux";
+import {AnyAction , applyMiddleware , combineReducers , compose , createStore} from "redux";
 import profileReducer , {ProfileReducerActionType} from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import SidebarReducer from "./sidebar-reducer";
@@ -20,7 +20,13 @@ export const rootReducer = combineReducers ( {
 } )
 
 export type AppStateType = ReturnType<typeof rootReducer>
-const store = createStore ( rootReducer , applyMiddleware ( ThunkMiddleware ) );
+// const store = createStore ( rootReducer , applyMiddleware ( ThunkMiddleware ) );
+
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore ( rootReducer , /* preloadedState, */ composeEnhancers (
+    applyMiddleware ( ThunkMiddleware )
+) );
 
 export type AppActionsType =
     UserReducerActionType
