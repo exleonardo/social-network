@@ -41,7 +41,7 @@ type AuthMeType = {
     fieldsErrors: [],
     resultCode: number
 }
-type ResponseType<D = {}> = {
+export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
     data: D

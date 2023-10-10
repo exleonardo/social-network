@@ -1,8 +1,7 @@
 import React from 'react';
-import s from "./Users.module.css";
-import userPhoto from "../../assets/images/yoda_star_wars_icon_131348.png";
-import {NavLink} from "react-router-dom";
 import {UsersInfoType} from "../../API/socialNetworkAPI";
+import Paginator from "../common/Paginator/Paginator";
+import User from "./User";
 
 
 type UsersTypeProps = {
@@ -17,58 +16,32 @@ type UsersTypeProps = {
     followingInProgress: Array<number>
 
 }
-const Users = (props: UsersTypeProps) => {
-    let pagesCount = Math.ceil ( props.totalUsersCount / props.pageSize );
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i += 1) {
-        pages.push ( i );
+const Users: React.FC<UsersTypeProps> = (
+    {
+        totalUsersCount ,
+        pageSize ,
+        currentPage ,
+        onPageChanged ,
+        users ,
+        follow ,
+        unfollow ,
+        toggleFollowingProgress ,
+        followingInProgress ,
+        ...props
     }
-    let slicedPages;
-    let curPage = props.currentPage;
-    if ( curPage - 3 < 0 ) {
-        slicedPages = pages.slice ( 0 , 5 );
-    } else {
-        slicedPages = pages.slice ( curPage - 3 , curPage + 2 );
-    }
+) => {
+
 
     return (
         <div>
+            <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage}
+                       onPageChanged={onPageChanged}/>
             <div>
-                {slicedPages.map ( (el , index) => {
-                    return <span key={index}
-                                 className={props.currentPage === el ? s.selectedPage : ''}
-                                 onClick={() => props.onPageChanged ( el )}
-                    >{el}
-                            </span>
-                } )}
+                {users.map ( (user) => <User key={user.id} followingInProgress={followingInProgress} follow={follow}
+                                             unfollow={unfollow}
+                                             user={user}/>
+                )}
             </div>
-            {props.users.map ( (el) =>
-                <div key={el.id}>
-                    <span>
-                        <div>
-                            <NavLink to={'/profile/' + el.id}>
-                            <img src={el.photos.small ? el.photos.small : userPhoto} alt="avatar"/></NavLink>
-                        </div>
-                        <div>
-                            {el.followed
-                                ? <button
-                                    disabled={props.followingInProgress.some ( (id) => id === el.id )}
-                                    onClick={() => props.follow ( el.id )}>Follow</button>
-                                : <button
-                                    disabled={props.followingInProgress.some ( (id) => id === el.id )}
-                                    onClick={() => props.unfollow ( el.id )}>Unfollow</button>}
-                        </div>
-                    </span>
-                    <span>
-                        <span>
-                            <div>{el.name}</div>
-                            <div>{el.status}</div></span>
-                        <span>
-                            <div>{"el.location.country"}</div>
-                            <div>{"el.location.city"}</div>
-                        </span>
-                    </span>
-                </div> )}
         </div>
     );
 };

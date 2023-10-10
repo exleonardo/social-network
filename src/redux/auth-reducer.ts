@@ -3,14 +3,8 @@ import {authAPI} from "../API/socialNetworkAPI";
 import {stopSubmit} from "redux-form";
 
 
-const SET_USER_DATA = 'SET-USER-DATA';
+const SET_USER_DATA = 'AUTH/SET-USER-DATA';
 
-type InitialState = {
-    id: null | number,
-    login: null | string,
-    email: null | string,
-    isAuth: boolean
-}
 const initialState: InitialState = {
     id: null ,
     login: null ,
@@ -18,7 +12,6 @@ const initialState: InitialState = {
     isAuth: false
 }
 
-export type AuthReducerActionType = ReturnType<typeof setAuthUserData>
 
 const authReducer = (state: InitialState = initialState , action: AuthReducerActionType): InitialState => {
     switch (action.type) {
@@ -38,25 +31,23 @@ export const setAuthUserData = (userId: number | null , login: string | null , e
         isAuth
     }
 } as const)
-export const getAuthUserData = (): AppThunk => async dispatch => {
-    authAPI.me ().then ( res => {
-        if ( res.data.resultCode === 0 ) {
-            const { id , login , email } = res.data.data
-            dispatch ( setAuthUserData ( id , login , email , true ) )
-        }
 
-    } )
-}
 //thunk
+export const getAuthUserData = (): AppThunk => async dispatch => {
+    const res = await authAPI.me ()
+    if ( res.data.resultCode === 0 ) {
+        const { id , login , email } = res.data.data
+        dispatch ( setAuthUserData ( id , login , email , true ) )
+    }
+}
 export const login = (email: string , password: string , rememberMe: boolean): AppThunk => async dispatch => {
-    authAPI.login ( email , password , rememberMe ).then ( res => {
-        if ( res.data.resultCode === 0 ) {
-            dispatch ( getAuthUserData () )
-        } else {
-            let message = res.data.messages.length > 0 ? res.data.messages[0] : 'Some Error'
-            dispatch ( stopSubmit ( 'login' , { _error: message } ) )
-        }
-    } )
+    const res = await authAPI.login ( email , password , rememberMe )
+    if ( res.data.resultCode === 0 ) {
+        await dispatch ( getAuthUserData () )
+    } else {
+        let message = res.data.messages.length > 0 ? res.data.messages[0] : 'Some Error'
+        dispatch ( stopSubmit ( 'login' , { _error: message } ) )
+    }
 }
 export const logOut = (): AppThunk => async dispatch => {
     const res = await authAPI.logOut ()
@@ -65,3 +56,11 @@ export const logOut = (): AppThunk => async dispatch => {
     }
 }
 export default authReducer
+//type
+type InitialState = {
+    id: null | number,
+    login: null | string,
+    email: null | string,
+    isAuth: boolean
+}
+export type AuthReducerActionType = ReturnType<typeof setAuthUserData>
