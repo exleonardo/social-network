@@ -1,5 +1,5 @@
 import {Meta , StoryObj} from "@storybook/react";
-import ProfileStatusWithHooks from "./profileStatusWithHooks";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import {action} from '@storybook/addon-actions'
 
 const meta: Meta<typeof ProfileStatusWithHooks> = {

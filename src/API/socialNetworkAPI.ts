@@ -19,16 +19,17 @@ export type UsersContactType = {
     mainLink: string
 }
 export type ProfileUserType = {
-    aboutMe: string
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: UsersContactType
-    photos: {
-        small: string
-        large: string
-    }
+    aboutMe?: string;
+    userId?: number;
+    lookingForAJob?: boolean;
+    lookingForAJobDescription?: string;
+    fullName?: string | undefined;
+    contacts?: UsersContactType;
+    photos: ProfilePhotos
+}
+export type ProfilePhotos = {
+    small: string | null
+    large: string | null
 }
 type DataAuthMe = {
     id: number,
@@ -53,10 +54,7 @@ type UserDataType = {
 }
 export type UsersInfoType = {
     id: number,
-    photos: {
-        small: string | null;
-        large: string | null;
-    }
+    photos: ProfilePhotos
     followed: boolean;
     name: string;
     status: string;
@@ -84,6 +82,11 @@ export const profileAPI = {
     } ,
     updateStatus(status: string) {
         return instance.put<ResponseType> ( `profile/status/` , { status: status } )
+    } ,
+    savePhoto(photo: File) {
+        const formDate = new FormData ();
+        formDate.append ( 'image' , photo )
+        return instance.put<ResponseType<ProfilePhotos>> ( 'profile/photo/' , formDate , { headers: { 'Content-Type': 'multipart/form-data' } } )
     }
 }
 export const authAPI = {

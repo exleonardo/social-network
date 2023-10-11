@@ -1,19 +1,29 @@
 import {sendMessageCreator} from "./dialogs-reducer";
-import {profileAPI , ProfileUserType} from "../API/socialNetworkAPI";
-import {ProfilePageType} from "./store";
+import {profileAPI , ProfilePhotos , ProfileUserType} from "../API/socialNetworkAPI";
 import {AppThunk} from "./redux-store";
+import {PostsType} from "./store";
 
-const SET_USER_PROFILE = 'PROFILE/SET-USER-PROFILE'
+
 const ADD_POST = 'PROFILE/ADD-POST';
-const SET_STATUS = 'PROFILE/SET-STATUS'
-
-let initialState = {
+const SET_STATUS = 'PROFILE/SET-STATUS';
+const SET_USER_PROFILE = 'PROFILE/SET-USER-PROFILE';
+const SAVE_PHOTO_SUCCESS = 'PROFILE/SAVE-PHOTO-SUCCESS'
+type ProfileStateType = {
+    posts: PostsType[],
+    profile: null | ProfileUserType,
+    newPostText: string,
+    status: string
+}
+type InitialState = typeof initialState
+let initialState: ProfileStateType = {
     posts: [
         { id: 1 , message: 'Hi how are you' , likesCount: '1' } ,
         { id: 2 , message: 'It\'s my post ' , likesCount: '23' }
     ] ,
     profile: null ,
-} as ProfilePageType
+    newPostText: "" ,
+    status: ''
+}
 
 
 const profileReducer = (state: InitialState = initialState , action: ProfileReducerActionType): InitialState => {
@@ -28,6 +38,11 @@ const profileReducer = (state: InitialState = initialState , action: ProfileRedu
             return { ...state , profile: action.profile }
         case SET_STATUS:
             return { ...state , status: action.status }
+        case SAVE_PHOTO_SUCCESS:
+            return {
+                ...state ,
+                profile: { ...state.profile , photos: { ...action.photos } }
+            }
         default :
             return state
     }
@@ -44,6 +59,10 @@ export const setUserProfile = (profile: ProfileUserType) => ({
     type: SET_USER_PROFILE ,
     profile
 }) as const
+export const savePhotoSuccess = (photos: ProfilePhotos) => ({
+    type: SAVE_PHOTO_SUCCESS ,
+    photos
+} as const)
 //Thunk
 export const getUserProfile = (userId: string): AppThunk => async dispatch => {
     const response = await profileAPI.getProfileUser ( userId )
@@ -59,10 +78,16 @@ export const updateStatus = (status: string): AppThunk => async dispatch => {
         dispatch ( setStatusAC ( status ) )
     }
 }
+export const savePhoto = (file: File): AppThunk => async dispatch => {
+    const res = await profileAPI.savePhoto ( file )
+    if ( res.data.resultCode === 0 ) {
+        dispatch ( savePhotoSuccess ( res.data.data ) )
+    }
+}
 //types
 export type ProfileReducerActionType =
     ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof sendMessageCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatusAC>
-type InitialState = typeof initialState
+    | ReturnType<typeof savePhotoSuccess>
