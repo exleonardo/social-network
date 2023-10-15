@@ -13,9 +13,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({ error , handleSu
 
     return (
         <form onSubmit={handleSubmit}>
-            {createField ( 'login' , 'login' , [required] , Input , { type: 'text' } )}
-            {createField ( 'password' , 'password' , [required] , Input , { type: 'password' } )}
-            {createField ( null , 'rememberMe' , [] , Input , { type: 'checkbox' } , "remember me" )}
+            {createField<LoginFormValuesTypeKeys> ( 'login' , 'login' , [required] , Input , { type: 'text' } )}
+            {createField<LoginFormValuesTypeKeys> ( 'password' , 'password' , [required] , Input , { type: 'password' } )}
+            {createField<LoginFormValuesTypeKeys> ( null , 'rememberMe' , [] , Input , { type: 'checkbox' } , "remember me" )}
             {error && <div className={s.formSummaryError}>{error}</div>}
             <div>
                 <button>Login</button>
@@ -55,8 +55,9 @@ type LoginType = LoginMapDispatchToProps & LoginMapStateToProps
 type LoginMapStateToProps = {
     isAuth: boolean
 }
-type FormDataType = {
+export type FormDataType = {
     login: string;
     password: string;
     rememberMe: boolean
 }
+type LoginFormValuesTypeKeys = keyof FormDataType

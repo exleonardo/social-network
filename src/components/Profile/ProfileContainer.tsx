@@ -2,12 +2,13 @@ import React from "react";
 import Profile from "./Profile";
 import {ProfileUserType} from "../../API/socialNetworkAPI";
 import {connect} from "react-redux";
-import {getStatus , getUserProfile , savePhoto , updateStatus} from "../../redux/profile-reducer";
+import {getStatus , getUserProfile , savePhoto , saveProfile , updateStatus} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 
 import {compose} from "redux";
+import {ProfileDataForm} from "./ProfileInfo/ProfileDataForm";
 
 
 class ProfileContainer extends React.Component<PropsType> {
@@ -43,6 +44,7 @@ class ProfileContainer extends React.Component<PropsType> {
                          status={this.props.status}
                          updateStatus={this.props.updateStatus}
                          savePhoto={this.props.savePhoto}
+                         saveProfile={this.props.saveProfile}
                 />
             </div>
         )
@@ -54,7 +56,7 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
         profile: state.profilePage.profile ,
         status: state.profilePage.status ,
         authorizedUserId: state.auth.id ,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth ,
     }
 }
 
@@ -63,6 +65,7 @@ export default compose<React.ComponentType> ( connect ( mapStateToProps , {
     getStatus ,
     updateStatus ,
     savePhoto ,
+    saveProfile ,
 } ) , withRouter ) ( ProfileContainer )
 
 //types
@@ -72,7 +75,7 @@ type MapStateToProps = {
     profile: null | ProfileUserType;
     status: string;
     authorizedUserId: number | null;
-    isAuth: boolean
+    isAuth: boolean;
 }
 type PathParamsType = {
     userId: string
@@ -82,4 +85,5 @@ type MapDispatchToProps = {
     getStatus: (userId: string) => void;
     updateStatus: (status: string) => void;
     savePhoto: (file: File) => void;
+    saveProfile: (profile: ProfileDataForm) => Promise<void>
 }

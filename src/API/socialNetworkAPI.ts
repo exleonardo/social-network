@@ -9,22 +9,22 @@ const setting = {
 }
 
 export type UsersContactType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
+    github: string | null
+    vk: string | null
+    facebook: string | null
+    instagram: string | null
+    twitter: string | null
+    website: string | null
+    youtube: string | null
+    mainLink: string | null
 }
 export type ProfileUserType = {
-    aboutMe?: string;
-    userId?: number;
-    lookingForAJob?: boolean;
-    lookingForAJobDescription?: string;
-    fullName?: string | undefined;
-    contacts?: UsersContactType;
+    aboutMe: string;
+    userId: number | null;
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    fullName: string;
+    contacts: UsersContactType;
     photos: ProfilePhotos
 }
 export type ProfilePhotos = {
@@ -74,7 +74,7 @@ export const socialNetworkAPI = {
     }
 }
 export const profileAPI = {
-    getProfileUser(userId: string) {
+    getProfileUser(userId: number | null) {
         return instance.get<ProfileUserType> ( `profile/${userId}/` )
     } ,
     getStatus(userId: string) {
@@ -87,7 +87,11 @@ export const profileAPI = {
         const formDate = new FormData ();
         formDate.append ( 'image' , photo )
         return instance.put<ResponseType<ProfilePhotos>> ( 'profile/photo/' , formDate , { headers: { 'Content-Type': 'multipart/form-data' } } )
+    } ,
+    saveProfile(profile: ProfileUserType) {
+        return instance.put<ResponseType> ( `profile` , profile )
     }
+
 }
 export const authAPI = {
     me() {

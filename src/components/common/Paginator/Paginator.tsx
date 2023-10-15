@@ -32,12 +32,10 @@ const Paginator: React.FC<PaginatorType> = ({ totalUsersCount , pageSize , curre
         <div>
             {page > 1 && <button onClick={backPage}>back</button>}
             {slicedPages.map ( (el , index) => {
-                return <><span key={index}
-                               className={currentPage === el ? s.selectedPage : ''}
-                               onClick={() => onPageChanged ( el )}
-                >{el}
-
-                            </span> </>
+                return <span key={index}
+                             className={currentPage === el ? s.selectedPage : ''}
+                             onClick={() => onPageChanged ( el )}
+                > {el} </span>
             } )}
             <button onClick={nextPage}>next</button>
         </div>
