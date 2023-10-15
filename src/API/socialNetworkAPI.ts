@@ -8,6 +8,64 @@ const setting = {
     withCredentials: true ,
 }
 
+
+const instance = axios.create ( { baseURL: "https://social-network.samuraijs.com/api/1.0/" , ...setting } )
+
+export const socialNetworkAPI = {
+    getUsers(currentPage: number = 1 , pageSize: number = 5) {
+        return instance.get<UserDataType> ( `users/?page=${currentPage}&count=${pageSize}` ).then ( res => res.data )
+    } ,
+    follow(userId: number) {
+        return instance.post<ResponseType> ( `follow/${userId}` )
+    } ,
+    unfollow(userId: number) {
+        return instance.delete<ResponseType> ( `follow/${userId}` )
+    }
+}
+export const profileAPI = {
+    getProfileUser(userId: number | null) {
+        return instance.get<ProfileUserType> ( `profile/${userId}/` )
+    } ,
+    getStatus(userId: string) {
+        return instance.get<string> ( `profile/status/${userId}` )
+    } ,
+    updateStatus(status: string) {
+        return instance.put<ResponseType> ( `profile/status/` , { status: status } )
+    } ,
+    savePhoto(photo: File) {
+        const formDate = new FormData ();
+        formDate.append ( 'image' , photo )
+        return instance.put<ResponseType<ProfilePhotos>> ( 'profile/photo/' , formDate , { headers: { 'Content-Type': 'multipart/form-data' } } )
+    } ,
+    saveProfile(profile: ProfileUserType) {
+        return instance.put<ResponseType> ( `profile` , profile )
+    }
+
+}
+export const authAPI = {
+    me() {
+        return instance.get<AuthMeType> ( `auth/me` )
+    } ,
+    login(email: string , password: string , rememberMe: boolean = false , captcha: string | null = null) {
+        return instance.post<ResponseType<{ userId: number }>> ( 'auth/login' , {
+            email ,
+            password ,
+            rememberMe ,
+            captcha
+        } );
+    } ,
+    logOut() {
+        return instance.delete<ResponseType> ( 'auth/login' );
+    }
+
+}
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get<{ url: string }> ( 'security/get-captcha-url' )
+    }
+}
+
+//Types
 export type UsersContactType = {
     github: string | null
     vk: string | null
@@ -58,54 +116,4 @@ export type UsersInfoType = {
     followed: boolean;
     name: string;
     status: string;
-}
-
-const instance = axios.create ( { baseURL: "https://social-network.samuraijs.com/api/1.0/" , ...setting } )
-
-export const socialNetworkAPI = {
-    getUsers(currentPage: number = 1 , pageSize: number = 5) {
-        return instance.get<UserDataType> ( `users/?page=${currentPage}&count=${pageSize}` ).then ( res => res.data )
-    } ,
-    follow(userId: number) {
-        return instance.post<ResponseType> ( `follow/${userId}` )
-    } ,
-    unfollow(userId: number) {
-        return instance.delete<ResponseType> ( `follow/${userId}` )
-    }
-}
-export const profileAPI = {
-    getProfileUser(userId: number | null) {
-        return instance.get<ProfileUserType> ( `profile/${userId}/` )
-    } ,
-    getStatus(userId: string) {
-        return instance.get<string> ( `profile/status/${userId}` )
-    } ,
-    updateStatus(status: string) {
-        return instance.put<ResponseType> ( `profile/status/` , { status: status } )
-    } ,
-    savePhoto(photo: File) {
-        const formDate = new FormData ();
-        formDate.append ( 'image' , photo )
-        return instance.put<ResponseType<ProfilePhotos>> ( 'profile/photo/' , formDate , { headers: { 'Content-Type': 'multipart/form-data' } } )
-    } ,
-    saveProfile(profile: ProfileUserType) {
-        return instance.put<ResponseType> ( `profile` , profile )
-    }
-
-}
-export const authAPI = {
-    me() {
-        return instance.get<AuthMeType> ( `auth/me` )
-    } ,
-    login(email: string , password: string , rememberMe: boolean = false) {
-        return instance.post<ResponseType<{ userId: number }>> ( 'auth/login' , {
-            email: email ,
-            password: password ,
-            rememberMe: rememberMe
-        } );
-    } ,
-    logOut() {
-        return instance.delete<ResponseType> ( 'auth/login' );
-    }
-
 }

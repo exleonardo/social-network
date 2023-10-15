@@ -29,7 +29,7 @@ export type ProfileDataForm = {
 }
 type ProfileFormValuesTypeKeys = keyof ProfileDataForm | keyof UsersContactType
 
-const ProfileDataForm: React.FC<ProfilePropsFormType & InjectedFormProps<ProfileUserType , ProfilePropsFormType>> = ({ handleSubmit , initialValues , error , editMode }) => {
+const ProfileDataForm: React.FC<ProfilePropsFormType & InjectedFormProps<ProfileUserType , ProfilePropsFormType>> = ({ handleSubmit , initialValues , error }) => {
     return (
         <form onSubmit={handleSubmit}>
 
