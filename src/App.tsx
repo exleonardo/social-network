@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import {Route , withRouter} from 'react-router-dom';
+import {Redirect , Route , Switch , withRouter} from 'react-router-dom';
 import News from './components/News/News';
 import Setting from './components/Setting/Setting';
 import Music from './components/Music/Music';
@@ -20,48 +20,63 @@ const DialogsContainer = React.lazy ( () => import("./components/Dialogs/Dialogs
 const ProfileContainer = React.lazy ( () => import("./components/Profile/ProfileContainer") )
 
 class App extends React.Component<AppTypeProps> {
-    componentDidMount() {
-        this.props.initializeApp ()
+  catchAllUnhandleErrors = () => {
+    alert ( "Some Error" )
+
+  }
+
+  componentDidMount() {
+    this.props.initializeApp ();
+    window.addEventListener ( 'unhandledrejection' , this.catchAllUnhandleErrors )
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener ( 'unhandledrejection' , this.catchAllUnhandleErrors )
+  }
+
+  render() {
+    if ( !this.props.initialized ) {
+      return <Preloader/>
     }
 
-    render() {
-        if ( !this.props.initialized ) {
-            return <Preloader/>
-        }
 
-
-        return (
-            <div className="app-wrapper">
-                <HeaderContainer/>
-                <Navbar/>
-                <div className="app-wrapper-content">
-                    <Route path="/dialogs" render={withSuspense ( DialogsContainer )}/>
-                    <Route path="/profile/:userId?"
-                           render={withSuspense ( ProfileContainer )}/>
-                    <Route path="/users" render={() => <UsersContainer/>}/>
-                    <Route path="/login" render={() => <Login/>}/>
-                    <Route path="/news" render={() => <News/>}/>
-                    <Route path="/music" render={() => <Music/>}/>
-                    <Route path="/setting" render={() => <Setting/>}/>
-                </div>
-            </div>
-        );
-    }
+    return (
+      <div className="app-wrapper">
+        <HeaderContainer/>
+        <Navbar/>
+        <div className="app-wrapper-content">
+          <Switch>
+            <Route exact path="/"
+                   render={() => <Redirect to={'/profile'}/>}/>
+            <Route path="/dialogs" render={withSuspense ( DialogsContainer )}/>
+            <Route path="/profile/:userId?"
+                   render={withSuspense ( ProfileContainer )}/>
+            <Route path="/users" render={() => <UsersContainer/>}/>
+            <Route path="/login" render={() => <Login/>}/>
+            <Route path="/news" render={() => <News/>}/>
+            <Route path="/music" render={() => <Music/>}/>
+            <Route path="/setting" render={() => <Setting/>}/>
+            <Route path="*" render={() => <div>404 Not Found</div>}/>
+          </Switch>
+        </div>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state: AppStateType): AppMapStateToProps => {
-    return {
-        initialized: state.app.initialized
-    }
+  return {
+    initialized: state.app.initialized
+  }
 }
 export default compose<React.ComponentType> (
-    connect ( mapStateToProps , { initializeApp } ) , withRouter ) ( App );
+  connect ( mapStateToProps , { initializeApp } ) , withRouter ) ( App );
 
 //type
 type AppMapDispatchToProps = {
-    initializeApp: () => void
+  initializeApp: () => void
 }
 export type AppMapStateToProps = {
-    initialized: boolean
+  initialized: boolean
 }
 export type AppTypeProps = RouteComponentProps & AppMapDispatchToProps & AppMapStateToProps
