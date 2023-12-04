@@ -1,5 +1,5 @@
 import {sendMessageCreator} from "./dialogs-reducer";
-import {profileAPI , ProfilePhotos , ProfileUserType} from "../API/socialNetworkAPI";
+import {profileAPI , ProfilePhotos , ProfileUserType , ResultCode} from "../API/socialNetworkAPI";
 import {AppThunk} from "./redux-store";
 import {PostsType} from "./store";
 
@@ -84,7 +84,7 @@ export const getStatus = (status: string): AppThunk => async dispatch => {
 export const updateStatus = (status: string): AppThunk => async dispatch => {
   try {
     const res = await profileAPI.updateStatus ( status )
-    if ( res.data.resultCode === 0 ) {
+    if ( res.data.resultCode === ResultCode.Sucsess ) {
       dispatch ( setStatusAC ( status ) )
     }
   } catch (errror) {
@@ -94,17 +94,17 @@ export const updateStatus = (status: string): AppThunk => async dispatch => {
 }
 export const savePhoto = (file: File): AppThunk => async dispatch => {
   const res = await profileAPI.savePhoto ( file )
-  if ( res.data.resultCode === 0 ) {
+  if ( res.data.resultCode === ResultCode.Sucsess ) {
     dispatch ( savePhotoSuccess ( res.data.data ) )
   }
 }
 export const saveProfile = (profile: ProfileUserType): AppThunk => async dispatch => {
   const res = await profileAPI.saveProfile ( profile )
-  if ( res.data.resultCode === 0 ) {
+  if ( res.data.resultCode === ResultCode.Sucsess ) {
     await dispatch ( getUserProfile ( profile.userId ) )
     return Promise.resolve ()
 
-  } else if ( res.data.resultCode === 1 ) {
+  } else if ( res.data.resultCode === ResultCode.Error ) {
     const findString = res.data.messages[0].split ( " " )
     const titleError = findString[findString.length - 1].split ( ' ' ).join ( '' )
     const indexFind = titleError.split ( '' ).findIndex ( el => el === '>' )
