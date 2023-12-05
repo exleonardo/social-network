@@ -1,9 +1,10 @@
 import {sendMessageCreator} from "./dialogs-reducer";
-import {profileAPI , ProfilePhotos , ProfileUserType , ResultCode} from "../API/socialNetworkAPI";
+import {ResultCode} from "../API/api";
 import {AppThunk} from "./redux-store";
 import {PostsType} from "./store";
 
 import {stopSubmit} from "redux-form";
+import {profileAPI , ProfilePhotos , ProfileUserType} from "../API/profile-api";
 
 
 const ADD_POST = 'PROFILE/ADD-POST';

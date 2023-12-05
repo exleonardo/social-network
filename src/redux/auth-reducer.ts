@@ -1,6 +1,8 @@
 import {AppThunk} from "./redux-store";
-import {authAPI , ResultCode , securityAPI} from "../API/socialNetworkAPI";
+import {ResultCode} from "../API/api";
 import {stopSubmit} from "redux-form";
+import {authAPI} from "../API/auth-api";
+import {securityAPI} from "../API/security-api";
 
 
 const SET_USER_DATA = 'AUTH/SET-USER-DATA';

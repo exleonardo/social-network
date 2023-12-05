@@ -1,7 +1,9 @@
-import {ResponseType , ResultCode , socialNetworkAPI , UsersInfoType} from "../API/socialNetworkAPI";
+import {ResponseType , ResultCode} from "../API/api";
 import {AppDispatchType , AppThunk} from "./redux-store";
 import {AxiosResponse} from "axios";
 import {updateObjectInArray} from "../utils/object-helpers";
+import {usersAPI} from "../API/users-api";
+import {UsersInfoType} from "../API/profile-api";
 
 const FOLLOW = "USERS/FOLLOW";
 const UNFOLLOW = "USERS/UNFOLLOW";
@@ -70,7 +72,7 @@ export const setUsersTotalCount = (totalUsersCount: number) => ({
 export const requesUsers = (currentPage: number = 1 , pageSize: number = 5): AppThunk => async dispatch => {
   dispatch ( toggleIsFetching ( true ) )
   dispatch ( setCurrentPage ( currentPage ) )
-  const data = await socialNetworkAPI.getUsers ( currentPage , pageSize )
+  const data = await usersAPI.getUsers ( currentPage , pageSize )
   dispatch ( setUsers ( data.items ) )
   dispatch ( setUsersTotalCount ( data.totalCount ) )
   dispatch ( toggleIsFetching ( false ) )
@@ -83,10 +85,10 @@ const followUnfollowFlow = async (dispatch: AppDispatchType , userId: number , a
   dispatch ( toggleFollowingProgress ( false , userId ) )
 }
 export const follow = (userId: number): AppThunk => async dispatch => {
-  await followUnfollowFlow ( dispatch , userId , socialNetworkAPI.unfollow.bind ( socialNetworkAPI ) , unfollowSuccess )
+  await followUnfollowFlow ( dispatch , userId , usersAPI.unfollow.bind ( usersAPI ) , unfollowSuccess )
 }
 export const unfollow = (userId: number): AppThunk => async dispatch => {
-  await followUnfollowFlow ( dispatch , userId , socialNetworkAPI.follow.bind ( socialNetworkAPI ) , followSuccess )
+  await followUnfollowFlow ( dispatch , userId , usersAPI.follow.bind ( usersAPI ) , followSuccess )
 };
 
 

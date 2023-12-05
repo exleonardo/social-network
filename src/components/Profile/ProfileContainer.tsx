@@ -1,6 +1,5 @@
 import React from "react";
 import Profile from "./Profile";
-import {ProfileUserType} from "../../API/socialNetworkAPI";
 import {connect} from "react-redux";
 import {getStatus , getUserProfile , savePhoto , saveProfile , updateStatus} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
@@ -9,6 +8,7 @@ import {RouteComponentProps} from "react-router";
 
 import {compose} from "redux";
 import {ProfileDataForm} from "./ProfileInfo/ProfileDataForm";
+import {ProfileUserType} from "../../API/profile-api";
 
 
 class ProfileContainer extends React.Component<PropsType> {

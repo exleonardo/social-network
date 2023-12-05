@@ -1,26 +1,27 @@
 import {AppStateType} from "./redux-store";
 import {createSelector} from "reselect";
-import {UsersInfoType} from "../API/socialNetworkAPI";
+
+import {UsersInfoType} from "../API/profile-api";
 
 
 export const getUsersSelector = (state: AppStateType) => {
-    return state.usersPage.users
+  return state.usersPage.users
 }
 export const getUsers = createSelector ( getUsersSelector , (users: UsersInfoType[]) => {
-    return users
+  return users
 } )
 export const getPageSize = (state: AppStateType) => {
-    return state.usersPage.pageSize
+  return state.usersPage.pageSize
 }
 export const getTotalUsersCount = (state: AppStateType) => {
-    return state.usersPage.totalUsersCount
+  return state.usersPage.totalUsersCount
 }
 export const getCurrentPage = (state: AppStateType) => {
-    return state.usersPage.currentPage
+  return state.usersPage.currentPage
 }
 export const getIsFetching = (state: AppStateType) => {
-    return state.usersPage.isFetching
+  return state.usersPage.isFetching
 }
 export const getFollowingInProgress = (state: AppStateType) => {
-    return state.usersPage.followingInProgress
+  return state.usersPage.followingInProgress
 }
