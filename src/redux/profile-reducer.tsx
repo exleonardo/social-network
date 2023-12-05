@@ -107,8 +107,8 @@ export const saveProfile = (profile: ProfileUserType): AppThunk => async (dispat
     const titleError = findString[findString.length - 1].split ( ' ' ).join ( '' )
     const indexFind = titleError.split ( '' ).findIndex ( el => el === '>' )
     const nameError = titleError.slice ( indexFind + 1 , titleError.length - 1 )
-    const firstLetterUpperCase = nameError[0].toLowerCase () + nameError.slice ( 1 )
-    dispatch ( stopSubmit ( 'edit-profile' , { 'contacts': { [firstLetterUpperCase]: res.data.messages[0] } } ) )
+    const firstLetterLowerCase = nameError[0].toLowerCase () + nameError.slice ( 1 )
+    dispatch ( stopSubmit ( 'edit-profile' , { 'contacts': { [firstLetterLowerCase]: res.data.messages[0] } } ) )
     return Promise.reject ( res.data.messages[0] )
   }
 }
