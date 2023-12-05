@@ -1,7 +1,5 @@
 import {ProfilePageType} from "./store";
-import profileReducer , {addPostActionCreator , getUserProfile , setStatusAC , setUserProfile} from "./profile-reducer";
-
-import {UsersContactType} from "../API/profile-api";
+import profileReducer , {addPostActionCreator , setStatusAC , setUserProfile} from "./profile-reducer";
 
 let startState: ProfilePageType
 beforeEach ( () => {

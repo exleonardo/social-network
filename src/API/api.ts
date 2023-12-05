@@ -8,18 +8,18 @@ export const setting = {
   withCredentials: true ,
 }
 
+export const instance = axios.create ( { baseURL: "https://social-network.samuraijs.com/api/1.0/" , ...setting } )
+
+
+export type Response<D = {} , RC = ResultCode> = {
+  data: D
+  messages: string[]
+  resultCode: RC
+  fieldsErrors: string[]
+}
+
 export enum ResultCode {
   Sucsess = 0 ,
   Error = 1 ,
   Captcha = 10
 }
-
-export const instance = axios.create ( { baseURL: "https://social-network.samuraijs.com/api/1.0/" , ...setting } )
-
-
-export type ResponseType<D = {}> = {
-  resultCode: ResultCode
-  messages: Array<string>
-  data: D
-}
-

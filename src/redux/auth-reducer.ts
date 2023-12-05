@@ -5,9 +5,6 @@ import {authAPI} from "../API/auth-api";
 import {securityAPI} from "../API/security-api";
 
 
-const SET_USER_DATA = 'AUTH/SET-USER-DATA';
-const GET_CAPTCHA_URL_SUCCESS = 'AUTH/GET-CAPTCHA-URL-SUCCESS';
-
 const initialState: InitialState = {
   id: null ,
   login: null ,
@@ -20,9 +17,9 @@ const initialState: InitialState = {
 
 const authReducer = (state: InitialState = initialState , action: AuthReducerActionType): InitialState => {
   switch (action.type) {
-    case SET_USER_DATA:
+    case 'AUTH/SET-USER-DATA':
       return { ...state , ...action.payload }
-    case GET_CAPTCHA_URL_SUCCESS:
+    case 'AUTH/GET-CAPTCHA-URL-SUCCESS':
       return { ...state , ...action.payload }
     default :
       return state
@@ -30,7 +27,7 @@ const authReducer = (state: InitialState = initialState , action: AuthReducerAct
 
 }
 export const setAuthUserData = (userId: number | null , login: string | null , email: string | null , isAuth: boolean) => ({
-  type: SET_USER_DATA ,
+  type: 'AUTH/SET-USER-DATA' ,
   payload: {
     userId ,
     login ,
@@ -39,7 +36,7 @@ export const setAuthUserData = (userId: number | null , login: string | null , e
   }
 } as const)
 export const getCaptchaUrlSuccess = (captchaUrl: string | null) => ({
-  type: GET_CAPTCHA_URL_SUCCESS ,
+  type: 'AUTH/GET-CAPTCHA-URL-SUCCESS' ,
   payload: { captchaUrl }
 
 } as const)

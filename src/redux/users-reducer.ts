@@ -1,4 +1,4 @@
-import {ResponseType , ResultCode} from "../API/api";
+import {Response , ResultCode} from "../API/api";
 import {AppDispatchType , AppThunk} from "./redux-store";
 import {AxiosResponse} from "axios";
 import {updateObjectInArray} from "../utils/object-helpers";
@@ -78,7 +78,7 @@ export const requesUsers = (currentPage: number = 1 , pageSize: number = 5): App
   dispatch ( toggleIsFetching ( false ) )
 }
 
-const followUnfollowFlow = async (dispatch: AppDispatchType , userId: number , apiMethod: (userId: number) => Promise<AxiosResponse<ResponseType>> , actionCreator: (userId: number) => UserReducerActionType) => {
+const followUnfollowFlow = async (dispatch: AppDispatchType , userId: number , apiMethod: (userId: number) => Promise<AxiosResponse<Response>> , actionCreator: (userId: number) => UserReducerActionType) => {
   dispatch ( toggleFollowingProgress ( true , userId ) )
   const res = await apiMethod ( userId )
   if ( res.data.resultCode === ResultCode.Sucsess ) dispatch ( actionCreator ( userId ) )

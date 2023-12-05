@@ -1,11 +1,11 @@
-import {instance , ResponseType} from "./api";
+import {instance , Response} from "./api";
 
 export const authAPI = {
   me() {
-    return instance.get<AuthMeType> ( `auth/me` )
+    return instance.get<Response<DataAuthMe>> ( `auth/me` )
   } ,
   login(email: string , password: string , rememberMe: boolean = false , captcha: string | null = null) {
-    return instance.post<ResponseType<{ userId: number }>> ( 'auth/login' , {
+    return instance.post<Response<{ userId: number }>> ( 'auth/login' , {
       email ,
       password ,
       rememberMe ,
@@ -13,18 +13,13 @@ export const authAPI = {
     } );
   } ,
   logOut() {
-    return instance.delete<ResponseType> ( 'auth/login' );
+    return instance.delete<Response> ( 'auth/login' );
   }
 
 }
-export type DataAuthMe = {
+type DataAuthMe = {
   id: number,
   login: string,
   email: string
 }
-type AuthMeType = {
-  data: DataAuthMe,
-  messages: [],
-  fieldsErrors: [],
-  resultCode: number
-}
+
