@@ -20,6 +20,9 @@ class ProfileContainer extends React.Component<PropsType> {
         this.props.history.push ( '/login' )
       }
     }
+    if ( !userId ) {
+      console.error ( 'ID should exist in URI params or in state (authorizedUserId)' )
+    }
     this.props.getUserProfile ( userId )
     this.props.getStatus ( userId )
   }
@@ -29,8 +32,8 @@ class ProfileContainer extends React.Component<PropsType> {
     this.refreshProfile ()
   }
 
-  componentDidUpdate(prevProps: Readonly<PropsType> , prevState: Readonly<{}>) {
-    if ( this.props.match.params.userId !== this.props.match.params.userId ) {
+  componentDidUpdate(prevProps: PropsType , prevState: PropsType) {
+    if ( this.props.match.params.userId !== prevProps.match.params.userId ) {
       this.refreshProfile ()
     }
 

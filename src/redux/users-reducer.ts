@@ -5,13 +5,6 @@ import {updateObjectInArray} from "../utils/object-helpers";
 import {usersAPI} from "../API/users-api";
 import {UsersInfoType} from "../API/profile-api";
 
-const FOLLOW = "USERS/FOLLOW";
-const UNFOLLOW = "USERS/UNFOLLOW";
-const SET_USERS = "USERS/SET-USERS";
-const SET_CURRENT_PAGE = 'USERS/SET-CURRENT-PAGE';
-const TOGGLE_IS_FETCHING = 'USERS/TOGGLE-IS-FETCHING';
-const SET_TOTAL_USERS_COUNT = 'USERS/SET-TOTAL-USERS-COUNT';
-const TOGGLE_IS_FOLLOWING_PROGRESS = 'USERS/TOGGLE-IS-FOLLOWING-PROGRESS';
 
 const initialState: UsersType = {
   users: [] ,
@@ -25,25 +18,25 @@ const usersReducer = (state: UsersType = initialState , action: UserReducerActio
 
   switch (action.type) {
 
-    case FOLLOW:
+    case "USERS/FOLLOW":
       return {
         ...state ,
         users: updateObjectInArray ( state.users , action.userId , { followed: true } )
       }
-    case UNFOLLOW:
+    case "USERS/UNFOLLOW":
       return {
         ...state ,
         users: updateObjectInArray ( state.users , action.userId , { followed: false } )
       }
-    case SET_USERS:
+    case "USERS/SET-USERS":
       return { ...state , users: action.users }
-    case SET_CURRENT_PAGE:
+    case 'USERS/SET-CURRENT-PAGE':
       return { ...state , currentPage: action.currentPage }
-    case SET_TOTAL_USERS_COUNT:
+    case 'USERS/SET-TOTAL-USERS-COUNT':
       return { ...state , totalUsersCount: action.totalUsersCount }
-    case TOGGLE_IS_FETCHING:
+    case 'USERS/TOGGLE-IS-FETCHING':
       return { ...state , isFetching: action.isFetching }
-    case TOGGLE_IS_FOLLOWING_PROGRESS:
+    case 'USERS/TOGGLE-IS-FOLLOWING-PROGRESS':
       return {
         ...state ,
         followingInProgress: action.isFetching ? [...state.followingInProgress , action.userId] : state.followingInProgress.filter ( id => id !== action.userId )
@@ -54,17 +47,17 @@ const usersReducer = (state: UsersType = initialState , action: UserReducerActio
 };
 //Actions
 export const toggleIsFetching = (isFetching: boolean) => {
-  return ({ type: TOGGLE_IS_FETCHING , isFetching } as const)
+  return ({ type: 'USERS/TOGGLE-IS-FETCHING' , isFetching } as const)
 }
 export const toggleFollowingProgress = (isFetching: boolean , userId: number) => ({
-  type: TOGGLE_IS_FOLLOWING_PROGRESS , isFetching , userId
+  type: 'USERS/TOGGLE-IS-FOLLOWING-PROGRESS' , isFetching , userId
 } as const)
-export const followSuccess = (userId: number) => ({ type: FOLLOW , userId } as const)
-export const unfollowSuccess = (userId: number) => ({ type: UNFOLLOW , userId } as const)
-export const setUsers = (users: UsersInfoType[]) => ({ type: SET_USERS , users } as const)
-export const setCurrentPage = (currentPage: number) => ({ type: SET_CURRENT_PAGE , currentPage } as const)
+export const followSuccess = (userId: number) => ({ type: "USERS/FOLLOW" , userId } as const)
+export const unfollowSuccess = (userId: number) => ({ type: "USERS/UNFOLLOW" , userId } as const)
+export const setUsers = (users: UsersInfoType[]) => ({ type: "USERS/SET-USERS" , users } as const)
+export const setCurrentPage = (currentPage: number) => ({ type: 'USERS/SET-CURRENT-PAGE' , currentPage } as const)
 export const setUsersTotalCount = (totalUsersCount: number) => ({
-  type: SET_TOTAL_USERS_COUNT ,
+  type: 'USERS/SET-TOTAL-USERS-COUNT' ,
   totalUsersCount
 } as const)
 

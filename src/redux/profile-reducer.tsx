@@ -1,6 +1,6 @@
 import {sendMessageCreator} from "./dialogs-reducer";
 import {ResultCode} from "../API/api";
-import {AppStateType , AppThunk} from "./redux-store";
+import {AppThunk} from "./redux-store";
 import {PostsType} from "./store";
 
 import {stopSubmit} from "redux-form";
