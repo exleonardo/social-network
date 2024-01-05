@@ -32,7 +32,11 @@ beforeEach ( () => {
     totalUsersCount: 1 ,
     currentPage: 1 ,
     isFetching: false ,
-    followingInProgress: []
+    followingInProgress: [] ,
+    filter: {
+      term: '' ,
+      friend: ''
+    }
   }
 } )
 
