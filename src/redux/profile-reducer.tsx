@@ -5,6 +5,7 @@ import {PostsType} from "./store";
 
 import {stopSubmit} from "redux-form";
 import {profileAPI , ProfilePhotos , ProfileUserType} from "../API/profile-api";
+import {ProfileDataForm} from "../components/Profile/ProfileInfo/ProfileDataForm";
 
 
 let initialState = {
@@ -63,7 +64,7 @@ export const savePhotoSuccess = (photos: ProfilePhotos) => ({
   photos
 } as const)
 //Thunk
-export const getUserProfile = (userId: number | null): AppThunk => async dispatch => {
+export const getUserProfile = (userId: string | null): AppThunk => async dispatch => {
   const response = await profileAPI.getProfileUser ( userId )
   dispatch ( setUserProfile ( response.data ) )
 }
@@ -91,7 +92,7 @@ export const savePhoto = (file: File): AppThunk => async dispatch => {
   }
 }
 
-export const saveProfile = (profile: ProfileUserType): AppThunk => async (dispatch , getState) => {
+export const saveProfile = (profile: ProfileDataForm): AppThunk => async (dispatch , getState) => {
   const userId = getState ().profilePage.profile?.userId
   const res = await profileAPI.saveProfile ( profile )
   if ( res.data.resultCode === ResultCode.Sucsess ) {
