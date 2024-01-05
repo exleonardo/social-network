@@ -1,19 +1,20 @@
 import React , {ChangeEvent , useEffect , useState} from 'react';
+import {useAppDispatch , useAppSelector} from "../../../redux/redux-store";
+import {getStatusProfile} from "../profile-selector";
+import {updateStatus} from "../../../redux/profile-reducer";
 
 
-type ProfileStatusType = {
-  status: string;
-  updateStatus: (status: string) => void;
-}
-const ProfileStatusWithHooks = (props: ProfileStatusType) => {
+const ProfileStatusWithHooks = () => {
+  const statusProfile = useAppSelector ( getStatusProfile )
+  const dispatch = useAppDispatch ()
   const [state , setState] = useState ( false );
-  const [status , setStatus] = useState ( props.status );
+  const [status , setStatus] = useState ( statusProfile );
   useEffect ( () => {
-    setStatus ( props.status )
-  } , [props.status] );
+    setStatus ( statusProfile )
+  } , [statusProfile] );
   const activateEditMode = () => {
     setState ( !state )
-    props.updateStatus ( status )
+    dispatch ( updateStatus ( status ) )
   }
   const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     if ( e.currentTarget.value.length <= 300 ) {
@@ -26,7 +27,7 @@ const ProfileStatusWithHooks = (props: ProfileStatusType) => {
       {!state &&
           <div>
               <b>Status:</b> <span
-              onDoubleClick={activateEditMode}>{props.status || 'Enter status'}</span>
+              onDoubleClick={activateEditMode}>{statusProfile || 'Enter status'}</span>
           </div>
       }
       {state &&
