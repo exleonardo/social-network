@@ -17,7 +17,6 @@ const initialState: UsersType = {
 const usersReducer = (state: UsersType = initialState , action: UserReducerActionType): UsersType => {
 
   switch (action.type) {
-
     case "USERS/FOLLOW":
       return {
         ...state ,
@@ -71,17 +70,20 @@ export const requesUsers = (currentPage: number = 1 , pageSize: number = 5): App
   dispatch ( toggleIsFetching ( false ) )
 }
 
-const followUnfollowFlow = async (dispatch: AppDispatchType , userId: number , apiMethod: (userId: number) => Promise<AxiosResponse<Response>> , actionCreator: (userId: number) => UserReducerActionType) => {
+const followUnfollowFlow = async (dispatch: AppDispatchType , userId: number , apiMethod: (userId: number) => Promise<Response> , actionCreator: (userId: number) => UserReducerActionType) => {
+
   dispatch ( toggleFollowingProgress ( true , userId ) )
   const res = await apiMethod ( userId )
-  if ( res.data.resultCode === ResultCode.Sucsess ) dispatch ( actionCreator ( userId ) )
+  if ( res.resultCode === ResultCode.Sucsess ) {
+    dispatch ( actionCreator ( userId ) )
+  }
   dispatch ( toggleFollowingProgress ( false , userId ) )
 }
 export const follow = (userId: number): AppThunk => async dispatch => {
-  await followUnfollowFlow ( dispatch , userId , usersAPI.unfollow.bind ( usersAPI ) , unfollowSuccess )
+  return await followUnfollowFlow ( dispatch , userId , usersAPI.follow.bind ( usersAPI ) , followSuccess )
 }
 export const unfollow = (userId: number): AppThunk => async dispatch => {
-  await followUnfollowFlow ( dispatch , userId , usersAPI.follow.bind ( usersAPI ) , followSuccess )
+  await followUnfollowFlow ( dispatch , userId , usersAPI.unfollow.bind ( usersAPI ) , unfollowSuccess )
 };
 
 
@@ -96,7 +98,7 @@ export type UserReducerActionType =
   | ReturnType<typeof toggleIsFetching>
   | ReturnType<typeof toggleFollowingProgress>
 
-type UsersType = {
+export type UsersType = {
   users: UsersInfoType[];
   pageSize: number;
   totalUsersCount: number;
