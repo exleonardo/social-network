@@ -10,7 +10,7 @@ type UserTypeProps = {
   unfollow: (userId: number) => void;
   user: UsersInfoType;
 }
-const User: React.FC<UserTypeProps> = ({ user , followingInProgress , follow , unfollow }) => {
+const User = ({ user , followingInProgress , follow , unfollow }: UserTypeProps) => {
   return (
     <div>
                     <span>
@@ -36,5 +36,6 @@ const User: React.FC<UserTypeProps> = ({ user , followingInProgress , follow , u
     </div>
   );
 };
+
 
 export default User;
