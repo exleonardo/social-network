@@ -7,10 +7,10 @@ export const usersAPI = {
     return instance.get<UserData> ( `users/?page=${currentPage}&count=${pageSize}` ).then ( res => res.data )
   } ,
   follow(userId: number) {
-    return instance.post<Response> ( `follow/${userId}` )
+    return instance.post<Response> ( `follow/${userId}` ).then ( res => res.data )
   } ,
   unfollow(userId: number) {
-    return instance.delete<Response> ( `follow/${userId}` )
+    return instance.delete<Response> ( `follow/${userId}` ).then ( res => res.data )
   }
 }
 
