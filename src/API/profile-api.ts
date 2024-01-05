@@ -1,7 +1,8 @@
 import {instance , Response} from "./api";
+import {ProfileDataForm} from "../components/Profile/ProfileInfo/ProfileDataForm";
 
 export const profileAPI = {
-  getProfileUser(userId: number | null) {
+  getProfileUser(userId: string | null) {
     return instance.get<ProfileUserType> ( `profile/${userId}/` )
   } ,
   getStatus(userId: string) {
@@ -15,7 +16,7 @@ export const profileAPI = {
     formDate.append ( 'image' , photo )
     return instance.put<Response<ProfilePhotos>> ( 'profile/photo/' , formDate , { headers: { 'Content-Type': 'multipart/form-data' } } )
   } ,
-  saveProfile(profile: ProfileUserType) {
+  saveProfile(profile: ProfileDataForm) {
     return instance.put<Response> ( `profile` , profile )
   }
 
@@ -34,7 +35,7 @@ export type UsersContactType = {
 }
 export type ProfileUserType = {
   aboutMe: string;
-  userId: number | null;
+  userId: string | null;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
