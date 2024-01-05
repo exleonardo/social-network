@@ -18,7 +18,7 @@ export type StoreType = {
 }
 
 
-export let store: StoreType = {
+let store: StoreType = {
   _state: {
     profilePage: {
       posts: [
@@ -86,4 +86,3 @@ export type RootStateType = {
   dialogsPage: DialogsPageType;
   sidebar: SidebarType
 }
-export default store
