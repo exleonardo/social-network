@@ -34,8 +34,8 @@ export const UsersSearchForm = memo ( ({ onFilterChanged }: UsersSearchFormType)
             {touched.term && errors.term && <div>{errors.term}</div>}
             <Field name="friend" as="select">
               <option value={''}>All</option>
-              <option value={'true'}>Only followed</option>
-              <option value={'false'}>Only unfollowed</option>
+              <option value={'false'}>Only followed</option>
+              <option value={'true'}>Only unfollowed</option>
             </Field>
             <button type="submit" disabled={isSubmitting}>
               Send
