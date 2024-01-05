@@ -1,18 +1,21 @@
 import {Response , ResultCode} from "../API/api";
 import {AppDispatchType , AppThunk} from "./redux-store";
-import {AxiosResponse} from "axios";
 import {updateObjectInArray} from "../utils/object-helpers";
 import {usersAPI} from "../API/users-api";
 import {UsersInfoType} from "../API/profile-api";
 
 
-const initialState: UsersType = {
+const initialState = {
   users: [] ,
   pageSize: 5 ,
   totalUsersCount: 1 ,
   currentPage: 1 ,
   isFetching: false ,
-  followingInProgress: []
+  followingInProgress: [] ,
+  filter: {
+    term: '' ,
+    friend: ''
+  }
 }
 const usersReducer = (state: UsersType = initialState , action: UserReducerActionType): UsersType => {
 
@@ -35,6 +38,10 @@ const usersReducer = (state: UsersType = initialState , action: UserReducerActio
       return { ...state , totalUsersCount: action.totalUsersCount }
     case 'USERS/TOGGLE-IS-FETCHING':
       return { ...state , isFetching: action.isFetching }
+    case "USERS/SET-FILTER":
+      return {
+        ...state , filter: action.payload
+      }
     case 'USERS/TOGGLE-IS-FOLLOWING-PROGRESS':
       return {
         ...state ,
@@ -59,12 +66,18 @@ export const setUsersTotalCount = (totalUsersCount: number) => ({
   type: 'USERS/SET-TOTAL-USERS-COUNT' ,
   totalUsersCount
 } as const)
+export const setFilter = (filter: FormValues) => ({
+  type: 'USERS/SET-FILTER' ,
+  payload: filter
+} as const)
 
 //Thunk
-export const requesUsers = (currentPage: number = 1 , pageSize: number = 5): AppThunk => async dispatch => {
+export const requestUsers = (currentPage: number = 1 , pageSize: number = 5 , filter: FormValues): AppThunk => async dispatch => {
   dispatch ( toggleIsFetching ( true ) )
   dispatch ( setCurrentPage ( currentPage ) )
-  const data = await usersAPI.getUsers ( currentPage , pageSize )
+  dispatch ( setFilter ( filter ) )
+
+  const data = await usersAPI.getUsers ( currentPage , pageSize , filter.term , filter.friend )
   dispatch ( setUsers ( data.items ) )
   dispatch ( setUsersTotalCount ( data.totalCount ) )
   dispatch ( toggleIsFetching ( false ) )
@@ -97,12 +110,19 @@ export type UserReducerActionType =
   | ReturnType<typeof setUsersTotalCount>
   | ReturnType<typeof toggleIsFetching>
   | ReturnType<typeof toggleFollowingProgress>
+  | ReturnType<typeof setFilter>
 
+
+export type FormValues = {
+  term: string
+  friend: string
+}
 export type UsersType = {
   users: UsersInfoType[];
   pageSize: number;
   totalUsersCount: number;
   currentPage: number;
   isFetching: boolean;
-  followingInProgress: Array<number>
+  followingInProgress: Array<number>,
+  filter: FormValues
 }
