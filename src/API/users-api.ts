@@ -3,8 +3,8 @@ import {UsersInfoType} from "./profile-api";
 
 
 export const usersAPI = {
-  getUsers(currentPage: number = 1 , pageSize: number = 5) {
-    return instance.get<UserData> ( `users/?page=${currentPage}&count=${pageSize}` ).then ( res => res.data )
+  getUsers(currentPage: number = 1 , pageSize: number = 5 , term: string = '' , friend: string | boolean = '') {
+    return instance.get<UserData> ( `users/?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === '' ? '' : `&friend=${friend}`) ).then ( res => res.data )
   } ,
   follow(userId: number) {
     return instance.post<Response> ( `follow/${userId}` ).then ( res => res.data )
