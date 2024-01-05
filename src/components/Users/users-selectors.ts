@@ -1,7 +1,7 @@
-import {AppStateType} from "./redux-store";
+import {AppStateType} from "../../redux/redux-store";
 import {createSelector} from "reselect";
 
-import {UsersInfoType} from "../API/profile-api";
+import {UsersInfoType} from "../../API/profile-api";
 
 
 export const getUsersSelector = (state: AppStateType) => {
