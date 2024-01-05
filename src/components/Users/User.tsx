@@ -22,10 +22,10 @@ const User: React.FC<UserTypeProps> = ({ user , followingInProgress , follow , u
                             {user.followed
                               ? <button
                                 disabled={followingInProgress.some ( (id) => id === user.id )}
-                                onClick={() => follow ( user.id )}>Follow</button>
+                                onClick={() => unfollow ( user.id )}>Follow</button>
                               : <button
                                 disabled={followingInProgress.some ( (id) => id === user.id )}
-                                onClick={() => unfollow ( user.id )}>Unfollow</button>}
+                                onClick={() => follow ( user.id )}>Unfollow</button>}
                         </div>
                     </span>
       <span>
