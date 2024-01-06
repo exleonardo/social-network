@@ -30,7 +30,7 @@ test ( "status should be changed" , () => {
 test ( "users should be added" , () => {
   const action = setUserProfile ( {
     aboutMe: "student" ,
-    userId: 1 ,
+    userId: '1' ,
     lookingForAJob: true ,
     lookingForAJobDescription: "Ищу работу Frontend-react-dev" ,
     fullName: "Alex Khomenok" ,
