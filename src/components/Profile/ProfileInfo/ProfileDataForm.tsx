@@ -8,7 +8,6 @@ export type ProfilePropsFormType = {
   initialValues: ProfileUserType;
   editMode: boolean;
   goToEditMode: () => void;
-  saveProfile: (profile: ProfileDataForm) => void;
 }
 export type ProfileDataForm = {
   fullName: string;
@@ -36,7 +35,6 @@ const ProfileDataForm: React.FC<ProfilePropsFormType & InjectedFormProps<Profile
                                                                                                                      }) => {
   return (
     <form onSubmit={handleSubmit}>
-
       <div>
         <button>Save</button>
       </div>
