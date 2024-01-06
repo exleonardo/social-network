@@ -5,13 +5,12 @@ import {authAPI} from "../API/auth-api";
 import {securityAPI} from "../API/security-api";
 
 
-const initialState: InitialState = {
+const initialState = {
   id: null ,
   login: null ,
   email: null ,
   isAuth: false ,
   captchaUrl: null
-
 }
 
 
@@ -76,7 +75,7 @@ export const logOut = (): AppThunk => async dispatch => {
 export default authReducer
 //type
 type InitialState = {
-  id: null | number;
+  id: null | string;
   login: null | string;
   email: null | string;
   isAuth: boolean;
