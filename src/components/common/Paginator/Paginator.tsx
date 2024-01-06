@@ -1,15 +1,22 @@
 import React , {useState} from 'react';
 import s from './Paginator.module.css'
-import {FormValues} from "../../../redux/users-reducer";
+import {FormValues , requestUsers} from "../../../redux/users-reducer";
+import {useAppDispatch , useAppSelector} from "../../../redux/redux-store";
+import {getCurrentPage , getPageSize , getTotalUsersCount , getUsersFilter} from "../../Users/users-selectors";
 
 type PaginatorType = {
   totalUsersCount: number;
   pageSize: number;
   currentPage: number;
-  onPageChanged: (page: number , filter: FormValues) => void;
   filter: FormValues
 }
-const Paginator: React.FC<PaginatorType> = ({ totalUsersCount , pageSize , currentPage , onPageChanged , filter }) => {
+const Paginator = ({ filter , pageSize , currentPage , totalUsersCount }: PaginatorType) => {
+
+  const dispatch = useAppDispatch ()
+
+  const onPageChanged = (page: number , filter: FormValues) => {
+    dispatch ( requestUsers ( page , pageSize , filter ) )
+  }
   let pagesCount = Math.ceil ( totalUsersCount / pageSize );
   let pages: Array<number> = [];
   const [page , setPage] = useState ( 0 )
