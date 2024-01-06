@@ -3,39 +3,32 @@ import s from "./ProfileInfo.module.css"
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/yoda_star_wars_icon_131348.png";
-import {ProfileType} from "../../../redux/profile-reducer";
 import ProfileDataFormReduxForm , {ProfileDataForm} from "./ProfileDataForm";
 import {ProfileUserType , UsersContactType} from "../../../API/profile-api";
+import {useAppDispatch , useAppSelector} from "../../../redux/redux-store";
+import {getProfile} from "../profile-selector";
+import {Contact} from "../Contact/Contact";
+import {savePhoto , saveProfile} from "../../../redux/profile-reducer";
 
 type ProfileInfoType = {
-  profile: ProfileType;
-  status: string;
-  updateStatus: (status: string) => void;
   isOwner: boolean;
-  savePhoto: (file: File) => void;
-  saveProfile: (profile: ProfileDataForm) => Promise<void>
-
 }
-const ProfileInfo: React.FC<ProfileInfoType> = ({
-                                                  profile ,
-                                                  updateStatus ,
-                                                  status ,
-                                                  isOwner ,
-                                                  savePhoto ,
-                                                  saveProfile
-                                                }) => {
+const ProfileInfo: React.FC<ProfileInfoType> = ({ isOwner }: ProfileInfoType) => {
   const [editMode , setEditMode] = useState ( false )
+  const profile = useAppSelector ( getProfile )
+
+  const dispatch = useAppDispatch ()
   if ( !profile ) {
     return <Preloader/>
   }
 
   const mainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
     if ( e.target.files !== null ) {
-      savePhoto ( e.target.files[0] )
+      dispatch ( savePhoto ( e.target.files[0] ) )
     }
   }
   const onSubmit = (formData: ProfileDataForm) => {
-    saveProfile ( formData ).then ( () => setEditMode ( false ) ).catch ( error => {
+    dispatch ( saveProfile ( formData ) ).then ( () => setEditMode ( false ) ).catch ( error => {
       console.log ( error )
     } )
   }
@@ -47,27 +40,20 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({
         {editMode ?
           <ProfileDataFormReduxForm editMode={editMode} initialValues={profile}
                                     goToEditMode={() => setEditMode ( !editMode )}
-                                    saveProfile={saveProfile} onSubmit={onSubmit}/> :
+                                    onSubmit={onSubmit}/> :
           <ProfileData isOwner={isOwner} profile={profile} goToEditMode={() => {
             setEditMode ( !editMode )
           }}/>}
 
-        <ProfileStatusWithHooks
-          updateStatus={updateStatus}
-          status={status}/></div>
+        <ProfileStatusWithHooks/>
+      </div>
     </div>
   );
 };
 
 
 export default ProfileInfo;
-export const Contact: React.FC<ContactType> = ({ contactTitle , contactValue }) => {
-  return <div className={s.contact}><b>{contactTitle}</b>: {contactValue}</div>
-}
-type ContactType = {
-  contactTitle: string;
-  contactValue: string | null
-}
+
 
 type ProfileData = {
   profile: ProfileUserType;
