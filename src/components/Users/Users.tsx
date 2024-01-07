@@ -1,11 +1,12 @@
 import React , {useEffect} from 'react';
-import Paginator from "../common/Paginator/Paginator";
 import {User} from "./User";
 import {UsersSearchForm} from "./UsersSearchForm";
 import {useAppDispatch , useAppSelector} from "../../redux/redux-store";
 import {getCurrentPage , getPageSize , getTotalUsersCount , getUsers , getUsersFilter} from "./users-selectors";
 import {useHistory , useLocation} from "react-router-dom";
 import {requestUsers} from "../../redux/users-reducer";
+import s from './users.module.css'
+import {Pagination} from "antd";
 
 
 const Users = () => {
@@ -60,15 +61,26 @@ const Users = () => {
       search: `${params.toString ()}`
     } )
   } , [filter , currentPage] );
+
+
+  const onPageChanged = (page: number , pageSize: number) => {
+    dispatch ( requestUsers ( page , pageSize , filter ) )
+  }
+
   return (
-    <div>
+    <div className={s.users}>
       <UsersSearchForm/>
-      <Paginator filter={filter} totalUsersCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage}/>
-      <div>
+
+      <div className={s.user}>
         {users.map ( (user) =>
           <User key={user.id} user={user}/>
         )}
       </div>
+
+      <Pagination defaultPageSize={5} current={currentPage} pageSizeOptions={[5 , 10 , 15 , 20]}
+                  className={s.pagination} showQuickJumper
+                  total={totalUsersCount}
+                  onChange={onPageChanged}/>
     </div>
   );
 };
