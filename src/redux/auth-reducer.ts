@@ -5,12 +5,12 @@ import {authAPI} from "../API/auth-api";
 import {securityAPI} from "../API/security-api";
 
 
-const initialState = {
-  id: null ,
-  login: null ,
-  email: null ,
-  isAuth: false ,
-  captchaUrl: null
+const initialState: InitialState = {
+  id: null as null | number ,
+  login: null as null | string ,
+  email: null as null | string ,
+  isAuth: false as boolean ,
+  captchaUrl: null as null | string
 }
 
 
@@ -25,10 +25,10 @@ const authReducer = (state: InitialState = initialState , action: AuthReducerAct
   }
 
 }
-export const setAuthUserData = (userId: number | null , login: string | null , email: string | null , isAuth: boolean) => ({
+export const setAuthUserData = (id: number | null , login: string | null , email: string | null , isAuth: boolean) => ({
   type: 'AUTH/SET-USER-DATA' ,
   payload: {
-    userId ,
+    id ,
     login ,
     email ,
     isAuth
@@ -75,7 +75,7 @@ export const logOut = (): AppThunk => async dispatch => {
 export default authReducer
 //type
 type InitialState = {
-  id: null | string;
+  id: null | number;
   login: null | string;
   email: null | string;
   isAuth: boolean;
