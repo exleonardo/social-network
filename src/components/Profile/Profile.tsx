@@ -1,6 +1,7 @@
 import React from 'react';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+
+import MyPosts from "./MyPosts/MyPosts";
 
 
 type ProfileTypeProps = {
@@ -11,7 +12,7 @@ const Profile = ({ isOwner }: ProfileTypeProps) => {
   return (
     <div>
       <ProfileInfo isOwner={isOwner}/>
-      <MyPostsContainer/>
+      <MyPosts/>
     </div>
   );
 };
