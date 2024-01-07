@@ -10,3 +10,11 @@ export const getAuthorizedUserId = (state: AppStateType) => {
   return state.profilePage.profile?.userId
 }
 
+export const getMyPosts = (state: AppStateType) => {
+  return state.profilePage.posts
+}
+
+export const getNewPostText = (state: AppStateType) => {
+  return state.profilePage.newPostText
+}
+
