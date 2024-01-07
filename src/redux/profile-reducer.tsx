@@ -6,13 +6,11 @@ import {PostsType} from "./store";
 import {stopSubmit} from "redux-form";
 import {profileAPI , ProfilePhotos , ProfileUserType} from "../API/profile-api";
 import {ProfileDataForm} from "../components/Profile/ProfileInfo/ProfileDataForm";
+import {isAxiosError} from "axios";
 
 
 let initialState = {
-  posts: [
-    { id: 1 , message: 'Hi how are you' , likesCount: '1' } ,
-    { id: 2 , message: 'It\'s my post ' , likesCount: '23' }
-  ] ,
+  posts: [] as PostsType[] ,
   profile: null as ProfileType ,
   newPostText: '' ,
   status: '' ,
@@ -25,8 +23,13 @@ const profileReducer = (state: ProfileState = initialState , action: ProfileRedu
     case 'PROFILE/ADD-POST':
       return {
         ...state ,
-        posts: [...state.posts , { id: 5 , message: action.newPostText , likesCount: '5' }] ,
+        posts: [...state.posts , { id: +new Date () , message: action.newPostText , likesCount: '0' }] ,
         newPostText: ""
+      }
+    case "PROFILE/DELETE-POST":
+      return {
+        ...state , posts: state.posts.filter ( (post) => post.id !== action.id
+        )
       }
     case 'PROFILE/SET-USER-PROFILE':
       return { ...state , profile: action.profile }
@@ -51,6 +54,10 @@ export const addPostActionCreator = (text: string) => ({
   type: 'PROFILE/ADD-POST' ,
   newPostText: text
 } as const)
+export const deletePostActionCreator = (id: number) => ({
+  type: 'PROFILE/DELETE-POST' ,
+  id
+} as const)
 
 export const setStatusAC = (status: string) => ({ type: 'PROFILE/SET-STATUS' , status } as const)
 
@@ -74,14 +81,22 @@ export const getStatus = (status: string): AppThunk => async dispatch => {
   dispatch ( setStatusAC ( res.data ) )
 }
 
-export const updateStatus = (status: string): AppThunk => async dispatch => {
+export const updateStatus = (status: string): AppThunk => async (dispatch) => {
   try {
     const res = await profileAPI.updateStatus ( status )
     if ( res.data.resultCode === ResultCode.Sucsess ) {
       dispatch ( setStatusAC ( status ) )
+      return Promise.resolve ()
     }
   } catch (error) {
+    let errorMessage = "Some error occurred"
+    if ( isAxiosError ( error ) ) {
+      errorMessage = error.message
+    } else if ( error instanceof Error ) {
+      errorMessage = error.message
+    }
 
+    return Promise.reject ( errorMessage )
   }
 }
 
@@ -121,6 +136,7 @@ export type ProfileReducerActionType =
   | ReturnType<typeof setUserProfile>
   | ReturnType<typeof setStatusAC>
   | ReturnType<typeof savePhotoSuccess>
+  | ReturnType<typeof deletePostActionCreator>
 
 
 export type ProfileType = null | ProfileUserType
