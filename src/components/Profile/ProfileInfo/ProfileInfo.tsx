@@ -9,6 +9,7 @@ import {useAppDispatch , useAppSelector} from "../../../redux/redux-store";
 import {getProfile} from "../profile-selector";
 import {Contact} from "../Contact/Contact";
 import {savePhoto , saveProfile} from "../../../redux/profile-reducer";
+import {Button , message} from "antd";
 
 type ProfileInfoType = {
   isOwner: boolean;
@@ -63,7 +64,7 @@ type ProfileData = {
 const ProfileData: React.FC<ProfileData> = ({ profile , isOwner , goToEditMode }) => {
   return <div>
     {isOwner && <div>
-        <button onClick={goToEditMode}>Edit</button>
+        <Button onClick={goToEditMode}>Edit</Button>
     </div>}
     <div>
       <b>Full name</b>: {profile.fullName}
