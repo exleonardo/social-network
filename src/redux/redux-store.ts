@@ -34,7 +34,7 @@ export type AppActionsType =
   | AuthReducerActionType
   | ProfileReducerActionType
   | FormAction
-export type AppThunk = ThunkAction<Promise<void> , AppStateType , unknown , AppActionsType>
+export type AppThunk = ThunkAction<Promise<ReturnType<any>> , AppStateType , unknown , AppActionsType>
 export type AppDispatchType = ThunkDispatch<AppStateType , any , AnyAction>
 export type RootState = ReturnType<typeof store.getState>
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
