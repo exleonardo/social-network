@@ -6,7 +6,7 @@ import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {useAppDispatch , useAppSelector} from "../../redux/redux-store";
 import s from '../common/FormsControls/FormsControls.module.css'
-import {getCaptchaUrl , getIsAuth} from "./login-selectors";
+import {getInitialized , getIsAuth} from "./login-selectors";
 
 
 const LoginForm: React.FC<PropsLoginForm & InjectedFormProps<FormDataType , PropsLoginForm>> = (
@@ -37,7 +37,7 @@ const LoginReduxForm = reduxForm<FormDataType , PropsLoginForm> ( {
 
 export const Login = () => {
   const isAuth = useAppSelector ( getIsAuth )
-  const captchaUrl = useAppSelector ( getCaptchaUrl )
+  const captchaUrl = useAppSelector ( getInitialized )
   const dispatch = useAppDispatch ()
   const onSubmit = (formData: FormDataType) => {
     dispatch ( login ( formData.login , formData.password , formData.rememberMe , formData.captcha ) )
