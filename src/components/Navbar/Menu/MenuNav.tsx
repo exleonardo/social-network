@@ -1,6 +1,6 @@
 import {
   BookOutlined ,
-  MessageOutlined ,
+  MessageOutlined , PlayCircleOutlined ,
   StepForwardOutlined ,
   UserOutlined ,
   VideoCameraOutlined
@@ -51,6 +51,12 @@ export const MenuNav = () => {
           icon: <StepForwardOutlined rev={undefined}/> ,
           label: 'Music' ,
         } ,
+        {
+          key: 'video' ,
+          icon: <PlayCircleOutlined rev={undefined}/> ,
+          label: 'Video' ,
+        } ,
+
       ]}
     />
   );
