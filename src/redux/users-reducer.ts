@@ -86,11 +86,17 @@ export const requestUsers = (currentPage: number = 1 , pageSize: number = 5 , fi
 const followUnfollowFlow = async (dispatch: AppDispatchType , userId: number , apiMethod: (userId: number) => Promise<Response> , actionCreator: (userId: number) => UserReducerActionType) => {
 
   dispatch ( toggleFollowingProgress ( true , userId ) )
-  const res = await apiMethod ( userId )
-  if ( res.resultCode === ResultCode.Sucsess ) {
-    dispatch ( actionCreator ( userId ) )
+  try {
+    const res = await apiMethod ( userId )
+    if ( res.resultCode === ResultCode.Sucsess ) {
+      dispatch ( actionCreator ( userId ) )
+      dispatch ( toggleFollowingProgress ( false , userId ) )
+      return Promise.resolve ()
+    }
+  } catch (error) {
+
   }
-  dispatch ( toggleFollowingProgress ( false , userId ) )
+
 }
 export const follow = (userId: number): AppThunk => async dispatch => {
   return await followUnfollowFlow ( dispatch , userId , usersAPI.follow.bind ( usersAPI ) , followSuccess )
