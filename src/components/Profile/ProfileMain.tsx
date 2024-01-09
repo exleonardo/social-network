@@ -7,7 +7,6 @@ import {getAuthorizedUserId} from "./profile-selector";
 
 const ProfileMain = ({ match: { params: { userId: userID } } , history }: PropsType) => {
   const dispatch = useAppDispatch ()
-
   const authorizedUserId = useAppSelector ( getAuthorizedUserId )
 
   const refreshProfile = () => {
@@ -26,10 +25,9 @@ const ProfileMain = ({ match: { params: { userId: userID } } , history }: PropsT
     dispatch ( getUserProfile ( userId ) )
     dispatch ( getStatus ( userId ) )
   }
-  console.log ( authorizedUserId )
   useEffect ( () => {
     refreshProfile ()
-  } , [userID] );
+  } , [userID , authorizedUserId] );
   return (
     <div>
       <Profile isOwner={!userID}/>
