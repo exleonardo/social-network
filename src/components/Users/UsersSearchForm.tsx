@@ -6,7 +6,7 @@ import {useAppDispatch , useAppSelector} from "../../redux/redux-store";
 import {getPageSize , getUsersFilter} from "./users-selectors";
 import Search from "antd/es/input/Search";
 import {Select} from "antd";
-import s from './Users.module.css'
+import s from './users.module.css'
 
 const usersSearchValidate = (values: FormValues): FormValues => {
   const errors = {} as FormValues
