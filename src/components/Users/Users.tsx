@@ -5,7 +5,7 @@ import {useAppDispatch , useAppSelector} from "../../redux/redux-store";
 import {getCurrentPage , getPageSize , getTotalUsersCount , getUsers , getUsersFilter} from "./users-selectors";
 import {useHistory , useLocation} from "react-router-dom";
 import {requestUsers} from "../../redux/users-reducer";
-import s from 'users.module.css'
+import s from 'src/components/Users/Users.module.css'
 import {Pagination} from "antd";
 
 
