@@ -1,15 +1,10 @@
 .header {
     grid-area: h;
-    background-color: aquamarine;
-    border-radius: 10px;
+    background-color: #161d2b;
+    border-bottom-right-radius: 10px;
     display: flex;
     justify-content: space-between;
-}
-
-.header img {
-    margin-left: 10px;
-    width: 60px;
-    border-radius: 50%;
+    color: white;
 }
 
 .loginBlock {
@@ -19,5 +14,9 @@
 
 .loginBlock a {
     text-decoration: none;
-    color: darkcyan;
+    color: black;
+}
+
+.headerButton svg {
+    fill: #ced6e3
 }
