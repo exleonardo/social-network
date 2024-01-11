@@ -1,20 +1,16 @@
-import React from 'react';
-import ProfileInfo from './ProfileInfo/ProfileInfo';
-
-import MyPosts from "./MyPosts/MyPosts";
-
+import MyPosts from './MyPosts/MyPosts'
+import ProfileInfo from './ProfileInfo/ProfileInfo'
 
 type ProfileTypeProps = {
-  isOwner: boolean;
+  isOwner: boolean
 }
 const Profile = ({ isOwner }: ProfileTypeProps) => {
-
   return (
     <div>
-      <ProfileInfo isOwner={isOwner}/>
-      <MyPosts/>
+      <ProfileInfo isOwner={isOwner} />
+      <MyPosts />
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

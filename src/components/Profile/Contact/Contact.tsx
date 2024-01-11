@@ -1,10 +1,15 @@
-import React from "react";
-import s from "../ProfileInfo/ProfileInfo.module.css";
+import React from 'react'
 
-export const Contact: React.FC<ContactType> = ({ contactTitle , contactValue }) => {
-  return <div className={s.contact}><b>{contactTitle}</b>: {contactValue}</div>
+import s from '../ProfileInfo/profileInfo.module.scss'
+
+export const Contact: React.FC<ContactType> = ({ contactTitle, contactValue }) => {
+  return (
+    <div className={s.contact}>
+      <b>{contactTitle}</b>: {contactValue}
+    </div>
+  )
 }
 type ContactType = {
-  contactTitle: string;
-  contactValue: string | null
+  contactTitle: string
+  contactValue: null | string
 }

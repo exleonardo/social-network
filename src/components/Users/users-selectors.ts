@@ -1,15 +1,14 @@
-import {AppStateType} from "../../redux/redux-store";
-import {createSelector} from "reselect";
+import { createSelector } from 'reselect'
 
-import {UsersInfoType} from "../../API/profile-api";
-
+import { UsersInfoType } from '../../API/profile-api'
+import { AppStateType } from '../../redux/redux-store'
 
 export const getUsersSelector = (state: AppStateType) => {
   return state.usersPage.users
 }
-export const getUsers = createSelector ( getUsersSelector , (users: UsersInfoType[]) => {
+export const getUsers = createSelector(getUsersSelector, (users: UsersInfoType[]) => {
   return users
-} )
+})
 export const getPageSize = (state: AppStateType) => {
   return state.usersPage.pageSize
 }

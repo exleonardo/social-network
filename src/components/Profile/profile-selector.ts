@@ -1,4 +1,4 @@
-import {AppStateType} from "../../redux/redux-store";
+import { AppStateType } from '../../redux/redux-store'
 
 export const getProfile = (state: AppStateType) => {
   return state.profilePage.profile
@@ -17,4 +17,3 @@ export const getMyPosts = (state: AppStateType) => {
 export const getNewPostText = (state: AppStateType) => {
   return state.profilePage.newPostText
 }
-

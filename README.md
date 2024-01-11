@@ -1,39 +1,30 @@
-# Привет, Самурай! 
+# React + TypeScript + Vite
 
-Друзья, для вас мы специально подготовили этот репозиторий. Здесь вы можете взять полностью подготовленный проект для "Пути самурая", где установлены ВСЕ библиотеки нужных версий.
-В процессе прохождения видео-уроков вам не нужно устанавливать пакеты. Просто провейряйте, что библиотека есть в package.json.
-В случае, если ее вы не найдете или заметите неправильную ее работу (отличную от Диминой версии), 
-просим вас написать об этом в Telegram `Валере Сафронову (@safronman)` или `Марго (@margokomilfo)`.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Успехов и позитивного настроения, ребята!!! Летим!🚀🚀🚀
+Currently, two official plugins are available:
 
-В этом стартовом проекте установлены следующие библиотеки
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- **antd** 
-- **axios** 
-- **classnames**
-- **formik**
-- **gh-pages**
-- **jest**
-- **react** and **@types/react**
-- **react-dom** and **@types/react-dom**
-- **react-redux** and **@types/react-redux**
-- **react-router-dom** and **@types/react-router-dom**
-- **react-scripts** 
-- **react-test-renderer** and **@types/react-test-renderer**
-- **redux**
-- **redux-form** and **@types/redux-form**
-- **redux-thunk**
-- **reselect**
-- **typescript** 
-- **uuid** and **@types/uuid**
+## Expanding the ESLint configuration
 
-После git clone 'link' установите все зависимости из package.json:
-### `yarn`
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-а потом запустите проект:
-### `yarn start`
+- Configure the top-level `parserOptions` property like this:
 
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
+```
 
-<hr>
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

@@ -1,75 +1,82 @@
-import {FormikHelpers} from "formik/dist/types";
-import {useFormik} from "formik";
-import React , {memo , useState} from "react";
-import {FormValues , requestUsers} from "../../redux/users-reducer";
-import {useAppDispatch , useAppSelector} from "../../redux/redux-store";
-import {getPageSize , getUsersFilter} from "./users-selectors";
-import Search from "antd/es/input/Search";
-import {Select} from "antd";
-import s from './users.module.css'
+import React, { memo, useState } from 'react'
+
+import { Select } from 'antd'
+import Search from 'antd/es/input/Search'
+import { useFormik } from 'formik'
+import { FormikHelpers } from 'formik/dist/types'
+
+import s from './users.module.scss'
+
+import { useAppDispatch, useAppSelector } from '../../redux/redux-store'
+import { FormValues, requestUsers } from '../../redux/users-reducer'
+import { getPageSize, getUsersFilter } from './users-selectors'
 
 const usersSearchValidate = (values: FormValues): FormValues => {
   const errors = {} as FormValues
-  return errors;
+
+  return errors
 }
 
-export const UsersSearchForm = memo ( () => {
-  const dispatch = useAppDispatch ()
-  const pageSize = useAppSelector ( getPageSize )
-  const filter = useAppSelector ( getUsersFilter )
-  const selectData = [{ value: '' , label: 'All' } ,
-    { value: 'false' , label: 'Only followed' } , { value: 'true' , label: 'Only unfollowed' }]
-  const [options , setOptions] = useState ( filter.friend )
+export const UsersSearchForm = memo(() => {
+  const dispatch = useAppDispatch()
+  const pageSize = useAppSelector(getPageSize)
+  const filter = useAppSelector(getUsersFilter)
+  const selectData = [
+    { label: 'All', value: '' },
+    { label: 'Only followed', value: 'false' },
+    { label: 'Only unfollowed', value: 'true' },
+  ]
+  const [options, setOptions] = useState(filter.friend)
 
-  const submit = (value: FormValues , { setSubmitting }: FormikHelpers<FormValues>) => {
-    const filter = { term: value.term , friend: options }
-    onFilterChanged ( filter )
-    setSubmitting ( false );
+  const submit = (value: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+    const filter = { friend: options, term: value.term }
+
+    onFilterChanged(filter)
+    setSubmitting(false)
   }
-  const formik = useFormik ( {
+  const formik = useFormik({
     initialValues: {
-      term: filter.term ,
-      friend: filter.friend
-    } ,
-    onSubmit: submit
-  } )
+      friend: filter.friend,
+      term: filter.term,
+    },
+    onSubmit: submit,
+  })
   const onFilterChanged = (filter: FormValues) => {
-    dispatch ( requestUsers ( 1 , pageSize , filter ) )
+    dispatch(requestUsers(1, pageSize, filter))
   }
 
   const onSearch = () => {
-    formik.submitForm ()
-  };
+    formik.submitForm()
+  }
+
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <div style={{ display: "flex" , alignItems: 'center' }}>
+        <div style={{ alignItems: 'center', display: 'flex' }}>
           <Search
-            style={{ width: '300px' }}
-            placeholder="Find user"
             allowClear
-            enterButton="Search"
-            size="large"
+            enterButton={'Search'}
             onSearch={onSearch}
-            {...formik.getFieldProps ( 'term' )}
+            placeholder={'Find user'}
+            size={'large'}
+            style={{ width: '300px' }}
+            {...formik.getFieldProps('term')}
           />
           <Select
-            size={'large'}
             className={s.select}
             disabled={formik.isSubmitting}
-            {...formik.getFieldProps ( 'friend' )}
+            size={'large'}
+            {...formik.getFieldProps('friend')}
             labelInValue={false}
-            style={{ width: 200 }}
-            onChange={(value) => {
-              setOptions ( value )
+            onChange={value => {
+              setOptions(value)
             }}
             options={selectData}
+            style={{ width: 200 }}
             value={options}
           />
         </div>
-
-
       </form>
-
-    </>)
-} )
+    </>
+  )
+})
