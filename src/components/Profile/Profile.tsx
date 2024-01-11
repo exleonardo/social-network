@@ -8,7 +8,7 @@ const Profile = ({ isOwner }: ProfileTypeProps) => {
   return (
     <div>
       <ProfileInfo isOwner={isOwner} />
-      <MyPosts />
+      {isOwner && <MyPosts />}
     </div>
   )
 }

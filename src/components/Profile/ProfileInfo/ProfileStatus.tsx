@@ -9,7 +9,7 @@ import { getCurrentUserId } from '../../Login/login-selectors'
 import { getUsersId } from '../../Users/users-selectors'
 import { getStatusProfile } from '../profile-selector'
 
-const ProfileStatusWithHooks = memo(() => {
+const ProfileStatus = memo(() => {
   const statusProfile = useAppSelector(getStatusProfile)
   const dispatch = useAppDispatch()
   const [state, setState] = useState(false)
@@ -69,4 +69,4 @@ const ProfileStatusWithHooks = memo(() => {
   )
 })
 
-export default ProfileStatusWithHooks
+export default ProfileStatus

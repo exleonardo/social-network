@@ -2,65 +2,54 @@ import { Redirect } from 'react-router-dom'
 
 import { login } from '@/redux/auth-reducer'
 import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
-import { required } from '@/utils/validators'
-import { InjectedFormProps, reduxForm } from 'redux-form'
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
+import { Button, Checkbox, Input } from 'antd'
+import { useFormik } from 'formik'
 
-import s from '../common/FormsControls/FormsControls.module.scss'
+import { getIsAuth } from './login-selectors'
 
-import { Input, createField } from '../common/FormsControls/FormsControls'
-import { getInitialized, getIsAuth } from './login-selectors'
+const LoginForm = ({}) => {
+  // const captchaUrl = useAppSelector(getInitialized)
+  const isAuth = useAppSelector(getIsAuth)
+  const dispatch = useAppDispatch()
 
-const LoginForm: React.FC<PropsLoginForm & InjectedFormProps<FormDataType, PropsLoginForm>> = ({
-  captchaUrl,
-  error,
-  handleSubmit,
-}) => {
+  const formik = useFormik({
+    initialValues: {
+      captcha: '',
+      email: '',
+      password: '',
+      rememberMe: false,
+    },
+    onSubmit: formData => {
+      dispatch(login(formData.email, formData.password, formData.rememberMe, formData.captcha))
+    },
+  })
+
+  if (isAuth) {
+    return <Redirect to={'/'} />
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-      {createField<LoginFormValuesTypeKeys>('login', 'login', [required], Input, { type: 'text' })}
-      {createField<LoginFormValuesTypeKeys>('password', 'password', [required], Input, {
-        type: 'password',
-      })}
-      {createField<LoginFormValuesTypeKeys>(
-        null,
-        'rememberMe',
-        [],
-        Input,
-        { type: 'checkbox' },
-        'remember me'
-      )}
-      {captchaUrl && <img alt={'captcha'} src={captchaUrl} />}
-      {captchaUrl &&
-        createField<LoginFormValuesTypeKeys>('Symbols from image', 'captcha', [required], Input, {
-          type: 'text',
-        })}
-      {error && <div className={s.formSummaryError}>{error}</div>}
-      <div>
-        <button>Login</button>
-      </div>
+    <form onSubmit={formik.handleSubmit}>
+      <Input placeholder={'Enter email'} {...formik.getFieldProps('email')} />
+      <Input.Password
+        {...formik.getFieldProps('password')}
+        iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+        placeholder={'Enter password'}
+      />
+      <Checkbox {...formik.getFieldProps('rememberMe')} checked={formik.values.rememberMe}>
+        remember me
+      </Checkbox>
+      <Button htmlType={'submit'}>submit</Button>
     </form>
   )
 }
-const LoginReduxForm = reduxForm<FormDataType, PropsLoginForm>({
-  form: 'login',
-})(LoginForm)
 
 export const Login = () => {
-  const isAuth = useAppSelector(getIsAuth)
-  const captchaUrl = useAppSelector(getInitialized)
-  const dispatch = useAppDispatch()
-  const onSubmit = (formData: FormDataType) => {
-    dispatch(login(formData.login, formData.password, formData.rememberMe, formData.captcha))
-  }
-
-  if (isAuth) {
-    return <Redirect to={'/profile'} />
-  }
-
   return (
     <div>
       <h1>Login</h1>
-      <LoginReduxForm captchaUrl={captchaUrl} onSubmit={onSubmit} />
+      <LoginForm />
     </div>
   )
 }
@@ -73,7 +62,3 @@ export type FormDataType = {
   password: string
   rememberMe: boolean
 }
-type PropsLoginForm = {
-  captchaUrl: null | string
-}
-type LoginFormValuesTypeKeys = keyof FormDataType

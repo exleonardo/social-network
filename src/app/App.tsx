@@ -4,51 +4,35 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import { ChatPage } from '@/components/Chat/ChatPage'
 import { Header } from '@/components/Header/Header'
 import { Login } from '@/components/Login/Login'
-import { getCurrentUserId } from '@/components/Login/login-selectors'
 import { Navbar } from '@/components/Navbar/Menu/Navbar'
 import ProfileMain from '@/components/Profile/ProfileMain'
 import { ResultStatus } from '@/components/Result/ResultStatus'
 import { UsersPage } from '@/components/Users/UsersPage'
 import { Player } from '@/components/Video/Player'
 import { initializeApp } from '@/redux/app-reducer'
-import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
+import { useAppDispatch } from '@/redux/redux-store'
 import { Layout, theme } from 'antd'
 
-import './App.scss'
+import './app.scss'
 
 import Music from '../components/Music/Music'
 import News from '../components/News/News'
 import Setting from '../components/Setting/Setting'
-import Preloader from '../components/common/Preloader/Preloader'
 
 const { Content, Footer, Sider } = Layout
 
 export const App = () => {
   const [collapsed, setCollapsed] = useState(false)
 
-  const authorizedUserId = useAppSelector(getCurrentUserId)
   const dispatch = useAppDispatch()
-
-  const catchAllUnhandleErrors = () => {
-    alert('Some Error')
-  }
 
   useEffect(() => {
     dispatch(initializeApp())
-    window.addEventListener('unhandledrejection', catchAllUnhandleErrors)
-
-    return () => {
-      window.removeEventListener('unhandledrejection', catchAllUnhandleErrors)
-    }
-  }, [authorizedUserId])
+  }, [])
 
   const {
     token: { borderRadiusLG, colorBgContainer },
   } = theme.useToken()
-
-  if (!authorizedUserId) {
-    return <Preloader />
-  }
 
   return (
     <Layout style={{ minHeight: '100vh' }}>

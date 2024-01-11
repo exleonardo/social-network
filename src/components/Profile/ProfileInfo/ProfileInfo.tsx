@@ -12,7 +12,7 @@ import Preloader from '../../common/Preloader/Preloader'
 import { Contact } from '../Contact/Contact'
 import { getProfile } from '../profile-selector'
 import ProfileDataFormReduxForm, { ProfileDataFormType } from './ProfileDataFormType'
-import ProfileStatusWithHooks from './ProfileStatusWithHooks'
+import ProfileStatus from './ProfileStatus'
 
 type ProfileInfoType = {
   isOwner: boolean
@@ -61,7 +61,7 @@ const ProfileInfo = ({ isOwner }: ProfileInfoType) => {
             profile={profile}
           />
         )}
-        <ProfileStatusWithHooks />
+        <ProfileStatus />
       </div>
     </div>
   )

@@ -19,11 +19,15 @@ export default appReducer
 export const initializedSuccess = () => ({ type: 'APP/INITIALIZED-SUCCESS' }) as const
 //Thunk
 export const initializeApp = (): AppThunk => async dispatch => {
-  const promise = dispatch(getAuthUserData())
+  try {
+    const promise = await dispatch(getAuthUserData())
 
-  Promise.all([promise]).then(() => {
-    dispatch(initializedSuccess())
-  })
+    Promise.all([promise]).then(() => {
+      dispatch(initializedSuccess())
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 //Type
 type InitialStateApp = {

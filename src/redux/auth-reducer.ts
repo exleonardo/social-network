@@ -50,12 +50,16 @@ export const getCaptchaUrlSuccess = (captchaUrl: null | string) =>
 
 //thunk
 export const getAuthUserData = (): AppThunk => async dispatch => {
-  const res = await authAPI.me()
+  try {
+    const res = await authAPI.me()
 
-  if (res.data.resultCode === ResultCode.Sucsess) {
-    const { email, id, login } = res.data.data
+    if (res.data.resultCode === ResultCode.Sucsess) {
+      const { email, id, login } = res.data.data
 
-    dispatch(setAuthUserData(id, login, email, true))
+      dispatch(setAuthUserData(id, login, email, true))
+    }
+  } catch (error) {
+    console.log(error)
   }
 }
 export const login =
@@ -82,10 +86,14 @@ export const getCaptchaUrl = (): AppThunk => async dispatch => {
 }
 
 export const logOut = (): AppThunk => async dispatch => {
-  const res = await authAPI.logOut()
+  try {
+    const res = await authAPI.logOut()
 
-  if (res.data.resultCode === ResultCode.Sucsess) {
-    dispatch(setAuthUserData(null, null, null, false))
+    if (res.data.resultCode === ResultCode.Sucsess) {
+      dispatch(setAuthUserData(null, null, null, false))
+    }
+  } catch (error) {
+    console.log(error)
   }
 }
 export default authReducer

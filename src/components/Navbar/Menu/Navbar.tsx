@@ -1,5 +1,7 @@
 import { useHistory } from 'react-router-dom'
 
+import { getIsAuth } from '@/components/Login/login-selectors'
+import { useAppSelector } from '@/redux/redux-store'
 import {
   BookOutlined,
   MessageOutlined,
@@ -14,9 +16,14 @@ import s from './navbar.module.scss'
 
 export const Navbar = () => {
   const history = useHistory()
+  const isAuth = useAppSelector(getIsAuth)
   const moveToPage = (event: { key: string }) => {
-    history.push(`/`)
-    history.push(`${event.key}`)
+    if (isAuth) {
+      history.push(`/`)
+      history.push(`${event.key}`)
+    } else {
+      history.push(`/unautorized`)
+    }
   }
 
   return (
