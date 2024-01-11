@@ -1,15 +1,14 @@
-import React from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Button, Result } from 'antd'
 import { ExceptionStatusType } from 'antd/es/result'
 
-type ResultStatus = {
+type ResultStatusType = {
   buttonTitle: string
   status: ExceptionStatusType
   subTitle: string
 }
-export const ResultStatus = ({ buttonTitle, status, subTitle }: ResultStatus) => {
+export const ResultStatus = ({ buttonTitle, status, subTitle }: ResultStatusType) => {
   const history = useHistory()
   const redirect = () => {
     if (status === '404') {

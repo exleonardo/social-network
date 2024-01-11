@@ -1,11 +1,10 @@
-import React, { ChangeEvent, memo, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { ChangeEvent, memo, useEffect, useState } from 'react'
 
+import { updateStatus } from '@/redux/profile-reducer'
+import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
 import { EditOutlined } from '@ant-design/icons'
 import { Button, Input, message } from 'antd'
 
-import { updateStatus } from '../../../redux/profile-reducer'
-import { useAppDispatch, useAppSelector } from '../../../redux/redux-store'
 import { getCurrentUserId } from '../../Login/login-selectors'
 import { getUsersId } from '../../Users/users-selectors'
 import { getStatusProfile } from '../profile-selector'
@@ -16,13 +15,9 @@ const ProfileStatusWithHooks = memo(() => {
   const [state, setState] = useState(false)
   const [status, setStatus] = useState(statusProfile)
   const [messageApi, contextHolder] = message.useMessage()
-  const location = useLocation()
 
   const userId = useAppSelector(getUsersId)
   const currentUserId = useAppSelector(getCurrentUserId)
-
-  console.log(userId)
-  console.log(currentUserId)
 
   const error = (message: string) => {
     messageApi.open({

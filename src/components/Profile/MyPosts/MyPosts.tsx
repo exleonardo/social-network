@@ -1,12 +1,12 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 
+import { addPostActionCreator } from '@/redux/profile-reducer'
+import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
 import { Button, Input } from 'antd'
 import { useFormik } from 'formik'
 
 import s from './myPosts.module.scss'
 
-import { addPostActionCreator } from '../../../redux/profile-reducer'
-import { useAppDispatch, useAppSelector } from '../../../redux/redux-store'
 import { getMyPosts, getNewPostText } from '../profile-selector'
 import Post from './Post/Post'
 

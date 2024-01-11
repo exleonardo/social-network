@@ -1,4 +1,4 @@
-import { ProfileDataForm } from '../components/Profile/ProfileInfo/ProfileDataForm'
+import { ProfileDataFormType } from '../components/Profile/ProfileInfo/ProfileDataFormType'
 import { Response, instance } from './api'
 
 export const profileAPI = {
@@ -17,7 +17,7 @@ export const profileAPI = {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
   },
-  saveProfile(profile: ProfileDataForm) {
+  saveProfile(profile: ProfileDataFormType) {
     return instance.put<Response>(`profile`, profile)
   },
   updateStatus(status: string) {

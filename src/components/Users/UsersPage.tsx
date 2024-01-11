@@ -1,7 +1,7 @@
-import React from 'react'
 import { Redirect } from 'react-router-dom'
 
-import { useAppSelector } from '../../redux/redux-store'
+import { useAppSelector } from '@/redux/redux-store'
+
 import { getIsAuth } from '../Login/login-selectors'
 import Preloader from '../common/Preloader/Preloader'
 import Users from './Users'

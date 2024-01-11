@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import s from './player.module.scss'
 
@@ -14,7 +14,6 @@ export const Player = memo(() => {
       })
       .then(res => {
         setVideo(res.items)
-        console.log(res)
       })
   }, [])
 

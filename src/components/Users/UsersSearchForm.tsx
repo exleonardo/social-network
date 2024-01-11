@@ -1,5 +1,7 @@
-import React, { memo, useState } from 'react'
+import { memo, useState } from 'react'
 
+import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
+import { FormValues, requestUsers } from '@/redux/users-reducer'
 import { Select } from 'antd'
 import Search from 'antd/es/input/Search'
 import { useFormik } from 'formik'
@@ -7,16 +9,7 @@ import { FormikHelpers } from 'formik/dist/types'
 
 import s from './users.module.scss'
 
-import { useAppDispatch, useAppSelector } from '../../redux/redux-store'
-import { FormValues, requestUsers } from '../../redux/users-reducer'
 import { getPageSize, getUsersFilter } from './users-selectors'
-
-const usersSearchValidate = (values: FormValues): FormValues => {
-  const errors = {} as FormValues
-
-  return errors
-}
-
 export const UsersSearchForm = memo(() => {
   const dispatch = useAppDispatch()
   const pageSize = useAppSelector(getPageSize)

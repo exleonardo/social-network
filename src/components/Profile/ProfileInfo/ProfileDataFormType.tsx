@@ -1,10 +1,8 @@
-import React from 'react'
-
+import { ProfileUserType, UsersContactType } from '@/API/profile-api'
 import { InjectedFormProps, reduxForm } from 'redux-form'
 
 import s from '../../common/FormsControls/FormsControls.module.scss'
 
-import { ProfileUserType, UsersContactType } from '../../../API/profile-api'
 import { Input, Textarea, createField } from '../../common/FormsControls/FormsControls'
 
 export type ProfilePropsFormType = {
@@ -12,7 +10,7 @@ export type ProfilePropsFormType = {
   goToEditMode: () => void
   initialValues: ProfileUserType
 }
-export type ProfileDataForm = {
+export type ProfileDataFormType = {
   aboutMe: string
   contacts: {
     facebook: null | string
@@ -28,7 +26,7 @@ export type ProfileDataForm = {
   lookingForAJob: boolean
   lookingForAJobDescription: string
 }
-type ProfileFormValuesTypeKeys = keyof ProfileDataForm | keyof UsersContactType
+type ProfileFormValuesTypeKeys = keyof ProfileDataFormType | keyof UsersContactType
 
 const ProfileDataForm: React.FC<
   ProfilePropsFormType & InjectedFormProps<ProfileUserType, ProfilePropsFormType>

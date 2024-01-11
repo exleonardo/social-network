@@ -1,23 +1,23 @@
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
+import { ProfileUserType, UsersContactType } from '@/API/profile-api'
+import { savePhoto, saveProfile } from '@/redux/profile-reducer'
+import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
 import { Button } from 'antd'
 
 import s from './profileInfo.module.scss'
 
-import { ProfileUserType, UsersContactType } from '../../../API/profile-api'
 import userPhoto from '../../../assets/images/yoda_star_wars_icon_131348.png'
-import { savePhoto, saveProfile } from '../../../redux/profile-reducer'
-import { useAppDispatch, useAppSelector } from '../../../redux/redux-store'
 import Preloader from '../../common/Preloader/Preloader'
 import { Contact } from '../Contact/Contact'
 import { getProfile } from '../profile-selector'
-import ProfileDataFormReduxForm, { ProfileDataForm } from './ProfileDataForm'
+import ProfileDataFormReduxForm, { ProfileDataFormType } from './ProfileDataFormType'
 import ProfileStatusWithHooks from './ProfileStatusWithHooks'
 
 type ProfileInfoType = {
   isOwner: boolean
 }
-const ProfileInfo: React.FC<ProfileInfoType> = ({ isOwner }: ProfileInfoType) => {
+const ProfileInfo = ({ isOwner }: ProfileInfoType) => {
   const [editMode, setEditMode] = useState(false)
   const profile = useAppSelector(getProfile)
 
@@ -32,7 +32,7 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({ isOwner }: ProfileInfoType) =>
       dispatch(savePhoto(e.target.files[0]))
     }
   }
-  const onSubmit = (formData: ProfileDataForm) => {
+  const onSubmit = (formData: ProfileDataFormType) => {
     dispatch(saveProfile(formData))
       .then(() => setEditMode(false))
       .catch(error => {
@@ -70,12 +70,12 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({ isOwner }: ProfileInfoType) =>
 
 export default ProfileInfo
 
-type ProfileData = {
+type ProfileDataType = {
   goToEditMode: () => void
   isOwner: boolean
   profile: ProfileUserType
 }
-const ProfileData: React.FC<ProfileData> = ({ goToEditMode, isOwner, profile }) => {
+const ProfileData = ({ goToEditMode, isOwner, profile }: ProfileDataType) => {
   return (
     <div>
       {isOwner && (

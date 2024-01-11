@@ -1,6 +1,6 @@
 import { ResultCode } from '@/API/api'
 import { ProfilePhotos, ProfileUserType, profileAPI } from '@/API/profile-api'
-import { ProfileDataForm } from '@/components/Profile/ProfileInfo/ProfileDataForm'
+import { ProfileDataFormType } from '@/components/Profile/ProfileInfo/ProfileDataFormType'
 import { isAxiosError } from 'axios'
 import { stopSubmit } from 'redux-form'
 
@@ -130,7 +130,7 @@ export const savePhoto =
   }
 
 export const saveProfile =
-  (profile: ProfileDataForm): AppThunk =>
+  (profile: ProfileDataFormType): AppThunk =>
   async (dispatch, getState) => {
     const userId = getState().profilePage.profile?.userId
     const res = await profileAPI.saveProfile(profile)
