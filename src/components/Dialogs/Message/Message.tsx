@@ -1,5 +1,3 @@
-import React from 'react'
-
 import s from '../dialogs.module.scss'
 
 type MessageType = {

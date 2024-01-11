@@ -29,6 +29,7 @@ const Users = () => {
 
   useEffect(() => {
     const parsed = new URLSearchParams(location.search.substr(1))
+
     let actualPage = currentPage
     let actualFilter = filter
 

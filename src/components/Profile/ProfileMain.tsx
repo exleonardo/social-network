@@ -1,26 +1,25 @@
 import { useEffect } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
+import { getCurrentUserId } from '@/components/Login/login-selectors'
+import Preloader from '@/components/common/Preloader/Preloader'
 import { getStatus, getUserProfile } from '@/redux/profile-reducer'
 import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
 
 import Profile from './Profile'
-import { getAuthorizedUserId } from './profile-selector'
 
-const ProfileMain = ({
-  history,
-  match: {
-    params: { userId: userID },
-  },
-}: RouteComponentProps<PathParamsType>) => {
+const ProfileMain = () => {
   const dispatch = useAppDispatch()
-  const authorizedUserId = useAppSelector(getAuthorizedUserId)
+  const authorizedUserId = useAppSelector(getCurrentUserId)
+
+  const history = useHistory()
+  let { userId } = useParams() as { userId: string }
+
+  const userID = userId
 
   const refreshProfile = () => {
-    let userId = userID
-
     if (!userId) {
-      userId = !userId ? '29819' : String(authorizedUserId)
+      userId = String(authorizedUserId)
       if (!userId) {
         history.push('/login')
       }
@@ -35,6 +34,9 @@ const ProfileMain = ({
   useEffect(() => {
     refreshProfile()
   }, [userID, authorizedUserId])
+  if (!authorizedUserId) {
+    return <Preloader />
+  }
 
   return (
     <div>
@@ -47,6 +49,6 @@ export default ProfileMain
 
 // //types
 
-type PathParamsType = {
-  userId: string
-}
+// type PathParamsType = {
+//   userId: string
+// }

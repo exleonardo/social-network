@@ -1,15 +1,15 @@
-import { lazy, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 import { ChatPage } from '@/components/Chat/ChatPage'
 import { Header } from '@/components/Header/Header'
 import { Login } from '@/components/Login/Login'
-import { getInitialized } from '@/components/Login/login-selectors'
+import { getCurrentUserId } from '@/components/Login/login-selectors'
 import { MenuNav } from '@/components/Navbar/Menu/MenuNav'
+import ProfileMain from '@/components/Profile/ProfileMain'
 import { ResultStatus } from '@/components/Result/ResultStatus'
 import { UsersPage } from '@/components/Users/UsersPage'
 import { Player } from '@/components/Video/Player'
-import { withSuspense } from '@/hoc/withSuspense'
 import { initializeApp } from '@/redux/app-reducer'
 import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
 import { Layout, theme } from 'antd'
@@ -23,12 +23,10 @@ import Preloader from '../components/common/Preloader/Preloader'
 
 const { Content, Footer, Sider } = Layout
 
-const ProfileContainer = lazy(() => import('../components/Profile/ProfileMain'))
-
 export const App = () => {
   const [collapsed, setCollapsed] = useState(false)
 
-  const initialized = useAppSelector(getInitialized)
+  const authorizedUserId = useAppSelector(getCurrentUserId)
   const dispatch = useAppDispatch()
 
   const catchAllUnhandleErrors = () => {
@@ -42,15 +40,15 @@ export const App = () => {
     return () => {
       window.removeEventListener('unhandledrejection', catchAllUnhandleErrors)
     }
-  }, [initialized])
-
-  if (initialized) {
-    return <Preloader />
-  }
+  }, [authorizedUserId])
 
   const {
     token: { borderRadiusLG, colorBgContainer },
   } = theme.useToken()
+
+  if (!authorizedUserId) {
+    return <Preloader />
+  }
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -81,7 +79,7 @@ export const App = () => {
           <Switch>
             <Route exact path={'/'} render={() => <Redirect to={'/profile'} />} />
             <Route path={'/chat'} render={() => <ChatPage />} />
-            <Route path={'/profile/:userId?'} render={withSuspense(ProfileContainer)} />
+            <Route path={'/profile/:userId?'} render={() => <ProfileMain />} />
             <Route path={'/users'} render={() => <UsersPage />} />
             <Route path={'/login'} render={() => <Login />} />
             <Route path={'/news'} render={() => <News />} />

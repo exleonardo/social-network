@@ -61,7 +61,6 @@ const ProfileInfo = ({ isOwner }: ProfileInfoType) => {
             profile={profile}
           />
         )}
-
         <ProfileStatusWithHooks />
       </div>
     </div>
