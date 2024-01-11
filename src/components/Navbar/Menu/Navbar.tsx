@@ -10,9 +10,9 @@ import {
 } from '@ant-design/icons'
 import { Menu } from 'antd'
 
-import s from './menuNav.module.scss'
+import s from './navbar.module.scss'
 
-export const MenuNav = () => {
+export const Navbar = () => {
   const history = useHistory()
   const moveToPage = (event: { key: string }) => {
     history.push(`/`)

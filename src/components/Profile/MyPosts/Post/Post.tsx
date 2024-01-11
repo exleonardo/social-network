@@ -1,19 +1,16 @@
-import React from 'react'
-
+import { deletePostActionCreator } from '@/redux/profile-reducer'
+import { useAppDispatch } from '@/redux/redux-store'
 import { DeleteOutlined, HeartFilled } from '@ant-design/icons'
 import { Button, Popconfirm, message } from 'antd'
 
 import s from './post.module.scss'
-
-import { deletePostActionCreator } from '../../../../redux/profile-reducer'
-import { useAppDispatch } from '../../../../redux/redux-store'
 
 type PostType = {
   id: number
   likesCount: string
   message: string
 }
-const Post: React.FC<PostType> = props => {
+const Post = (props: PostType) => {
   const dispatch = useAppDispatch()
   const [, contextHolder] = message.useMessage()
 

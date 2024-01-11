@@ -5,7 +5,7 @@ import { ChatPage } from '@/components/Chat/ChatPage'
 import { Header } from '@/components/Header/Header'
 import { Login } from '@/components/Login/Login'
 import { getCurrentUserId } from '@/components/Login/login-selectors'
-import { MenuNav } from '@/components/Navbar/Menu/MenuNav'
+import { Navbar } from '@/components/Navbar/Menu/Navbar'
 import ProfileMain from '@/components/Profile/ProfileMain'
 import { ResultStatus } from '@/components/Result/ResultStatus'
 import { UsersPage } from '@/components/Users/UsersPage'
@@ -62,7 +62,7 @@ export const App = () => {
         trigger={collapsed}
         zeroWidthTriggerStyle={{ display: 'none' }}
       >
-        <MenuNav />
+        <Navbar />
       </Sider>
       <Layout>
         <Header collapsed={collapsed} setCollapsed={setCollapsed} />

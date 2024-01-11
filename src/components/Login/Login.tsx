@@ -1,13 +1,12 @@
-import React from 'react'
 import { Redirect } from 'react-router-dom'
 
+import { login } from '@/redux/auth-reducer'
+import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
+import { required } from '@/utils/validators'
 import { InjectedFormProps, reduxForm } from 'redux-form'
 
 import s from '../common/FormsControls/FormsControls.module.scss'
 
-import { login } from '../../redux/auth-reducer'
-import { useAppDispatch, useAppSelector } from '../../redux/redux-store'
-import { required } from '../../utils/validators'
 import { Input, createField } from '../common/FormsControls/FormsControls'
 import { getInitialized, getIsAuth } from './login-selectors'
 
