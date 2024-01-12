@@ -1,8 +1,6 @@
 import { ResultCode } from '@/API/api'
-import { ProfilePhotos, ProfileUserType, profileAPI } from '@/API/profile-api'
-import { ProfileDataFormType } from '@/components/Profile/ProfileInfo/ProfileDataFormType'
+import { ProfileDataFormType, ProfilePhotos, ProfileUserType, profileAPI } from '@/API/profile-api'
 import { isAxiosError } from 'axios'
-import { stopSubmit } from 'redux-form'
 
 import { sendMessageCreator } from './dialogs-reducer'
 import { AppThunk } from './redux-store'
@@ -137,31 +135,52 @@ export const saveProfile =
   (profile: ProfileDataFormType): AppThunk =>
   async (dispatch, getState) => {
     const userId = getState().profilePage.profile?.userId
-    const res = await profileAPI.saveProfile(profile)
 
-    if (res.data.resultCode === ResultCode.Sucsess) {
-      if (userId) {
-        await dispatch(getUserProfile(userId))
-      } else {
-        throw new Error("UserId can't be null")
+    try {
+      const res = await profileAPI.saveProfile(profile)
+
+      if (res.data.resultCode === ResultCode.Sucsess) {
+        if (userId) {
+          await dispatch(getUserProfile(userId))
+        } else {
+          throw new Error("UserId can't be null")
+        }
+
+        return Promise.resolve()
+      } else if (res.data.resultCode === ResultCode.Error) {
+        const findString = res.data.messages[0].split(' ')
+        const titleError = findString[findString.length - 1].split(' ').join('')
+        const indexFind = titleError.split('').findIndex(el => el === '>')
+        const nameError = titleError.slice(indexFind + 1, titleError.length - 1)
+        const firstLetterLowerCase = nameError[0].toLowerCase() + nameError.slice(1)
+
+        // dispatch(
+        //   stopSubmit('edit-profile', {
+        //     contacts: { [firstLetterLowerCase]: res.data.messages[0] },
+        //   })
+        // )
+
+        return Promise.reject({ field: firstLetterLowerCase, message: res.data.messages[0] })
       }
-
-      return Promise.resolve()
-    } else if (res.data.resultCode === ResultCode.Error) {
-      const findString = res.data.messages[0].split(' ')
-      const titleError = findString[findString.length - 1].split(' ').join('')
-      const indexFind = titleError.split('').findIndex(el => el === '>')
-      const nameError = titleError.slice(indexFind + 1, titleError.length - 1)
-      const firstLetterLowerCase = nameError[0].toLowerCase() + nameError.slice(1)
-
-      dispatch(
-        stopSubmit('edit-profile', {
-          contacts: { [firstLetterLowerCase]: res.data.messages[0] },
-        })
-      )
-
-      return Promise.reject(res.data.messages[0])
+    } catch (error) {
+      console.log(error)
     }
+    // else if (res.data.resultCode === ResultCode.Error) {
+    //     const findString = res.data.messages[0].split(' ')
+    //     const titleError = findString[findString.length - 1].split(' ').join('')
+    //     const indexFind = titleError.split('').findIndex(el => el === '>')
+    //     const nameError = titleError.slice(indexFind + 1, titleError.length - 1)
+    //     const firstLetterLowerCase = nameError[0].toLowerCase() + nameError.slice(1)
+    //
+    //     dispatch(
+    //       stopSubmit('edit-profile', {
+    //         contacts: { [firstLetterLowerCase]: res.data.messages[0] },
+    //       })
+    //     )
+    //
+    //     return Promise.reject(res.data.messages[0])
+    //   }
+    // }
   }
 
 //types

@@ -6,7 +6,6 @@ import {
   BookOutlined,
   MessageOutlined,
   PlayCircleOutlined,
-  StepForwardOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons'
@@ -50,11 +49,6 @@ export const Navbar = () => {
           icon: <BookOutlined rev={undefined} />,
           key: 'news',
           label: 'News',
-        },
-        {
-          icon: <StepForwardOutlined rev={undefined} />,
-          key: 'music',
-          label: 'Music',
         },
         {
           icon: <PlayCircleOutlined rev={undefined} />,

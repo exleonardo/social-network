@@ -1,5 +1,3 @@
-import { ProfileDataFormType } from '@/components/Profile/ProfileInfo/ProfileDataFormType'
-
 import { Response, instance } from './api'
 
 export const profileAPI = {
@@ -56,4 +54,20 @@ export type UsersInfoType = {
   name: string
   photos: ProfilePhotos
   status: string
+}
+export type ProfileDataFormType = {
+  aboutMe: string
+  contacts: {
+    facebook: null | string
+    github: null | string
+    instagram: null | string
+    mainLink: null | string
+    twitter: null | string
+    vk: null | string
+    website: null | string
+    youtube: null | string
+  }
+  fullName: string
+  lookingForAJob: boolean
+  lookingForAJobDescription: string
 }

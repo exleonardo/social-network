@@ -6,10 +6,6 @@ export const getProfile = (state: AppStateType) => {
 export const getStatusProfile = (state: AppStateType) => {
   return state.profilePage.status
 }
-export const getAuthorizedUserId = (state: AppStateType) => {
-  return state.profilePage.profile?.userId
-}
-
 export const getMyPosts = (state: AppStateType) => {
   return state.profilePage.posts
 }

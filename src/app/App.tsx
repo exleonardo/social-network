@@ -15,7 +15,6 @@ import { Layout, theme } from 'antd'
 
 import './app.scss'
 
-import Music from '../components/Music/Music'
 import News from '../components/News/News'
 import Setting from '../components/Setting/Setting'
 
@@ -35,7 +34,7 @@ export const App = () => {
   } = theme.useToken()
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ margin: '0 auto', minHeight: '100vh', width: '70vw' }}>
       <Sider
         className={'menu'}
         collapsed={collapsed}
@@ -67,7 +66,6 @@ export const App = () => {
             <Route path={'/users'} render={() => <UsersPage />} />
             <Route path={'/login'} render={() => <Login />} />
             <Route path={'/news'} render={() => <News />} />
-            <Route path={'/music'} render={() => <Music />} />
             <Route path={'/video'} render={() => <Player />} />
             <Route path={'/setting'} render={() => <Setting />} />
             <Route
@@ -92,7 +90,7 @@ export const App = () => {
             />
           </Switch>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
+        <Footer style={{ paddingBottom: '30px', paddingTop: 0, textAlign: 'center' }}>
           Alexander Khomenok Design Created ©{new Date().getFullYear()}
         </Footer>
       </Layout>

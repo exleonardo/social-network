@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from 'react'
 
 import { ProfileUserType, UsersContactType } from '@/API/profile-api'
-import { savePhoto, saveProfile } from '@/redux/profile-reducer'
+import { savePhoto } from '@/redux/profile-reducer'
 import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
-import { Button } from 'antd'
+import { Button, Modal } from 'antd'
 
 import s from './profileInfo.module.scss'
 
@@ -11,7 +11,7 @@ import userPhoto from '../../../assets/images/yoda_star_wars_icon_131348.png'
 import Preloader from '../../common/Preloader/Preloader'
 import { Contact } from '../Contact/Contact'
 import { getProfile } from '../profile-selector'
-import ProfileDataFormReduxForm, { ProfileDataFormType } from './ProfileDataFormType'
+import ProfileDataForm from './ProfileDataFormType'
 import ProfileStatus from './ProfileStatus'
 
 type ProfileInfoType = {
@@ -32,35 +32,27 @@ const ProfileInfo = ({ isOwner }: ProfileInfoType) => {
       dispatch(savePhoto(e.target.files[0]))
     }
   }
-  const onSubmit = (formData: ProfileDataFormType) => {
-    dispatch(saveProfile(formData))
-      .then(() => setEditMode(false))
-      .catch(error => {
-        console.log(error)
-      })
+
+  const goToEditMode = () => {
+    setEditMode(!editMode)
   }
 
   return (
     <div>
       <div className={s.descriptionBlock}>
         <img alt={''} src={profile.photos.large || userPhoto} />
+        <Modal
+          centered
+          footer={null}
+          okText={'Save'}
+          onCancel={() => setEditMode(!editMode)}
+          open={editMode}
+          title={'About Me'}
+        >
+          <ProfileDataForm goToEditMode={setEditMode} />
+        </Modal>
         {isOwner && <input onChange={mainPhotoSelected} type={'file'} />}
-        {editMode ? (
-          <ProfileDataFormReduxForm
-            editMode={editMode}
-            goToEditMode={() => setEditMode(!editMode)}
-            initialValues={profile}
-            onSubmit={onSubmit}
-          />
-        ) : (
-          <ProfileData
-            goToEditMode={() => {
-              setEditMode(!editMode)
-            }}
-            isOwner={isOwner}
-            profile={profile}
-          />
-        )}
+        <ProfileData goToEditMode={goToEditMode} isOwner={isOwner} profile={profile} />
         <ProfileStatus />
       </div>
     </div>
