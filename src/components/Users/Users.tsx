@@ -78,13 +78,9 @@ const Users = () => {
   return (
     <div className={s.users}>
       <UsersSearchForm />
-
-      <div className={s.user}>
-        {users.map(user => (
-          <User key={user.id} user={user} />
-        ))}
-      </div>
-
+      {users.map(user => (
+        <User key={user.id} user={user} />
+      ))}
       <Pagination
         className={s.pagination}
         current={currentPage}
@@ -97,5 +93,6 @@ const Users = () => {
     </div>
   )
 }
+//className={s.user}
 
 export default Users

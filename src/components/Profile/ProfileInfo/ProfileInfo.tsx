@@ -16,7 +16,7 @@ import ProfileStatus from './ProfileStatus'
 type ProfileInfoType = {
   isOwner: boolean
 }
-const ProfileInfo = ({ isOwner }: ProfileInfoType) => {
+export const ProfileInfo = ({ isOwner }: ProfileInfoType) => {
   const [editMode, setEditMode] = useState(false)
   const profile = useAppSelector(getProfile)
 
@@ -49,5 +49,3 @@ const ProfileInfo = ({ isOwner }: ProfileInfoType) => {
     </>
   )
 }
-
-export default ProfileInfo

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
 
 import Profile from './Profile'
 
-const ProfileMain = () => {
+export const ProfileMain = () => {
   const dispatch = useAppDispatch()
   const authorizedUserId = useAppSelector(getCurrentUserId)
   const isAuth = useAppSelector(getIsAuth)
@@ -34,5 +34,3 @@ const ProfileMain = () => {
     </div>
   )
 }
-
-export default ProfileMain

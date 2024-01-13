@@ -45,7 +45,7 @@ export const UsersSearchForm = memo(() => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <div style={{ alignItems: 'center', display: 'flex' }}>
+        <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
           <Search
             allowClear
             enterButton={'Search'}
