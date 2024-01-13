@@ -1,3 +1,5 @@
+import { UploadFile } from 'antd'
+
 import { Response, instance } from './api'
 
 export const profileAPI = {
@@ -7,12 +9,8 @@ export const profileAPI = {
   getStatus(userId: string) {
     return instance.get<string>(`profile/status/${userId}`)
   },
-  savePhoto(photo: File) {
-    const formDate = new FormData()
-
-    formDate.append('image', photo)
-
-    return instance.put<Response<ProfilePhotos>>('profile/photo/', formDate, {
+  savePhoto(photo: UploadFile) {
+    return instance.put<Response<ProfilePhotos>>('profile/photo/', photo, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
   },

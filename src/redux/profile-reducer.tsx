@@ -1,5 +1,6 @@
 import { ResultCode } from '@/API/api'
 import { ProfileDataFormType, ProfilePhotos, ProfileUserType, profileAPI } from '@/API/profile-api'
+import { UploadFile } from 'antd'
 import { isAxiosError } from 'axios'
 
 import { sendMessageCreator } from './dialogs-reducer'
@@ -122,13 +123,18 @@ export const updateStatus =
   }
 
 export const savePhoto =
-  (file: File): AppThunk =>
+  (file: UploadFile<any>): AppThunk =>
   async dispatch => {
-    const res = await profileAPI.savePhoto(file)
+    try {
+      const res = await profileAPI.savePhoto(file)
 
-    if (res.data.resultCode === ResultCode.Sucsess) {
-      dispatch(savePhotoSuccess(res.data.data))
-    }
+      if (res.data.resultCode === ResultCode.Sucsess) {
+        dispatch(savePhotoSuccess(res.data.data))
+      }
+      if (res.data.resultCode === ResultCode.Error) {
+        return Promise.reject(res.data.messages[0])
+      }
+    } catch (error) {}
   }
 
 export const saveProfile =
@@ -154,33 +160,11 @@ export const saveProfile =
         const nameError = titleError.slice(indexFind + 1, titleError.length - 1)
         const firstLetterLowerCase = nameError[0].toLowerCase() + nameError.slice(1)
 
-        // dispatch(
-        //   stopSubmit('edit-profile', {
-        //     contacts: { [firstLetterLowerCase]: res.data.messages[0] },
-        //   })
-        // )
-
         return Promise.reject({ field: firstLetterLowerCase, message: res.data.messages[0] })
       }
     } catch (error) {
       console.log(error)
     }
-    // else if (res.data.resultCode === ResultCode.Error) {
-    //     const findString = res.data.messages[0].split(' ')
-    //     const titleError = findString[findString.length - 1].split(' ').join('')
-    //     const indexFind = titleError.split('').findIndex(el => el === '>')
-    //     const nameError = titleError.slice(indexFind + 1, titleError.length - 1)
-    //     const firstLetterLowerCase = nameError[0].toLowerCase() + nameError.slice(1)
-    //
-    //     dispatch(
-    //       stopSubmit('edit-profile', {
-    //         contacts: { [firstLetterLowerCase]: res.data.messages[0] },
-    //       })
-    //     )
-    //
-    //     return Promise.reject(res.data.messages[0])
-    //   }
-    // }
   }
 
 //types

@@ -6,8 +6,8 @@ import {
   BookOutlined,
   MessageOutlined,
   PlayCircleOutlined,
+  TeamOutlined,
   UserOutlined,
-  VideoCameraOutlined,
 } from '@ant-design/icons'
 import { Menu } from 'antd'
 
@@ -36,7 +36,7 @@ export const Navbar = () => {
           label: 'Profile',
         },
         {
-          icon: <VideoCameraOutlined rev={undefined} />,
+          icon: <TeamOutlined rev={undefined} />,
           key: 'users',
           label: 'Users',
         },

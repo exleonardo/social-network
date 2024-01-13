@@ -50,7 +50,6 @@ const ProfileDataForm = memo(({ goToEditMode }: ProfileDataFormType) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      {/*{error && <div className={s.formSummaryError}>{error}</div>}*/}
       <div>
         <b>Full name</b>:
         <Input

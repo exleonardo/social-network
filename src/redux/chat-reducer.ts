@@ -27,13 +27,15 @@ export const chatReducer = (
           })),
         ].filter((_m, index, arr) => index >= arr.length - 100),
       }
+    case 'CHAT/CLEAR-MESSAGES':
+      return { ...state, messages: [] }
     case 'CHAT/SET-STATUS':
       return { ...state, status: action.payload.status }
     default:
       return state
   }
 }
-
+export const clearMessages = () => ({ type: 'CHAT/CLEAR-MESSAGES' }) as const
 export const setMessages = (messages: ChatMessage[]) =>
   ({ payload: { messages }, type: 'CHAT/SET-MESSAGES' }) as const
 export const setStatus = (status: StatusType) =>
@@ -67,9 +69,10 @@ export const startMessageListening = (): AppThunk => async dispatch => {
   chatAPI.subscribeOnMessages('status-changed', statusChangeHandler(dispatch))
 }
 export const stopMessageListening = (): AppThunk => async dispatch => {
+  chatAPI.stop()
   chatAPI.unsubscribeFromNewMessages('messages-received', newMessageHandler(dispatch))
   chatAPI.unsubscribeFromNewMessages('status-changed', statusChangeHandler(dispatch))
-  chatAPI.stop()
+  dispatch(clearMessages())
 }
 
 export const sendMessage =
@@ -78,4 +81,7 @@ export const sendMessage =
     chatAPI.sendMessage(message)
   }
 
-export type ChatReducerActionType = ReturnType<typeof setMessages> | ReturnType<typeof setStatus>
+export type ChatReducerActionType =
+  | ReturnType<typeof clearMessages>
+  | ReturnType<typeof setMessages>
+  | ReturnType<typeof setStatus>

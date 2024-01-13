@@ -1,6 +1,11 @@
 .player {
+  overflow-y: auto;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.video {
+  margin: 10px;
 }
