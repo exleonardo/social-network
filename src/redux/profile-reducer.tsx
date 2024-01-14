@@ -1,9 +1,9 @@
 import { ResultCode } from '@/API/api'
 import { ProfileDataFormType, ProfilePhotos, ProfileUserType, profileAPI } from '@/API/profile-api'
+import { toggleIsFetching } from '@/redux/users-reducer'
 import { UploadFile } from 'antd'
 import { isAxiosError } from 'axios'
 
-import { sendMessageCreator } from './dialogs-reducer'
 import { AppThunk } from './redux-store'
 import { PostsType } from './store'
 
@@ -46,6 +46,8 @@ const profileReducer = (
       }
 
       return { ...state }
+    case 'PROFILE/CLEAR-USER-PROFILE':
+      return { ...state, profile: null }
     default:
       return state
   }
@@ -77,14 +79,20 @@ export const savePhotoSuccess = (photos: ProfilePhotos) =>
     photos,
     type: 'PROFILE/SAVE-PHOTO-SUCCESS',
   }) as const
+export const clearUserProfile = () =>
+  ({
+    type: 'PROFILE/CLEAR-USER-PROFILE',
+  }) as const
 //Thunk
 export const getUserProfile =
   (userId: null | string): AppThunk =>
   async dispatch => {
+    dispatch(toggleIsFetching(true))
     try {
       const response = await profileAPI.getProfileUser(userId)
 
       dispatch(setUserProfile(response.data))
+      dispatch(toggleIsFetching(false))
     } catch (error) {
       console.log(error)
     }
@@ -134,20 +142,22 @@ export const savePhoto =
       if (res.data.resultCode === ResultCode.Error) {
         return Promise.reject(res.data.messages[0])
       }
-    } catch (error) {}
+    } catch (error) {
+      /* empty */
+    }
   }
 
 export const saveProfile =
   (profile: ProfileDataFormType): AppThunk =>
   async (dispatch, getState) => {
-    const userId = getState().profilePage.profile?.userId
+    const userId = getState().auth.id
 
     try {
       const res = await profileAPI.saveProfile(profile)
 
       if (res.data.resultCode === ResultCode.Sucsess) {
         if (userId) {
-          await dispatch(getUserProfile(userId))
+          await dispatch(getUserProfile(userId.toString()))
         } else {
           throw new Error("UserId can't be null")
         }
@@ -170,9 +180,9 @@ export const saveProfile =
 //types
 export type ProfileReducerActionType =
   | ReturnType<typeof addPostActionCreator>
+  | ReturnType<typeof clearUserProfile>
   | ReturnType<typeof deletePostActionCreator>
   | ReturnType<typeof savePhotoSuccess>
-  | ReturnType<typeof sendMessageCreator>
   | ReturnType<typeof setStatusAC>
   | ReturnType<typeof setUserProfile>
 
