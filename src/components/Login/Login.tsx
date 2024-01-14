@@ -1,17 +1,19 @@
 import { Redirect } from 'react-router-dom'
 
-import { login } from '@/redux/auth-reducer'
+import { clearCaptchaUrl, login } from '@/redux/auth-reducer'
 import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import { Button, Checkbox, Input } from 'antd'
+import { Checkbox } from 'antd'
 import { useFormik } from 'formik'
 
-import { getIsAuth } from './login-selectors'
+import s from './login.module.scss'
 
-const LoginForm = ({}) => {
-  // const captchaUrl = useAppSelector(getInitialized)
+import { getCaptchaUrl, getIsAuth } from './auth-selectors'
+
+export const Login = () => {
   const isAuth = useAppSelector(getIsAuth)
   const dispatch = useAppDispatch()
+
+  const captcha = useAppSelector(getCaptchaUrl)
 
   const formik = useFormik({
     initialValues: {
@@ -20,8 +22,21 @@ const LoginForm = ({}) => {
       password: '',
       rememberMe: false,
     },
-    onSubmit: formData => {
+    onSubmit: (formData, formikHelpers) => {
+      formikHelpers.setSubmitting(true)
       dispatch(login(formData.email, formData.password, formData.rememberMe, formData.captcha))
+        .then(res => {
+          if (res.length) {
+            formik.setFieldError('email', res)
+          } else if (res.login) {
+            /* empty */
+          }
+          formik.setFieldError(res.field, res.error)
+        })
+        .finally(() => {
+          formikHelpers.setSubmitting(false)
+          dispatch(clearCaptchaUrl())
+        })
     },
   })
 
@@ -30,35 +45,61 @@ const LoginForm = ({}) => {
   }
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <Input placeholder={'Enter email'} {...formik.getFieldProps('email')} />
-      <Input.Password
-        {...formik.getFieldProps('password')}
-        iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-        placeholder={'Enter password'}
-      />
-      <Checkbox {...formik.getFieldProps('rememberMe')} checked={formik.values.rememberMe}>
-        remember me
-      </Checkbox>
-      <Button htmlType={'submit'}>submit</Button>
-    </form>
+    <>
+      <form className={s.loginForm} onSubmit={formik.handleSubmit}>
+        <div className={s.loginText}>Login</div>
+        <div className={s.description}>
+          To log in get registered <a href={'https://social-network.samuraijs.com/'}>here</a> or use
+          common test account credentials:<p>Email: free@samuraijs.com</p> <p>Password: free</p>
+        </div>
+        <div>
+          <input
+            {...formik.getFieldProps('email')}
+            autoFocus
+            className={s.loginUsername}
+            placeholder={'Email'}
+          />
+          {formik.errors.email && <div style={{ color: 'red' }}>{formik.errors.email}</div>}
+          <input
+            {...formik.getFieldProps('password')}
+            className={s.loginPassword}
+            placeholder={'Password'}
+            type={'password'}
+          />
+          {formik.errors.password && <div style={{ color: 'red' }}>{formik.errors.password}</div>}
+        </div>
+
+        {captcha && (
+          <div className={s.captcha}>
+            <img alt={'captcha'} src={captcha} />
+            <input {...formik.getFieldProps('captcha')} className={s.loginPassword} type={'text'} />
+            <div style={{ color: 'red' }}>{formik.errors.captcha}</div>
+          </div>
+        )}
+        <div className={s.rememberMe}>
+          <Checkbox
+            className={s.checkbox}
+            {...formik.getFieldProps('rememberMe')}
+            checked={formik.values.rememberMe}
+          >
+            Remember me
+          </Checkbox>
+          <a
+            className={s.loginForgotPass}
+            href={'https://social-network.samuraijs.com/'}
+            rel={'noreferrer'}
+            target={'_blank'}
+          >
+            forgot password?
+          </a>
+        </div>
+        <button className={s.button} disabled={formik.isSubmitting} type={'submit'}>
+          login
+        </button>
+      </form>
+
+      <div className={s.underlayPhoto}></div>
+      <div className={s.underlayBlack}></div>
+    </>
   )
-}
-
-export const Login = () => {
-  return (
-    <div>
-      <h1>Login</h1>
-      <LoginForm />
-    </div>
-  )
-}
-
-//type
-
-export type FormDataType = {
-  captcha: null | string
-  login: string
-  password: string
-  rememberMe: boolean
 }
