@@ -93,6 +93,5 @@ const Users = () => {
     </div>
   )
 }
-//className={s.user}
 
 export default Users
