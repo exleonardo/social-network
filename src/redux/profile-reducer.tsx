@@ -94,7 +94,7 @@ export const getUserProfile =
       dispatch(setUserProfile(response.data))
       dispatch(toggleIsFetching(false))
     } catch (error) {
-      console.log(error)
+      /* empty */
     }
   }
 
@@ -172,9 +172,7 @@ export const saveProfile =
 
         return Promise.reject({ field: firstLetterLowerCase, message: res.data.messages[0] })
       }
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
 
 //types

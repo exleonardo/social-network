@@ -67,7 +67,7 @@ export const getAuthUserData = (): AppThunk => async dispatch => {
       return res.data
     }
   } catch (error) {
-    console.log(error)
+    /* empty */
   }
 }
 export const login =
@@ -81,7 +81,6 @@ export const login =
 
         return res.data
       } else if (res.data.resultCode === ResultCode.Error) {
-        console.log(res.data)
         const message =
           res.data.messages.length > 0 ? res.data.messages[0] : res.data.fieldsErrors[0]
 
@@ -94,7 +93,7 @@ export const login =
         }
       }
     } catch (e) {
-      console.log(e)
+      /* empty */
     }
   }
 export const getCaptchaUrl = (): AppThunk => async dispatch => {
