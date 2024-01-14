@@ -1,5 +1,8 @@
 import { memo } from 'react'
 
+import { getInitialized } from '@/components/Login/auth-selectors'
+import { getIsFetching } from '@/components/Users/users-selectors'
+import Preloader from '@/components/common/Preloader/Preloader'
 import { addPostActionCreator } from '@/redux/profile-reducer'
 import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
 import { Button, Input } from 'antd'
@@ -14,7 +17,8 @@ const MyPosts = memo(() => {
   const { TextArea } = Input
   const posts = useAppSelector(getMyPosts)
   const dispatch = useAppDispatch()
-
+  const initialized = useAppSelector(getInitialized)
+  const isFetching = useAppSelector(getIsFetching)
   const onAddPost = (value: AddNewPostFormType) => {
     dispatch(addPostActionCreator(value.newPostText))
   }
@@ -29,6 +33,10 @@ const MyPosts = memo(() => {
   const postsElements = posts.map(el => (
     <Post id={el.id} key={el.id} likesCount={el.likesCount} message={el.message} />
   ))
+
+  if (isFetching || initialized) {
+    return <Preloader fullscreen={false} />
+  }
 
   return (
     <div className={s.postsBlock}>
