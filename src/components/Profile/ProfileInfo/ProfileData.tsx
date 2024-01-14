@@ -10,11 +10,7 @@ type ProfileDataType = {
 export const ProfileData = ({ goToEditMode, isOwner, profile }: ProfileDataType) => {
   return (
     <div>
-      {isOwner && (
-        <div>
-          <Button onClick={goToEditMode}>Edit</Button>
-        </div>
-      )}
+      {isOwner && <Button onClick={goToEditMode}>Edit</Button>}
       <div>
         <b>Full name</b>: {profile.fullName}
       </div>
