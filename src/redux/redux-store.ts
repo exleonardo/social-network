@@ -8,7 +8,6 @@ import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import appReducer from './app-reducer'
 import authReducer, { AuthReducerActionType } from './auth-reducer'
 import { ChatReducerActionType, chatReducer } from './chat-reducer'
-import dialogsReducer from './dialogs-reducer'
 import profileReducer, { ProfileReducerActionType } from './profile-reducer'
 import SidebarReducer from './sidebar-reducer'
 import usersReducer, { UserReducerActionType } from './users-reducer'
@@ -17,7 +16,6 @@ export const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
   chat: chatReducer,
-  dialogsPage: dialogsReducer,
   form: formReducer,
   profilePage: profileReducer,
   sidebar: SidebarReducer,
