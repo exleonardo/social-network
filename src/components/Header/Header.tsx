@@ -7,7 +7,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import s from './header.module.scss'
 
 import { Button } from '../../../node_modules/antd/es/index'
-import { getIsAuth, getLogin } from '../Login/login-selectors'
+import { getIsAuth, getLogin } from '../Login/auth-selectors'
 
 type HeaderType = {
   collapsed: boolean
