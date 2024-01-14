@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { ProfileData } from '@/components/Profile/ProfileInfo/ProfileData'
+import { getIsFetching } from '@/components/Users/users-selectors'
 import { UploadFoto } from '@/components/upload/UploadFoto'
 import { useAppSelector } from '@/redux/redux-store'
 import { Modal } from 'antd'
@@ -19,9 +20,10 @@ type ProfileInfoType = {
 export const ProfileInfo = ({ isOwner }: ProfileInfoType) => {
   const [editMode, setEditMode] = useState(false)
   const profile = useAppSelector(getProfile)
+  const isFetching = useAppSelector(getIsFetching)
 
-  if (!profile) {
-    return <Preloader />
+  if (isFetching || !profile) {
+    return <Preloader fullscreen={false} />
   }
 
   const goToEditMode = () => {
@@ -31,7 +33,7 @@ export const ProfileInfo = ({ isOwner }: ProfileInfoType) => {
   return (
     <>
       <div className={s.descriptionBlock}>
-        <img alt={''} src={profile.photos.large || userPhoto} style={{ borderRadius: '50%' }} />
+        <img alt={''} src={profile?.photos.large || userPhoto} style={{ borderRadius: '50%' }} />
         {isOwner && <UploadFoto />}
         <ProfileStatus />
         <ProfileData goToEditMode={goToEditMode} isOwner={isOwner} profile={profile} />
