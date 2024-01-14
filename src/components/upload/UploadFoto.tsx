@@ -13,7 +13,7 @@ export const UploadFoto = () => {
   const profile = useAppSelector(getProfile)
 
   if (!profile) {
-    return <Preloader />
+    return <Preloader fullscreen />
   }
   const props: UploadProps = {
     action: 'https://social-network.samuraijs.com/api/1.0/profile/photo',
