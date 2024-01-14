@@ -1,17 +1,12 @@
 import { ProfileUserType } from '@/API/profile-api'
 
-import { sendMessageCreator } from './dialogs-reducer'
-import { addPostActionCreator } from './profile-reducer'
-
-type ActionType = ReturnType<typeof addPostActionCreator> | ReturnType<typeof sendMessageCreator>
-
-export type StoreType = {
-  _callSubscriber: (state: RootStateType) => void
-  _state: RootStateType
-  dispatch: (action: ActionType) => void
-  getState: () => RootStateType
-  subscribe: (observer: (state: RootStateType) => void) => void
-}
+// export type StoreType = {
+//   _callSubscriber: (state: RootStateType) => void
+//   _state: RootStateType
+//   dispatch: (action: ActionType) => void
+//   getState: () => RootStateType
+//   subscribe: (observer: (state: RootStateType) => void) => void
+// }
 
 // let store: StoreType = {
 //   _callSubscriber(state: RootStateType) {},
