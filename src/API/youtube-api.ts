@@ -8,7 +8,7 @@ export const youtubeApi = {
   },
 }
 
-type Items = {
+export type Items = {
   etag: string
   id: string
   kind: string
