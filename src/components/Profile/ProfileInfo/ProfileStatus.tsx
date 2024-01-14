@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
 import { EditOutlined } from '@ant-design/icons'
 import { Button, Input, message } from 'antd'
 
-import { getCurrentUserId } from '../../Login/login-selectors'
+import { getCurrentUserId } from '../../Login/auth-selectors'
 import { getUsersId } from '../../Users/users-selectors'
 import { getStatusProfile } from '../profile-selector'
 
