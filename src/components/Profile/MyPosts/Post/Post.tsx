@@ -1,5 +1,5 @@
+import { useAppDispatch } from '@/app/redux-store'
 import { deletePostActionCreator } from '@/redux/profile-reducer'
-import { useAppDispatch } from '@/redux/redux-store'
 import { DeleteOutlined, HeartFilled } from '@ant-design/icons'
 import { Button, Popconfirm, message } from 'antd'
 
