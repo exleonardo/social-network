@@ -1,8 +1,8 @@
 import { memo } from 'react'
 
+import { useAppDispatch, useAppSelector } from '@/app/redux-store'
 import { getProfile } from '@/components/Profile/profile-selector'
 import { saveProfile } from '@/redux/profile-reducer'
-import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
 import { Button, Checkbox, Input } from 'antd'
 import { useFormik } from 'formik'
 

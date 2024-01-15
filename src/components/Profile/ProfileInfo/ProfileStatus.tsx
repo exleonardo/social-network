@@ -1,7 +1,7 @@
 import { ChangeEvent, memo, useEffect, useState } from 'react'
 
+import { useAppDispatch, useAppSelector } from '@/app/redux-store'
 import { updateStatus } from '@/redux/profile-reducer'
-import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
 import { EditOutlined } from '@ant-design/icons'
 import { Button, Input, message } from 'antd'
 
