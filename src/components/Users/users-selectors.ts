@@ -1,5 +1,5 @@
 import { UsersInfoType } from '@/API/profile-api'
-import { AppStateType } from '@/redux/redux-store'
+import { AppStateType } from '@/app/redux-store'
 import { createSelector } from 'reselect'
 
 export const getUsersSelector = (state: AppStateType) => {
