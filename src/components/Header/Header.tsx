@@ -1,7 +1,9 @@
 import { NavLink } from 'react-router-dom'
 
+import { useAppDispatch, useAppSelector } from '@/app/redux-store'
+import { getCollapsed } from '@/components/Profile/profile-selector'
 import { logOut } from '@/redux/auth-reducer'
-import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
+import { setCollapsed } from '@/redux/profile-reducer'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 
 import s from './header.module.scss'
@@ -9,14 +11,14 @@ import s from './header.module.scss'
 import { Button } from '../../../node_modules/antd/es/index'
 import { getIsAuth, getLogin } from '../Login/auth-selectors'
 
-type HeaderType = {
-  collapsed: boolean
-  setCollapsed: (collapsed: boolean) => void
-}
-export const Header = ({ collapsed, setCollapsed }: HeaderType) => {
+export const Header = () => {
   const dispatch = useAppDispatch()
   const isAuth = useAppSelector(getIsAuth)
   const login = useAppSelector(getLogin)
+  const collapsed = useAppSelector(getCollapsed)
+  const profileCollapsed = () => {
+    dispatch(setCollapsed(!collapsed))
+  }
 
   const loggedOut = () => {
     dispatch(logOut())
@@ -29,7 +31,7 @@ export const Header = ({ collapsed, setCollapsed }: HeaderType) => {
         icon={
           collapsed ? <MenuUnfoldOutlined rev={undefined} /> : <MenuFoldOutlined rev={undefined} />
         }
-        onClick={() => setCollapsed(!collapsed)}
+        onClick={profileCollapsed}
         style={{
           fontSize: '16px',
           height: 64,
