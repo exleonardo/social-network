@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom'
 
+import { useAppSelector } from '@/app/redux-store'
 import { getIsAuth } from '@/components/Login/auth-selectors'
-import { useAppSelector } from '@/redux/redux-store'
 import {
   BookOutlined,
   MessageOutlined,
