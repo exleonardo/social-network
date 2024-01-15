@@ -2,8 +2,8 @@ import { memo, useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 
 import { Items, youtubeApi } from '@/API/youtube-api'
+import { useAppSelector } from '@/app/redux-store'
 import { getIsAuth } from '@/components/Login/auth-selectors'
-import { useAppSelector } from '@/redux/redux-store'
 
 import s from './player.module.scss'
 
