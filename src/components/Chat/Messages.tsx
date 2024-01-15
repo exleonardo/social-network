@@ -1,8 +1,8 @@
 import { memo, useEffect, useRef, useState } from 'react'
 
+import { useAppSelector } from '@/app/redux-store'
 import { Message } from '@/components/Chat/Message'
 import { getMessages } from '@/components/Chat/chat-selector'
-import { useAppSelector } from '@/redux/redux-store'
 
 export const Messages = memo(() => {
   const messages = useAppSelector(getMessages)
