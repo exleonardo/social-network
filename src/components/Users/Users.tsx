@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
-import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
+import { useAppDispatch, useAppSelector } from '@/app/redux-store'
 import { requestUsers } from '@/redux/users-reducer'
 import { Pagination } from 'antd'
 
