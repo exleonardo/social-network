@@ -2,7 +2,10 @@ import { memo } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 
 import { UsersInfoType } from '@/API/profile-api'
-import { useAppDispatch } from '@/redux/redux-store'
+import { useAppDispatch, useAppSelector } from '@/app/redux-store'
+import { getIsFetching } from '@/components/Users/users-selectors'
+import Preloader from '@/components/common/Preloader/Preloader'
+import { clearUserProfile } from '@/redux/profile-reducer'
 import { follow, toggleIsFetching, unfollow } from '@/redux/users-reducer'
 import { UserOutlined } from '@ant-design/icons'
 import { Avatar, Button, List, Popconfirm } from 'antd'
@@ -15,8 +18,11 @@ type UserTypeProps = {
 export const User = memo(({ user }: UserTypeProps) => {
   const dispatch = useAppDispatch()
   const history = useHistory()
+  const isFetching = useAppSelector(getIsFetching)
   const moveToProfile = () => {
     dispatch(toggleIsFetching(true))
+    dispatch(clearUserProfile())
+
     history.push(`profile/${user.id}`)
   }
   const unfollowUser = () => {
@@ -30,6 +36,10 @@ export const User = memo(({ user }: UserTypeProps) => {
       title: user.id,
     },
   ]
+
+  if (isFetching) {
+    return <Preloader content fullscreen={false} position={'absolute'} />
+  }
 
   return (
     <div className={s.user}>
