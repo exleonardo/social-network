@@ -1,7 +1,7 @@
 import { Redirect } from 'react-router-dom'
 
+import { useAppDispatch, useAppSelector } from '@/app/redux-store'
 import { clearCaptchaUrl, login } from '@/redux/auth-reducer'
-import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
 import { Checkbox } from 'antd'
 import { useFormik } from 'formik'
 
