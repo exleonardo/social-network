@@ -4,7 +4,7 @@ import { usersAPI } from '@/API/users-api'
 import { updateObjectInArray } from '@/utils/object-helpers'
 import { Dispatch } from 'redux'
 
-import { AppThunk } from './redux-store'
+import { AppThunk } from '../app/redux-store'
 
 const initialState = {
   currentPage: 1,
