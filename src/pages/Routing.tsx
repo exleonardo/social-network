@@ -1,12 +1,11 @@
 import { Suspense, lazy } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
-import { Login } from '@/components/Login/Login'
-import News from '@/components/News/News'
-import { ResultStatus } from '@/components/Result/ResultStatus'
-import Setting from '@/components/Setting/Setting'
-import { Player } from '@/components/Video/Player'
-import Preloader from '@/components/common/Preloader/Preloader'
+import News from '@/features/News/News'
+import Preloader from '@/features/Preloader/Preloader'
+import Setting from '@/features/Setting/Setting'
+import { Login } from '@/pages/Login/Login'
+import { ResultStatus } from '@/pages/Result-status/ResultStatus'
 import { theme } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 
@@ -14,12 +13,13 @@ const UsersPage = lazy(() =>
   import('@/components/Users/UsersPage').then(module => ({ default: module.UsersPage }))
 )
 const ChatPage = lazy(() =>
-  import('@/components/Chat/ChatPage').then(module => ({ default: module.ChatPage }))
+  import('@/pages/Chat/ChatPage').then(module => ({ default: module.ChatPage }))
 )
 
-const ProfileMain = lazy(() =>
-  import('@/components/Profile/ProfileMain').then(module => ({ default: module.ProfileMain }))
+const Profile = lazy(() =>
+  import('@/pages/Profile/Profile').then(module => ({ default: module.Profile }))
 )
+const Video = lazy(() => import('@/pages/Video/Video').then(module => ({ default: module.Video })))
 
 export const Routing = () => {
   const {
@@ -52,7 +52,7 @@ export const Routing = () => {
           path={'/profile/:userId?'}
           render={() => (
             <Suspense fallback={<Preloader content fullscreen={false} position={'absolute'} />}>
-              <ProfileMain />
+              <Profile />
             </Suspense>
           )}
         />
@@ -69,8 +69,8 @@ export const Routing = () => {
         <Route
           path={'/video'}
           render={() => (
-            <Suspense fallback={<Preloader content fullscreen position={'absolute'} />}>
-              <Player />
+            <Suspense fallback={<Preloader content fullscreen={false} position={'absolute'} />}>
+              <Video />
             </Suspense>
           )}
         />
