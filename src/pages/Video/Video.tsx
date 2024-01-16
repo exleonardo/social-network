@@ -5,9 +5,9 @@ import { Items, youtubeApi } from '@/API/youtube-api'
 import { useAppSelector } from '@/app/redux-store'
 import { getIsAuth } from '@/components/Login/auth-selectors'
 
-import s from './player.module.scss'
+import s from './video.module.scss'
 
-export const Player = memo(() => {
+export const Video = memo(() => {
   const [video, setVideo] = useState<Items[]>()
   const isAuth = useAppSelector(getIsAuth)
 
