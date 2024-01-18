@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 
 import { Items, youtubeApi } from '@/API/youtube-api'
 import { useAppSelector } from '@/app/redux-store'
-import { getIsAuth } from '@/components/Login/auth-selectors'
+import { getIsAuth } from '@/components/auth-selectors'
 
 import s from './video.module.scss'
 
