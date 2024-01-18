@@ -1,8 +1,8 @@
 import { memo } from 'react'
 
-import { ChatMessage } from '@/API/chat-api'
+import { ChatMessageType } from '@/API/chat-api'
 
-export const Message = memo(({ message, photo, userName }: ChatMessage) => {
+export const ChatMessage = memo(({ message, photo, userName }: ChatMessageType) => {
   return (
     <div>
       <img alt={'ava'} src={photo} style={{ width: '50px' }} />
