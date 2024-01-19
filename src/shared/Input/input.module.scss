@@ -1,0 +1,19 @@
+.input {
+  cursor: pointer;
+
+  width: 75%;
+  margin: 12px 14px;
+  padding: 14px 24px;
+
+  font-size: 16px;
+  color: rgb(0 0 0 / 80%);
+  text-decoration: none;
+
+  background: linear-gradient(90deg, rgb(185 222 237), rgb(239 239 239));
+  border: 1px solid #3e3e3e;
+  border-radius: 8px;
+}
+
+.input:hover {
+  border: 1px solid #5676b8;
+}
