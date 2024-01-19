@@ -1,9 +1,3 @@
-.menu {
-  color: #ced6e3;
-  background: #1d2b43;
-  border-radius: 10px;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -11,6 +5,13 @@
 
 body {
   position: relative;
-  background: #d7e2f1;
+  background: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db);
   box-shadow: 0 0 13px 2px rgb(34 60 80 / 20%) inset;
+}
+
+.layout {
+  width: 70vw;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: inherit;
 }

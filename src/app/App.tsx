@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-import { Header } from '@/components/Header/Header'
-import { Navbar } from '@/components/Navbar/Menu/Navbar'
-import Preloader from '@/components/common/Preloader/Preloader'
-import ContentProfile from '@/components/content/contentProfile'
+import { withProviders } from '@/app/providers/withProviders'
+import { useAppDispatch, useAppSelector } from '@/app/redux-store'
+import Preloader from '@/features/Preloader/Preloader'
+import { Routing } from '@/pages/Routing'
 import { initializeApp } from '@/redux/app-reducer'
-import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
+import { FooterContent } from '@/widgets/Footer/Footer'
+import { Header } from '@/widgets/Header/Header'
+import { Navigate } from '@/widgets/Navigate/Navigate'
 import { Layout } from 'antd'
 
 import './app.scss'
 
-const { Footer, Sider } = Layout
-
-export const App = () => {
-  const [collapsed, setCollapsed] = useState(false)
+const App = () => {
   const initialized = useAppSelector(state => state.app.initialized)
   const dispatch = useAppDispatch()
 
@@ -26,26 +25,15 @@ export const App = () => {
   }
 
   return (
-    <Layout style={{ margin: '0 auto', minHeight: '100vh', width: '70vw' }}>
-      <Sider
-        className={'menu'}
-        collapsed={collapsed}
-        collapsedWidth={0}
-        collapsible
-        onCollapse={() => setCollapsed(!collapsed)}
-        style={{ background: '#1d2b43' }}
-        trigger={collapsed}
-        zeroWidthTriggerStyle={{ display: 'none' }}
-      >
-        <Navbar />
-      </Sider>
-      <Layout>
-        <Header collapsed={collapsed} setCollapsed={setCollapsed} />
-        <ContentProfile />
-        <Footer style={{ paddingBottom: '30px', paddingTop: 0, textAlign: 'center' }}>
-          Alexander Khomenok Design Created ©{new Date().getFullYear()}
-        </Footer>
+    <Layout className={'layout'}>
+      <Navigate />
+      <Layout style={{ background: 'inherit', border: 'none' }}>
+        <Header />
+        <Routing />
+        <FooterContent />
       </Layout>
     </Layout>
   )
 }
+
+export default withProviders(App)
