@@ -1,0 +1,66 @@
+.item {
+  display: flex;
+  flex-direction: row;
+
+  padding: 1rem;
+
+  color: #00000073;
+
+  border-bottom: 1px solid #0505050f;
+}
+
+.deletePost {
+  margin-left: 1rem;
+
+  > svg {
+    &:hover {
+      cursor: pointer;
+      fill: dodgerblue;
+    }
+  }
+}
+
+.userLike {
+  &:hover {
+    > svg {
+      cursor: pointer;
+      fill: red;
+
+      &:active {
+        fill: rgb(182 1 1);
+      }
+    }
+  }
+}
+.userLikeChecked {
+  > svg {
+    cursor: pointer;
+    fill: red;
+  }
+}
+
+.userMessage {
+  align-self: flex-end;
+  width: 100%;
+  margin-left: 1rem;
+}
+
+.userName {
+  font-weight: 500;
+  color: black;
+}
+
+.userData {
+  display: flex;
+  align-self: flex-end;
+}
+
+.likesCount {
+  margin-left: 0.5rem;
+}
+
+.message {
+  margin-right: 1rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
