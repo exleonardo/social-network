@@ -1,1 +1,1 @@
-export { AddMessageChat } from './ui/AddMessageChat'
+export { AddMessage } from './ui/AddMessage'

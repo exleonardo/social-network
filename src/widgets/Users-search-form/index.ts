@@ -1,1 +1,1 @@
-export { UserSearchForm } from './ui/UserSearchForm'
+export { UsersSearchForm } from './ui/UsersSearchForm'

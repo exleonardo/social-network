@@ -1,1 +1,1 @@
-export { UserPostList } from './ui/UserPostList'
+export { UserPostsList } from './ui/UserPostsList'
