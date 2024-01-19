@@ -15,29 +15,27 @@ const ProfileForm = memo(() => {
     dispatch(setEditProfile(editmode))
   }
 
-  if (!profile) {
-    return
-  }
   const formik = useFormik({
     initialValues: {
-      aboutMe: profile.aboutMe,
-      facebook: profile.contacts.facebook,
-      fullName: profile.fullName,
-      github: profile.contacts.github,
-      instagram: profile.contacts.instagram,
-      lookingForAJob: profile.lookingForAJob,
-      lookingForAJobDescription: profile.lookingForAJobDescription,
-      mainLink: profile.contacts.mainLink,
-      twitter: profile.contacts.twitter,
-      vk: profile.contacts.vk,
-      website: profile.contacts.website,
-      youtube: profile.contacts.youtube,
+      aboutMe: profile?.aboutMe || '',
+      facebook: profile?.contacts.facebook || '',
+      fullName: profile?.fullName || '',
+      github: profile?.contacts.github || '',
+      instagram: profile?.contacts.instagram || '',
+      lookingForAJob: profile?.lookingForAJob || false,
+      lookingForAJobDescription: profile?.lookingForAJobDescription || '',
+      mainLink: profile?.contacts.mainLink || '',
+      twitter: profile?.contacts.twitter || '',
+      vk: profile?.contacts.vk || '',
+      website: profile?.contacts.website || '',
+      youtube: profile?.contacts.youtube || '',
     },
     onSubmit: (formData, formikHelpers) => {
       const { aboutMe, fullName, lookingForAJob, lookingForAJobDescription, ...contacts } = formData
       const saveData = { aboutMe, contacts, fullName, lookingForAJob, lookingForAJobDescription }
 
       formikHelpers.setSubmitting(true)
+
       dispatch(saveProfile(saveData))
         .then(() => {
           goToEditMode(false)
