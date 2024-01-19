@@ -1,16 +1,22 @@
 import { ResultCode } from '@/API/api'
 import { ProfileDataFormType, ProfilePhotos, ProfileUserType, profileAPI } from '@/API/profile-api'
+import { AppThunk } from '@/app/redux-store'
 import { toggleIsFetching } from '@/redux/users-reducer'
-import { UploadFile } from 'antd'
 import { isAxiosError } from 'axios'
 
-import { AppThunk } from './redux-store'
-import { PostsType } from './store'
+export type PostsType = {
+  id: number
+  isLiked: boolean
+  likesCount: number
+  message: string
+}
 
 const initialState = {
+  editProfile: false,
   newPostText: '',
   posts: [] as PostsType[],
   profile: null as ProfileType,
+  profileCollapsed: false,
   status: '',
 }
 
@@ -23,7 +29,10 @@ const profileReducer = (
       return {
         ...state,
         newPostText: '',
-        posts: [...state.posts, { id: +new Date(), likesCount: '0', message: action.newPostText }],
+        posts: [
+          ...state.posts,
+          { id: +new Date(), isLiked: false, likesCount: 0, message: action.newPostText },
+        ],
       }
     case 'PROFILE/DELETE-POST':
       return {
@@ -46,8 +55,25 @@ const profileReducer = (
       }
 
       return { ...state }
+    case 'PROFILE/EDIT-PROFILE':
+      return { ...state, editProfile: action.editProfile }
+    case 'PROFILE/SET-COLLAPSED':
+      return { ...state, profileCollapsed: action.collapsed }
     case 'PROFILE/CLEAR-USER-PROFILE':
       return { ...state, profile: null }
+    case 'PROFILE/TOGGLE-LIKE':
+      return {
+        ...state,
+        posts: state.posts.map(post =>
+          post.id === action.id
+            ? {
+                ...post,
+                isLiked: !post.isLiked,
+                likesCount: post.likesCount ? post.likesCount - 1 : post.likesCount + 1,
+              }
+            : post
+        ),
+      }
     default:
       return state
   }
@@ -60,13 +86,27 @@ export const addPostActionCreator = (text: string) =>
     newPostText: text,
     type: 'PROFILE/ADD-POST',
   }) as const
+
+export const toggleLike = (id: number) =>
+  ({
+    id,
+    type: 'PROFILE/TOGGLE-LIKE',
+  }) as const
+
 export const deletePostActionCreator = (id: number) =>
   ({
     id,
     type: 'PROFILE/DELETE-POST',
   }) as const
+export const setEditProfile = (editProfile: boolean) =>
+  ({
+    editProfile,
+    type: 'PROFILE/EDIT-PROFILE',
+  }) as const
 
 export const setStatusAC = (status: string) => ({ status, type: 'PROFILE/SET-STATUS' }) as const
+export const setCollapsed = (collapsed: boolean) =>
+  ({ collapsed, type: 'PROFILE/SET-COLLAPSED' }) as const
 
 export const setUserProfile = (profile: ProfileUserType) =>
   ({
@@ -101,9 +141,15 @@ export const getUserProfile =
 export const getStatus =
   (status: string): AppThunk =>
   async dispatch => {
-    const res = await profileAPI.getStatus(status)
+    try {
+      dispatch(toggleIsFetching(true))
+      const res = await profileAPI.getStatus(status)
 
-    dispatch(setStatusAC(res.data))
+      dispatch(setStatusAC(res.data))
+      dispatch(toggleIsFetching(false))
+    } catch (e) {
+      /* empty */
+    }
   }
 
 export const updateStatus =
@@ -127,23 +173,6 @@ export const updateStatus =
       }
 
       return Promise.reject(errorMessage)
-    }
-  }
-
-export const savePhoto =
-  (file: UploadFile<any>): AppThunk =>
-  async dispatch => {
-    try {
-      const res = await profileAPI.savePhoto(file)
-
-      if (res.data.resultCode === ResultCode.Sucsess) {
-        dispatch(savePhotoSuccess(res.data.data))
-      }
-      if (res.data.resultCode === ResultCode.Error) {
-        return Promise.reject(res.data.messages[0])
-      }
-    } catch (error) {
-      /* empty */
     }
   }
 
@@ -172,7 +201,9 @@ export const saveProfile =
 
         return Promise.reject({ field: firstLetterLowerCase, message: res.data.messages[0] })
       }
-    } catch (error) {}
+    } catch (error) {
+      /* empty */
+    }
   }
 
 //types
@@ -181,14 +212,19 @@ export type ProfileReducerActionType =
   | ReturnType<typeof clearUserProfile>
   | ReturnType<typeof deletePostActionCreator>
   | ReturnType<typeof savePhotoSuccess>
+  | ReturnType<typeof setCollapsed>
+  | ReturnType<typeof setEditProfile>
   | ReturnType<typeof setStatusAC>
   | ReturnType<typeof setUserProfile>
+  | ReturnType<typeof toggleLike>
 
 export type ProfileType = ProfileUserType | null
 type ProfileState = typeof initialState
 type ProfileStateType = {
+  editProfile: boolean
   newPostText: string
   posts: PostsType[]
   profile: ProfileType
+  profileCollapsed: boolean
   status: string
 }
