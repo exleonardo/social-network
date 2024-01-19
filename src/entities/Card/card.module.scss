@@ -1,0 +1,142 @@
+.card {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: max-content;
+
+  color: black;
+
+  background: linear-gradient(90deg, #b9deed, #efefef);
+  border: 1px solid #9d9b9b;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+
+  transition: 1s ease-in-out;
+}
+
+.card > span {
+  display: block;
+
+  font-size: 1.5em;
+  font-weight: 500;
+  color: rgb(0 0 0 / 80%);
+  text-align: center;
+}
+
+.card .info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a2528;
+  text-align: center;
+}
+
+.card .img {
+  width: 8em;
+  height: 8em;
+}
+
+.card .share {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+.card a {
+  color: white;
+  transition: 0.4s ease-in-out;
+}
+
+.card a:hover {
+  color: red;
+}
+
+.card button {
+  display: block;
+
+  padding: 0.8em 1.7em;
+
+  font-weight: bold;
+  color: rgb(0 0 0);
+
+  background: #fff;
+  border: none;
+  border-radius: 25px;
+
+  transition: 0.4s ease-in-out;
+}
+
+.card button:hover {
+  cursor: pointer;
+  color: white;
+  background: rgb(0 191 255 / 88%);
+}
+
+.status {
+  cursor: pointer;
+
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+
+  min-width: 70px;
+  max-width: max-content;
+  min-height: 2rem;
+  max-height: max-content;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+
+  word-break: break-word;
+  overflow-wrap: break-word;
+
+  background: #f3f3f3;
+  border-radius: 10px;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: calc(45% + 5px);
+    transform: translateY(-85%);
+
+    border: 12px solid transparent;
+    border-bottom: 18px solid #f3f3f3;
+  }
+}
+
+.statusBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.editProfileButton {
+  width: 10rem;
+
+  &:hover {
+    color: white;
+  }
+}
+
+.updateProfile {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.fullName {
+  margin-top: 15px;
+}
