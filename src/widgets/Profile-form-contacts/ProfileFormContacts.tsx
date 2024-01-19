@@ -22,7 +22,7 @@ export const ProfileFormContacts = ({ formik }: ContactsType) => {
       <div className={s.contactTitle}>Contacts:</div>
       {contacts.map(el => {
         return (
-          <div>
+          <div key={el}>
             <b>{el}</b>
             <Input status={formik.errors[el] && 'error'} {...formik.getFieldProps(el)} />
             {formik.errors[el] && <ErrorTitle title={formik.errors[el]} />}
