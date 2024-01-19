@@ -1,8 +1,7 @@
 import { ChatMessageType, StatusType, chatAPI } from '@/API/chat-api'
+import { AppThunk } from '@/app/redux-store'
 import { Dispatch } from 'redux'
 import { v1 } from 'uuid'
-
-import { AppThunk } from '../app/redux-store'
 
 const initialState = {
   messages: [] as Array<Pick<ChatMessageType, keyof ChatMessageType> & { id: string }>,
