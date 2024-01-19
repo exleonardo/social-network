@@ -9,6 +9,13 @@
   border-bottom: 1px solid #0505050f;
 }
 
+.userLikeChecked {
+  > svg {
+    cursor: pointer;
+    fill: red;
+  }
+}
+
 .deletePost {
   margin-left: 1rem;
 
@@ -30,12 +37,6 @@
         fill: rgb(182 1 1);
       }
     }
-  }
-}
-.userLikeChecked {
-  > svg {
-    cursor: pointer;
-    fill: red;
   }
 }
 
