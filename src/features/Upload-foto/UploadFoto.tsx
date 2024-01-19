@@ -1,12 +1,14 @@
 import { instance, setting } from '@/API/api'
 import { useAppDispatch, useAppSelector } from '@/app/redux-store'
-import { getCurrentUserId } from '@/components/Login/auth-selectors'
-import { getProfile } from '@/components/Profile/profile-selector'
+import { getCurrentUserId } from '@/components/auth-selectors'
+import { getProfile } from '@/components/profile-selector'
 import { getUserProfile } from '@/redux/profile-reducer'
-import { UploadOutlined } from '@ant-design/icons'
-import { Button, Upload, UploadProps, message } from 'antd'
+import { Upload, UploadProps, message } from 'antd'
 
-export const UploadFoto = () => {
+type UploadFotoType = {
+  className?: string
+}
+export const UploadFoto = ({ className }: UploadFotoType) => {
   const dispatch = useAppDispatch()
   const userId = useAppSelector(getProfile)?.userId
   const authorizedUserId = useAppSelector(getCurrentUserId)
@@ -28,11 +30,12 @@ export const UploadFoto = () => {
       <Upload
         headers={setting.headers}
         showUploadList={false}
+        style={{ display: 'block' }}
         withCredentials
         {...props}
         action={`${instance.defaults.baseURL}/profile/photo`}
       >
-        <Button icon={<UploadOutlined />}>Update Image</Button>
+        <button className={className}>Upload Photo</button>
       </Upload>
     )
   )
