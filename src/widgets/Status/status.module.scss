@@ -1,0 +1,59 @@
+.status {
+  cursor: pointer;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  max-width: max-content;
+  min-height: 2rem;
+  max-height: max-content;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+
+  word-break: break-word;
+  overflow-wrap: break-word;
+
+  background: #52eebf;
+  border-radius: 10px;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: calc(2% + 8px);
+    transform: translateY(-90%);
+
+    border: 16px solid transparent;
+    border-bottom: 20px solid #52eebf;
+  }
+}
+
+.statusText {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.uploadPhoto {
+  flex-grow: 1;
+  width: 2rem;
+  height: 100%;
+  margin-top: 10px;
+
+  > svg {
+    width: 100%;
+    height: 100%;
+
+    &:hover {
+      fill: lightpink;
+    }
+  }
+}
+
+.statusBlock {
+  display: flex;
+  place-content: center center;
+}
