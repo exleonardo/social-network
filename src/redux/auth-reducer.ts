@@ -1,9 +1,8 @@
 import { ResultCode } from '@/API/api'
 import { authAPI } from '@/API/auth-api'
 import { securityAPI } from '@/API/security-api'
+import { AppThunk } from '@/app/redux-store'
 import { clearUserProfile } from '@/redux/profile-reducer'
-
-import { AppThunk } from './redux-store'
 
 const initialState: InitialState = {
   captchaUrl: null as null | string,

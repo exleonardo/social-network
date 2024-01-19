@@ -1,11 +1,11 @@
-import { ChatMessage, StatusType, chatAPI } from '@/API/chat-api'
+import { ChatMessageType, StatusType, chatAPI } from '@/API/chat-api'
 import { Dispatch } from 'redux'
 import { v1 } from 'uuid'
 
-import { AppThunk } from './redux-store'
+import { AppThunk } from '../app/redux-store'
 
 const initialState = {
-  messages: [] as Array<Pick<ChatMessage, keyof ChatMessage> & { id: string }>,
+  messages: [] as Array<Pick<ChatMessageType, keyof ChatMessageType> & { id: string }>,
   status: 'pending' as StatusType,
 }
 
@@ -36,12 +36,12 @@ export const chatReducer = (
   }
 }
 export const clearMessages = () => ({ type: 'CHAT/CLEAR-MESSAGES' }) as const
-export const setMessages = (messages: ChatMessage[]) =>
+export const setMessages = (messages: ChatMessageType[]) =>
   ({ payload: { messages }, type: 'CHAT/SET-MESSAGES' }) as const
 export const setStatus = (status: StatusType) =>
   ({ payload: { status }, type: 'CHAT/SET-STATUS' }) as const
 
-let _newMessageHandler: ((message: ChatMessage[]) => void) | null = null
+let _newMessageHandler: ((message: ChatMessageType[]) => void) | null = null
 const newMessageHandler = (dispatch: Dispatch) => {
   if (_newMessageHandler === null) {
     _newMessageHandler = mess => {

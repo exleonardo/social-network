@@ -1,5 +1,6 @@
+import { AppThunk } from '@/app/redux-store'
+
 import { getAuthUserData } from './auth-reducer'
-import { AppThunk } from './redux-store'
 
 const initialState: InitialStateApp = {
   initialized: false,
@@ -26,7 +27,7 @@ export const initializeApp = (): AppThunk => async dispatch => {
       dispatch(initializedSuccess())
     })
   } catch (error) {
-    console.log(error)
+    /* empty */
   }
 }
 //Type
