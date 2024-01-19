@@ -9,12 +9,8 @@ import { ResultStatus } from '@/pages/Result-status/ResultStatus'
 import { theme } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 
-const UsersPage = lazy(() =>
-  import('@/components/Users/UsersPage').then(module => ({ default: module.UsersPage }))
-)
-const ChatPage = lazy(() =>
-  import('@/pages/Chat/ChatPage').then(module => ({ default: module.ChatPage }))
-)
+const Users = lazy(() => import('@/pages/Users/Users').then(module => ({ default: module.Users })))
+const Chat = lazy(() => import('@/pages/Chat/Chat').then(module => ({ default: module.Chat })))
 
 const Profile = lazy(() =>
   import('@/pages/Profile/Profile').then(module => ({ default: module.Profile }))
@@ -23,13 +19,13 @@ const Video = lazy(() => import('@/pages/Video/Video').then(module => ({ default
 
 export const Routing = () => {
   const {
-    token: { borderRadiusLG, colorBgContainer },
+    token: { borderRadiusLG },
   } = theme.useToken()
 
   return (
     <Content
       style={{
-        background: colorBgContainer,
+        background: 'linear-gradient(90deg, #b9deed, #efefef)',
         borderRadius: borderRadiusLG,
         boxShadow: '1px -2px 19px -1px rgba(34, 60, 80, 0.2)',
         margin: '24px 16px',
@@ -44,7 +40,7 @@ export const Routing = () => {
           path={'/chat'}
           render={() => (
             <Suspense fallback={<Preloader content fullscreen={false} position={'absolute'} />}>
-              <ChatPage />
+              <Chat />
             </Suspense>
           )}
         />
@@ -60,7 +56,7 @@ export const Routing = () => {
           path={'/users'}
           render={() => (
             <Suspense fallback={<Preloader content fullscreen={false} position={'absolute'} />}>
-              <UsersPage />
+              <Users />
             </Suspense>
           )}
         />
