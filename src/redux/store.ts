@@ -1,4 +1,5 @@
 import { ProfileUserType } from '@/API/profile-api'
+import { PostsType } from '@/redux/profile-reducer'
 
 // export type StoreType = {
 //   _callSubscriber: (state: RootStateType) => void
@@ -51,11 +52,6 @@ import { ProfileUserType } from '@/API/profile-api'
 //   },
 // }
 
-export type PostsType = {
-  id: number
-  likesCount: string
-  message: string
-}
 export type DialogsType = { id: string; name: string }
 export type MessagesType = { id: string; message: string }
 export type ProfilePageType = {
