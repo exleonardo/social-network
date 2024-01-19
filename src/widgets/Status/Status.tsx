@@ -8,10 +8,10 @@ import { updateStatus } from '@/redux/profile-reducer'
 import { Input, Modal, message } from 'antd'
 
 import s from './status.module.scss'
-type Status = {
+type StatusType = {
   className?: string
 }
-const Status = memo(({ className }: Status) => {
+const Status = memo(({ className }: StatusType) => {
   const statusProfile = useAppSelector(getStatusProfile)
   const dispatch = useAppDispatch()
   const [state, setState] = useState(false)
