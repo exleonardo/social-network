@@ -1,10 +1,9 @@
 import { Response, ResultCode } from '@/API/api'
 import { UsersInfoType } from '@/API/profile-api'
 import { usersAPI } from '@/API/users-api'
+import { AppThunk } from '@/app/redux-store'
 import { updateObjectInArray } from '@/utils/object-helpers'
 import { Dispatch } from 'redux'
-
-import { AppThunk } from '../app/redux-store'
 
 const initialState = {
   currentPage: 1,
