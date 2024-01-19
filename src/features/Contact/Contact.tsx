@@ -1,10 +1,10 @@
-import s from '../ProfileInfo/profileInfo.module.scss'
+import { Icon } from '@/shared/Icon/Icon'
 
 export const Contact = ({ contactTitle, contactValue }: ContactType) => {
   return (
-    <div className={s.contact}>
-      <b>{contactTitle}</b>: {contactValue}
-    </div>
+    <a href={contactValue || '#'} rel={'noreferrer'} target={'_blank'}>
+      <Icon name={contactTitle} />
+    </a>
   )
 }
 type ContactType = {

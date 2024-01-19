@@ -1,13 +1,12 @@
 import { Redirect } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '@/app/redux-store'
+import { getCaptchaUrl, getIsAuth } from '@/components/auth-selectors'
 import { clearCaptchaUrl, login } from '@/redux/auth-reducer'
 import { Checkbox } from 'antd'
 import { useFormik } from 'formik'
 
 import s from './login.module.scss'
-
-import { getCaptchaUrl, getIsAuth } from './auth-selectors'
 
 export const Login = () => {
   const isAuth = useAppSelector(getIsAuth)

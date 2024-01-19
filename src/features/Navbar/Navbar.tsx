@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom'
 
 import { useAppSelector } from '@/app/redux-store'
-import { getIsAuth } from '@/components/Login/auth-selectors'
+import { getIsAuth } from '@/components/auth-selectors'
 import {
   BookOutlined,
   MessageOutlined,
@@ -16,6 +16,33 @@ import s from './navbar.module.scss'
 export const Navbar = () => {
   const history = useHistory()
   const isAuth = useAppSelector(getIsAuth)
+  const items = [
+    {
+      icon: <UserOutlined rev={undefined} />,
+      key: 'profile',
+      label: 'Profile',
+    },
+    {
+      icon: <TeamOutlined rev={undefined} />,
+      key: 'users',
+      label: 'Users',
+    },
+    {
+      icon: <MessageOutlined rev={undefined} />,
+      key: 'chat',
+      label: 'Message',
+    },
+    {
+      icon: <BookOutlined rev={undefined} />,
+      key: 'news',
+      label: 'News',
+    },
+    {
+      icon: <PlayCircleOutlined rev={undefined} />,
+      key: 'video',
+      label: 'Video',
+    },
+  ]
   const moveToPage = (event: { key: string }) => {
     if (isAuth) {
       history.push(`/`)
@@ -29,36 +56,10 @@ export const Navbar = () => {
     <Menu
       className={s.menu}
       defaultSelectedKeys={['profile']}
-      items={[
-        {
-          icon: <UserOutlined rev={undefined} />,
-          key: 'profile',
-          label: 'Profile',
-        },
-        {
-          icon: <TeamOutlined rev={undefined} />,
-          key: 'users',
-          label: 'Users',
-        },
-        {
-          icon: <MessageOutlined rev={undefined} />,
-          key: 'chat',
-          label: 'Message',
-        },
-        {
-          icon: <BookOutlined rev={undefined} />,
-          key: 'news',
-          label: 'News',
-        },
-        {
-          icon: <PlayCircleOutlined rev={undefined} />,
-          key: 'video',
-          label: 'Video',
-        },
-      ]}
+      items={items}
       mode={'inline'}
       onClick={moveToPage}
-      theme={'dark'}
+      theme={'light'}
     />
   )
 }

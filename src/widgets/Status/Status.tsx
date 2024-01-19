@@ -1,15 +1,17 @@
 import { ChangeEvent, memo, useEffect, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/redux-store'
+import { getCurrentUserId } from '@/components/auth-selectors'
+import { getStatusProfile } from '@/components/profile-selector'
+import { getUsersId } from '@/components/users-selectors'
 import { updateStatus } from '@/redux/profile-reducer'
-import { EditOutlined } from '@ant-design/icons'
-import { Button, Input, message } from 'antd'
+import { Input, Modal, message } from 'antd'
 
-import { getCurrentUserId } from '../../Login/auth-selectors'
-import { getUsersId } from '../../Users/users-selectors'
-import { getStatusProfile } from '../profile-selector'
-
-const ProfileStatus = memo(() => {
+import s from './status.module.scss'
+type Status = {
+  className?: string
+}
+const Status = memo(({ className }: Status) => {
   const statusProfile = useAppSelector(getStatusProfile)
   const dispatch = useAppDispatch()
   const [state, setState] = useState(false)
@@ -29,12 +31,20 @@ const ProfileStatus = memo(() => {
   useEffect(() => {
     setStatus(statusProfile)
   }, [statusProfile])
+  const cancel = () => {
+    if (userId === currentUserId) {
+      setState(!state)
+    }
+  }
 
   const activateEditMode = () => {
-    setState(!state)
-    dispatch(updateStatus(status)).catch(err => {
-      error(err)
-    })
+    dispatch(updateStatus(status))
+      .then(() => {
+        setState(!state)
+      })
+      .catch(err => {
+        error(err)
+      })
   }
   const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.value.length <= 300) {
@@ -43,30 +53,27 @@ const ProfileStatus = memo(() => {
   }
 
   return (
-    <div style={{ marginTop: '10px' }}>
+    <div className={className ? className : s.status} onClick={cancel}>
       {contextHolder}
-      {!state && (
-        <div>
-          <b>Status:</b> <span>{statusProfile || 'Enter status'}</span>
-          {userId === currentUserId && (
-            <Button icon={<EditOutlined rev={undefined} />} onClick={activateEditMode}></Button>
-          )}
+      {
+        <div className={s.statusText}>
+          <span>{statusProfile ? statusProfile : 'No status'}</span>
         </div>
-      )}
-      {state && (
-        <div>
+      }
+      {userId === currentUserId && (
+        <Modal centered okText={'Save'} onCancel={cancel} onOk={activateEditMode} open={state}>
           <Input
             autoFocus
-            maxLength={300}
-            onBlur={activateEditMode}
+            maxLength={100}
             onChange={onStatusChange}
+            onClick={e => e.stopPropagation()}
             showCount
             value={status}
           />
-        </div>
+        </Modal>
       )}
     </div>
   )
 })
 
-export default ProfileStatus
+export default Status

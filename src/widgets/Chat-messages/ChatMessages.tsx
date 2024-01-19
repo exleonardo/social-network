@@ -1,10 +1,11 @@
 import { memo, useEffect, useRef, useState } from 'react'
 
 import { useAppSelector } from '@/app/redux-store'
-import { Message } from '@/components/Chat/Message'
-import { getMessages } from '@/components/Chat/chat-selector'
+import { getMessages } from '@/components/chat-selector'
+import { ChatMessage } from '@/widgets/Chat-message/ChatMessage'
 
-export const Messages = memo(() => {
+import s from './chat-messages.module.scss'
+export const ChatMessages = memo(() => {
   const messages = useAppSelector(getMessages)
   const messagesAmchorRef = useRef<HTMLDivElement>(null)
   const [isAutoScroll, setIsAutoScroll] = useState(true)
@@ -27,10 +28,10 @@ export const Messages = memo(() => {
   }, [isAutoScroll, messages])
 
   return (
-    <div onScroll={scrollHandler} style={{ height: '400px', overflowY: 'auto' }}>
+    <div className={s.chatMessages} onScroll={scrollHandler}>
       {messages.map((m, index) => {
         return (
-          <Message
+          <ChatMessage
             key={index}
             message={m.message}
             photo={m.photo}

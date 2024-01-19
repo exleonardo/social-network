@@ -1,12 +1,12 @@
 import { memo, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import { AddMessage } from '@/components/Chat/AddMessage'
-import { Messages } from '@/components/Chat/Messages'
-import { getStatus } from '@/components/Chat/chat-selector'
-import { getIsAuth } from '@/components/Login/auth-selectors'
+import { useAppDispatch, useAppSelector } from '@/app/redux-store'
+import { getIsAuth } from '@/components/auth-selectors'
+import { getStatus } from '@/components/chat-selector'
 import { startMessageListening, stopMessageListening } from '@/redux/chat-reducer'
-import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
+import { AddMessage } from '@/widgets/Add-message-chat/AddMessage'
+import { ChatMessages } from '@/widgets/Chat-messages/ChatMessages'
 
 export const Chat = memo(() => {
   const dispatch = useAppDispatch()
@@ -27,7 +27,7 @@ export const Chat = memo(() => {
   return (
     <div>
       {status === 'error' ? <div>Some error occurred. Please refresh page</div> : <></>}
-      <Messages />
+      <ChatMessages />
       <AddMessage />
     </div>
   )

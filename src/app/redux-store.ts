@@ -1,22 +1,20 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
+import { ChatReducerActionType, chatReducer } from '@/redux/chat-reducer'
 import { AnyAction, applyMiddleware, combineReducers, compose, createStore } from 'redux'
-import { reducer as formReducer } from 'redux-form'
 import { FormAction } from 'redux-form/lib/actions'
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
 
-import appReducer from './app-reducer'
-import authReducer, { AuthReducerActionType } from './auth-reducer'
-import { ChatReducerActionType, chatReducer } from './chat-reducer'
-import profileReducer, { ProfileReducerActionType } from './profile-reducer'
-import SidebarReducer from './sidebar-reducer'
-import usersReducer, { UserReducerActionType } from './users-reducer'
+import appReducer from '../redux/app-reducer'
+import authReducer, { AuthReducerActionType } from '../redux/auth-reducer'
+import profileReducer, { ProfileReducerActionType } from '../redux/profile-reducer'
+import SidebarReducer from '../redux/sidebar-reducer'
+import usersReducer, { UserReducerActionType } from '../redux/users-reducer'
 
 export const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
   chat: chatReducer,
-  form: formReducer,
   profilePage: profileReducer,
   sidebar: SidebarReducer,
   usersPage: usersReducer,

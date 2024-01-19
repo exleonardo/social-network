@@ -1,10 +1,12 @@
 import { memo, useState } from 'react'
 
-import { getStatus } from '@/components/Chat/chat-selector'
+import { useAppDispatch, useAppSelector } from '@/app/redux-store'
+import { getStatus } from '@/components/chat-selector'
 import { sendMessage } from '@/redux/chat-reducer'
-import { useAppDispatch, useAppSelector } from '@/redux/redux-store'
-import { Button, Input } from 'antd'
+import { Button } from '@/shared/Button/Button'
+import { Input } from '@/shared/Input/Input'
 
+import s from './add-message.module.scss'
 export const AddMessage = memo(() => {
   const [message, setMessage] = useState('')
 
@@ -23,6 +25,7 @@ export const AddMessage = memo(() => {
     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
       <div style={{ width: '80%' }}>
         <Input
+          className={s.input}
           onChange={e => {
             setMessage(e.currentTarget.value)
           }}
@@ -30,7 +33,7 @@ export const AddMessage = memo(() => {
         ></Input>
       </div>
       <div>
-        <Button disabled={status !== 'ready'} onClick={sendMessageHandler}>
+        <Button className={s.button} disabled={status !== 'ready'} onClick={sendMessageHandler}>
           send
         </Button>
       </div>
