@@ -1,9 +1,9 @@
-import Search from "antd/es/input/Search";
+import Search from 'antd/es/input/Search'
 
 type FindUserType = {
-  onSearch:()=>void
+  onSearch: () => void
 }
-export const FindUser = ({onSearch,...props}:FindUserType) => {
+export const FindUser = ({ onSearch, ...props }: FindUserType) => {
   return (
     <Search
       allowClear
@@ -15,4 +15,4 @@ export const FindUser = ({onSearch,...props}:FindUserType) => {
       {...props}
     />
   )
-};
+}
