@@ -81,14 +81,14 @@ export const chatAPI = {
   },
 }
 
-export type ChatMessage = {
+export type ChatMessageType = {
   message: string
   photo: string
   userId: number
   userName: string
 }
 
-type MessagesReceivedSubscriberType = (messages: ChatMessage[]) => void
+type MessagesReceivedSubscriberType = (messages: ChatMessageType[]) => void
 type StatusChangedSubscriberType = (status: StatusType) => void
 export type StatusType = 'error' | 'pending' | 'ready'
 type EventsNames = 'messages-received' | 'status-changed'
