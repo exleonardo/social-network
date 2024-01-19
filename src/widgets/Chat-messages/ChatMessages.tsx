@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 
 import { useAppSelector } from '@/app/redux-store'
 import { getMessages } from '@/components/chat-selector'
