@@ -1,7 +1,7 @@
-import { UserAvatar } from '@/features/User-avatar/UserAvatar'
+import { UserAvatar } from '@/features/User-avatar/ui/UserAvatar'
 import { UserTitle } from '@/features/User-title/ui/UserTitle'
 
-import s from '../style/message-receive.module.scss'
+import s from '../style/index.module.scss'
 type MessageReceiveType = {
   fullName: string
   message: string
