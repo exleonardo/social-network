@@ -1,22 +1,10 @@
-import { useAppDispatch, useAppSelector } from '@/app/store/redux-store'
-import {
-  getCurrentPage,
-  getTotalUsersCount,
-  getUsersFilter,
-} from '@/pages/Users/selectors/users-selectors'
-import { requestUsers } from '@/redux/users-reducer'
+import { usePagination } from '@/widgets/Pagination-user/hooks/usePagination'
 import { Pagination } from 'antd'
 
 import s from '../style/index.module.scss'
 
 export const PaginationUser = () => {
-  const filter = useAppSelector(getUsersFilter)
-  const dispatch = useAppDispatch()
-  const totalUsersCount = useAppSelector(getTotalUsersCount)
-  const currentPage = useAppSelector(getCurrentPage)
-  const onPageChanged = (page: number, pageSize: number) => {
-    dispatch(requestUsers(page, pageSize, filter))
-  }
+  const { currentPage, onPageChanged, totalUsersCount } = usePagination()
 
   return (
     <Pagination
