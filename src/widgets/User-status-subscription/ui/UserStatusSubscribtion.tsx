@@ -1,27 +1,16 @@
-import { useHistory } from 'react-router-dom'
-
 import { UsersInfoType } from '@/API/profile-api'
-import { useAppDispatch } from '@/app/store/redux-store'
 import { Follow } from '@/features/Follow/ui/Follow'
-import { Unfollow } from '@/features/Unfollow/Unfollow'
-import { UserAvatar } from '@/features/User-avatar/UserAvatar'
+import { Unfollow } from '@/features/Unfollow/ui/Unfollow'
+import { UserAvatar } from '@/features/User-avatar/ui/UserAvatar'
 import { UserTitle } from '@/features/User-title/ui/UserTitle'
-import { clearUserProfile } from '@/redux/profile-reducer'
-import { toggleIsFetching } from '@/redux/users-reducer'
+import { useStatusSubscribtion } from '@/widgets/User-status-subscription/hooks/useStatusSubscribtion'
 import { List } from 'antd'
 
 type UserStatusSubscriptionType = {
   user: UsersInfoType
 }
 export const UserStatusSubscribtion = ({ user }: UserStatusSubscriptionType) => {
-  const history = useHistory()
-  const dispatch = useAppDispatch()
-
-  const moveToProfile = () => {
-    dispatch(toggleIsFetching(true))
-    dispatch(clearUserProfile())
-    history.push(`profile/${user.id}`)
-  }
+  const { moveToProfile } = useStatusSubscribtion(user.id)
 
   return (
     <List.Item>
