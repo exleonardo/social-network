@@ -1,15 +1,9 @@
-import { useAppDispatch, useAppSelector } from '@/app/store/redux-store'
-import { getEditProfile } from '@/pages/Profile/selectors/profile-selector'
-import { setEditProfile } from '@/redux/profile-reducer'
+import { useProfileEdit } from '@/widgets/Profile-editor/hooks/useProfileEdit'
 import { ProfileForm } from '@/widgets/Profile-form/ui/ProfileForm'
 import { Modal } from 'antd'
 
 export const ProfileEditor = () => {
-  const editProfile = useAppSelector(getEditProfile)
-  const dispatch = useAppDispatch()
-  const goToEditMode = () => {
-    dispatch(setEditProfile(!editProfile))
-  }
+  const { editProfile, goToEditMode } = useProfileEdit()
 
   return (
     <Modal
