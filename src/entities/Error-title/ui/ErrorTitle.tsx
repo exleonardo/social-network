@@ -1,4 +1,4 @@
-import s from './error-title.module.scss'
+import s from '../style/index.module.scss'
 
 type ErrorTitleType = {
   title: string
