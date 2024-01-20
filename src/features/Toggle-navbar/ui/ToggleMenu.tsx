@@ -1,14 +1,14 @@
-import { useAppDispatch, useAppSelector } from '@/app/redux-store'
-import { getCollapsed } from '@/components/profile-selector'
+import { useAppDispatch } from '@/app/store/redux-store'
+import { useToggle } from '@/features/Toggle-navbar/hook/useToggle'
 import { setCollapsed } from '@/redux/profile-reducer'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 
-import s from '@/widgets/Header/header.module.scss'
+import s from '@/widgets/Header/style/index.module.scss'
 
 export const ToggleMenu = () => {
   const dispatch = useAppDispatch()
-  const collapsed = useAppSelector(getCollapsed)
+  const { collapsed } = useToggle()
   const profileCollapsed = () => {
     dispatch(setCollapsed(!collapsed))
   }
