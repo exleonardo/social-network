@@ -1,5 +1,5 @@
 import { LoggetInUser } from '@/features/Logget-in-user/ui/LoggetInUser'
-import { ToggleMenu } from '@/features/Toggle-navbar/ToggleMenu'
+import { ToggleMenu } from '@/features/Toggle-navbar/ui/ToggleMenu'
 
 import s from '../style/index.module.scss'
 
