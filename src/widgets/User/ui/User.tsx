@@ -2,7 +2,7 @@ import { memo } from 'react'
 
 import { UsersInfoType } from '@/API/profile-api'
 import { useAppSelector } from '@/app/store/redux-store'
-import Preloader from '@/features/Preloader/Preloader'
+import { Preloader } from '@/features/Preloader/ui/Preloader'
 import { getIsFetching } from '@/pages/Users/selectors/users-selectors'
 import { UserStatusSubscribtion } from '@/widgets/User-status-subscription/ui/UserStatusSubscribtion'
 import { List } from 'antd'
