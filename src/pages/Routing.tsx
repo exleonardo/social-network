@@ -1,21 +1,25 @@
 import { Suspense, lazy } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
-import News from '@/features/News/News'
-import Preloader from '@/features/Preloader/Preloader'
-import Setting from '@/features/Setting/Setting'
-import { Login } from '@/pages/Login/Login'
-import { ResultStatus } from '@/pages/Result-status/ResultStatus'
+import { News } from '@/features/News/ui/News'
+import { Preloader } from '@/features/Preloader/ui/Preloader'
+import { Setting } from '@/features/Setting/ui/Setting'
+import { Login } from '@/pages/Login'
+import { ResultStatus } from '@/pages/Result-status/ui/ResultStatus'
 import { theme } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 
-const Users = lazy(() => import('@/pages/Users/Users').then(module => ({ default: module.Users })))
-const Chat = lazy(() => import('@/pages/Chat/Chat').then(module => ({ default: module.Chat })))
+const Users = lazy(() =>
+  import('@/pages/Users/ui/Users').then(module => ({ default: module.Users }))
+)
+const Chat = lazy(() => import('@/pages/Chat/ui/Chat').then(module => ({ default: module.Chat })))
 
 const Profile = lazy(() =>
-  import('@/pages/Profile/Profile').then(module => ({ default: module.Profile }))
+  import('@/pages/Profile/ui/Profile').then(module => ({ default: module.Profile }))
 )
-const Video = lazy(() => import('@/pages/Video/Video').then(module => ({ default: module.Video })))
+const Video = lazy(() =>
+  import('@/pages/Video/ui/Video').then(module => ({ default: module.Video }))
+)
 
 export const Routing = () => {
   const {
