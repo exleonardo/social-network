@@ -1,21 +1,13 @@
-import { memo, useEffect, useState } from 'react'
+import { memo } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import { Items, youtubeApi } from '@/API/youtube-api'
-import { useAppSelector } from '@/app/store/redux-store'
-import { getIsAuth } from '@/pages/Login/selectors/auth-selectors'
+import { useVideo } from '@/pages/Video/hooks/useVideo'
 
 import s from '../style/index.module.scss'
 
 export const Video = memo(() => {
-  const [video, setVideo] = useState<Items[]>()
-  const isAuth = useAppSelector(getIsAuth)
+  const { isAuth, video } = useVideo()
 
-  useEffect(() => {
-    youtubeApi.getVideos().then(res => {
-      setVideo(res.data.items)
-    })
-  }, [])
   if (!isAuth) {
     return <Redirect to={'/unautorized'} />
   }
