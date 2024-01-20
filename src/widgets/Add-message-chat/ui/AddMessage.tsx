@@ -1,17 +1,17 @@
 import { memo, useState } from 'react'
 
-import { useAppDispatch, useAppSelector } from '@/app/redux-store'
-import { getStatus } from '@/components/chat-selector'
+import { useAppDispatch } from '@/app/store/redux-store'
 import { sendMessage } from '@/redux/chat-reducer'
-import { Button } from '@/shared/Button/Button'
-import { Input } from '@/shared/Input/Input'
+import { Button } from '@/shared/Button/ui/Button'
+import { Input } from '@/shared/Input/ui/Input'
+import { useMessage } from '@/widgets/Add-message-chat/hooks/useMessage'
 
-import s from './add-message.module.scss'
+import s from '../style/index.module.scss'
+
 export const AddMessage = memo(() => {
   const [message, setMessage] = useState('')
-
+  const { status } = useMessage()
   const dispatch = useAppDispatch()
-  const status = useAppSelector(getStatus)
 
   const sendMessageHandler = () => {
     if (!message) {
@@ -22,7 +22,7 @@ export const AddMessage = memo(() => {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+    <div className={s.addMessageContainer}>
       <div style={{ width: '80%' }}>
         <Input
           className={s.input}
