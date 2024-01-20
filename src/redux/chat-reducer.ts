@@ -1,5 +1,5 @@
 import { ChatMessageType, StatusType, chatAPI } from '@/API/chat-api'
-import { AppThunk } from '@/app/redux-store'
+import { AppThunk } from '@/app/store/redux-store'
 import { Dispatch } from 'redux'
 import { v1 } from 'uuid'
 
