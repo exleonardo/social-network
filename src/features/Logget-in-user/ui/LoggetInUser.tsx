@@ -1,17 +1,10 @@
-import { useAppDispatch, useAppSelector } from '@/app/store/redux-store'
-import { getIsAuth } from '@/pages/Login/selectors/auth-selectors'
-import { logOut } from '@/redux/auth-reducer'
+import { useLoggetInUser } from '@/features/Logget-in-user/hooks/useLoggetInUser'
 import { Button } from '@/shared/Button/ui/Button'
 
 import s from '@/widgets/Header/style/index.module.scss'
 
 export const LoggetInUser = () => {
-  const dispatch = useAppDispatch()
-  const isAuth = useAppSelector(getIsAuth)
-
-  const loggedOut = () => {
-    dispatch(logOut())
-  }
+  const { isAuth, loggedOut } = useLoggetInUser()
 
   return (
     <div className={s.loginBlock}>
