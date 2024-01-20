@@ -1,7 +1,4 @@
-import { useHistory } from 'react-router-dom'
-
-import { useAppSelector } from '@/app/store/redux-store'
-import { getIsAuth } from '@/pages/Login/selectors/auth-selectors'
+import { useNavbar } from '@/features/Navbar/hooks/useNavbar'
 import {
   BookOutlined,
   MessageOutlined,
@@ -11,11 +8,10 @@ import {
 } from '@ant-design/icons'
 import { Menu } from 'antd'
 
-import s from '../style/navbar.module.scss'
+import s from '../style/index.module.scss'
 
 export const Navbar = () => {
-  const history = useHistory()
-  const isAuth = useAppSelector(getIsAuth)
+  const { history, isAuth } = useNavbar()
   const items = [
     {
       icon: <UserOutlined rev={undefined} />,
