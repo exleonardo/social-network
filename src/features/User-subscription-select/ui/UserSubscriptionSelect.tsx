@@ -1,22 +1,18 @@
-import { useAppDispatch, useAppSelector } from '@/app/redux-store'
-import { getUsersFilter } from '@/components/users-selectors'
+import { useAppDispatch } from '@/app/store/redux-store'
+import { useUserSubscriber } from '@/features/User-subscription-select/hooks/useUserSubscriber'
 import { setFilter } from '@/redux/users-reducer'
 import { Select } from 'antd'
 
-import s from '@/pages/Users/users.module.scss'
+import s from '@/pages/Users/style/index.module.scss'
 
 type UserSubscription = {
   isSubmitting: boolean
   onSearch?: () => void
 }
 export const UserSubscriptionSelect = ({ isSubmitting, onSearch, ...props }: UserSubscription) => {
-  const filter = useAppSelector(getUsersFilter)
+  const { filter, selectData } = useUserSubscriber()
   const dispatch = useAppDispatch()
-  const selectData = [
-    { label: 'All', value: '' },
-    { label: 'Only followed', value: 'false' },
-    { label: 'Only unfollowed', value: 'true' },
-  ]
+
   const setFilterUser = (value: string) => {
     const filterValue = { friend: value, term: filter.term }
 
