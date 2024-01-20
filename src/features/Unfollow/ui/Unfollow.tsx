@@ -1,4 +1,4 @@
-import { useAppDispatch } from '@/app/redux-store'
+import { useAppDispatch } from '@/app/store/redux-store'
 import { follow } from '@/redux/users-reducer'
 import { Button, Popconfirm } from 'antd'
 type FollowType = {
