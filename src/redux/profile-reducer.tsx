@@ -1,6 +1,6 @@
 import { ResultCode } from '@/API/api'
 import { ProfileDataFormType, ProfilePhotos, ProfileUserType, profileAPI } from '@/API/profile-api'
-import { AppThunk } from '@/app/redux-store'
+import { AppThunk } from '@/app/store/redux-store'
 import { toggleIsFetching } from '@/redux/users-reducer'
 import { isAxiosError } from 'axios'
 
