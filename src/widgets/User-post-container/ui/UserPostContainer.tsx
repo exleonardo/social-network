@@ -1,10 +1,10 @@
-import { useAppSelector } from '@/app/redux-store'
-import { getCurrentUserId } from '@/components/auth-selectors'
-import { getUsersId } from '@/components/users-selectors'
-import { UserPostForm } from '@/widgets/User-post-form/UserPostForm'
-import { UserPostsList } from '@/widgets/User-posts-list/UserPostsList'
+import { useAppSelector } from '@/app/store/redux-store'
+import { getCurrentUserId } from '@/pages/Login/selectors/auth-selectors'
+import { getUsersId } from '@/pages/Users/selectors/users-selectors'
+import { UserPostForm } from '@/widgets/User-post-form'
+import { UserPostsList } from '@/widgets/User-posts-list'
 
-import s from './user-post-container.module.scss'
+import s from '../style/index.module.scss'
 
 export const UserPostContainer = () => {
   const userId = useAppSelector(getUsersId)
