@@ -1,15 +1,16 @@
 import { UsersContactType } from '@/API/profile-api'
-import { useAppSelector } from '@/app/redux-store'
-import { getProfile } from '@/components/profile-selector'
-import { Contact } from '@/features/Contact/Contact'
-import { EditProfileButton } from '@/features/Edit-profile-button/EditProfileButton'
-import { UploadFoto } from '@/features/Upload-foto/UploadFoto'
-import UserPhoto from '@/features/User-Photo/UserPhoto'
-import { ProfileEditor } from '@/widgets/Profile-editor/ProfileEditor'
-import Status from '@/widgets/Status/Status'
+import { useAppSelector } from '@/app/store/redux-store'
+import { Contact } from '@/features/Contact/ui/Contact'
+import { EditProfileButton } from '@/features/Edit-profile-button/ui/EditProfileButton'
+import { UploadPhoto } from '@/features/Upload/ui/UploadPhoto'
+import { UserPhoto } from '@/features/User-Photo/ui/UserPhoto'
+import { getProfile } from '@/pages/Profile/selectors/profile-selector'
+import { ProfileEditor } from '@/widgets/Profile-editor/ui/ProfileEditor'
+import { Status } from '@/widgets/Status/ui/Status'
 
-import s from './card.module.scss'
-const Card = () => {
+import s from '../style/index.module.scss'
+
+export const Card = () => {
   const profile = useAppSelector(getProfile)
 
   if (!profile) {
@@ -46,11 +47,9 @@ const Card = () => {
       </div>
       <div className={s.updateProfile}>
         <EditProfileButton className={s.editProfileButton} />
-        <UploadFoto />
+        <UploadPhoto />
         <ProfileEditor />
       </div>
     </div>
   )
 }
-
-export default Card
