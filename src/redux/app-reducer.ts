@@ -1,4 +1,4 @@
-import { AppThunk } from '@/app/redux-store'
+import { AppThunk } from '@/app/store/redux-store'
 
 import { getAuthUserData } from './auth-reducer'
 
