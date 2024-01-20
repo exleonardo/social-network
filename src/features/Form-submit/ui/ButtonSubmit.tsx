@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 
-import s from '../style/button-submit.module.scss'
+import s from '../style/index.module.scss'
 type ButtonSubmitType = {
   isSubmitting?: boolean
   title: string
