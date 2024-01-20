@@ -1,5 +1,5 @@
 import { useAppSelector } from '@/app/store/redux-store'
-import { ErrorTitle } from '@/entities/Error-title/ErrorTitle'
+import { ErrorTitle } from '@/entities/Error-title/ui/ErrorTitle'
 import { getProfile } from '@/pages/Profile/selectors/profile-selector'
 import { Input } from 'antd'
 import { FormikValues } from 'formik'
