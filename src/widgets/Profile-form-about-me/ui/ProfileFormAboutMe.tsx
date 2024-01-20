@@ -1,4 +1,4 @@
-import { ErrorTitle } from '@/entities/Error-title/ErrorTitle'
+import { ErrorTitle } from '@/entities/Error-title/ui/ErrorTitle'
 import { Checkbox, Input } from 'antd'
 import { FormikValues } from 'formik'
 
