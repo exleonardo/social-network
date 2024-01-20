@@ -1,17 +1,15 @@
 import { memo, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import { useAppDispatch, useAppSelector } from '@/app/store/redux-store'
-import { getStatus } from '@/pages/Chat/selectors/chat-selector'
-import { getIsAuth } from '@/pages/Login/selectors/auth-selectors'
+import { useAppDispatch } from '@/app/store/redux-store'
+import { useChat } from '@/pages/Chat/hooks/useChat'
 import { startMessageListening, stopMessageListening } from '@/redux/chat-reducer'
 import { AddMessage } from '@/widgets/Add-message-chat'
 import { ChatMessages } from '@/widgets/Chat-messages/ui/ChatMessages'
 
 export const Chat = memo(() => {
+  const { isAuth, status } = useChat()
   const dispatch = useAppDispatch()
-  const status = useAppSelector(getStatus)
-  const isAuth = useAppSelector(getIsAuth)
 
   useEffect(() => {
     dispatch(startMessageListening())
