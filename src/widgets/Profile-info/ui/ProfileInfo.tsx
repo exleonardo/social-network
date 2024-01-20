@@ -1,4 +1,4 @@
-import Card from '@/entities/Card/Card'
+import { Card } from '@/entities/Card/ui/Card'
 
 import s from '../style/index.module.scss'
 
