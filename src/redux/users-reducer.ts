@@ -1,7 +1,7 @@
 import { Response, ResultCode } from '@/API/api'
 import { UsersInfoType } from '@/API/profile-api'
 import { usersAPI } from '@/API/users-api'
-import { AppThunk } from '@/app/redux-store'
+import { AppThunk } from '@/app/store/redux-store'
 import { updateObjectInArray } from '@/utils/object-helpers'
 import { Dispatch } from 'redux'
 
