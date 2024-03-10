@@ -3,7 +3,7 @@
   flex-direction: column;
 
   width: 100%;
-  height: max-content;
+  padding: 1rem;
 
   color: black;
 
@@ -43,8 +43,10 @@
 
 .card .share {
   display: flex;
+  flex-wrap: wrap;
   gap: 1em;
   justify-content: center;
+
   margin-top: 1em;
 }
 
@@ -55,27 +57,6 @@
 
 .card a:hover {
   color: red;
-}
-
-.card button {
-  display: block;
-
-  padding: 0.8em 1.7em;
-
-  font-weight: bold;
-  color: rgb(0 0 0);
-
-  background: #fff;
-  border: none;
-  border-radius: 25px;
-
-  transition: 0.4s ease-in-out;
-}
-
-.card button:hover {
-  cursor: pointer;
-  color: white;
-  background: rgb(0 191 255 / 88%);
 }
 
 .status {
@@ -120,23 +101,72 @@
   justify-content: center;
 }
 
-.editProfileButton {
-  width: 10rem;
-
-  &:hover {
-    color: white;
-  }
-}
-
 .updateProfile {
   display: flex;
+  gap: 1rem;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
 
   margin-top: 15px;
   margin-bottom: 15px;
+
+  @media screen and (width <= 768px) {
+    flex-direction: column;
+  }
 }
 
 .fullName {
   margin-top: 15px;
+}
+
+.editProfileButton {
+  width: 100%;
+  max-width: 150px;
+  padding: 0.8em 1.7em;
+
+  font-weight: bold;
+  color: rgb(0 0 0);
+
+  background: #fff;
+  border: none;
+  border-radius: 25px;
+
+  transition: 0.4s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    color: white;
+    background: rgb(0 191 255 / 88%);
+  }
+
+  @media screen and (width <= 768px) {
+    max-width: 100%;
+  }
+}
+
+.uploadPhoto {
+  display: flex;
+  justify-content: center;
+
+  max-width: 150px;
+  padding: 0.8em 1.7em;
+
+  font-weight: bold;
+  color: rgb(0 0 0);
+
+  background: #fff;
+  border: none;
+  border-radius: 25px;
+
+  transition: 0.4s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    color: white;
+    background: rgb(0 191 255 / 88%);
+  }
+
+  @media screen and (width <= 768px) {
+    max-width: 100%;
+  }
 }
