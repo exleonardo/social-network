@@ -6,8 +6,9 @@ import { Preloader } from '@/features/Preloader/ui/Preloader'
 import { Setting } from '@/features/Setting/ui/Setting'
 import { Login } from '@/pages/Login'
 import { ResultStatus } from '@/pages/Result-status/ui/ResultStatus'
-import { theme } from 'antd'
 import { Content } from 'antd/es/layout/layout'
+
+import s from './routing.module.scss'
 
 const Users = lazy(() =>
   import('@/pages/Users/ui/Users').then(module => ({ default: module.Users }))
@@ -22,22 +23,8 @@ const Video = lazy(() =>
 )
 
 export const Routing = () => {
-  const {
-    token: { borderRadiusLG },
-  } = theme.useToken()
-
   return (
-    <Content
-      style={{
-        background: 'linear-gradient(90deg, #b9deed, #efefef)',
-        borderRadius: borderRadiusLG,
-        boxShadow: '1px -2px 19px -1px rgba(34, 60, 80, 0.2)',
-        height: '100%',
-        margin: '24px 16px',
-
-        padding: 24,
-      }}
-    >
+    <Content className={s.content}>
       <Switch>
         <Route exact path={'/'} render={() => <Redirect to={'/profile'} />} />
         <Route
