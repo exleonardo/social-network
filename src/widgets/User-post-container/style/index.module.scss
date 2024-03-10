@@ -1,4 +1,7 @@
 .postsBlock {
+  display: flex;
+  flex-direction: column;
+  height: max-content;
   padding: 10px;
 }
 
