@@ -16,7 +16,7 @@ const initialState = {
   newPostText: '',
   posts: [] as PostsType[],
   profile: null as ProfileType,
-  profileCollapsed: false,
+  profileCollapsed: true,
   status: '',
 }
 
