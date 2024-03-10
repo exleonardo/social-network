@@ -36,7 +36,7 @@ const App = () => {
   return (
     <Layout className={'layout'}>
       {!isTable && <Navigate />}
-      <Layout style={{ background: 'inherit', border: 'none' }}>
+      <Layout className={'layoutContent'}>
         <Header />
         {isTable && collapsed && <Navbar />}
         <Routing />
