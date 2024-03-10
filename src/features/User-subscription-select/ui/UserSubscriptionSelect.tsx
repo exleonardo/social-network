@@ -29,7 +29,6 @@ export const UserSubscriptionSelect = ({ isSubmitting, onSearch, ...props }: Use
       onChange={setFilterUser}
       options={selectData}
       size={'large'}
-      style={{ width: 200 }}
       value={filter.friend}
     />
   )
