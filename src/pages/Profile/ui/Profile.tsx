@@ -20,7 +20,7 @@ export const Profile = () => {
   }
 
   return (
-    <div className={s.profile} style={{ maxHeight: 'max-content' }}>
+    <div className={s.profile}>
       <ProfileInfo />
       <UserPostContainer />
     </div>
