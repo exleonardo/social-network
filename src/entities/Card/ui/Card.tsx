@@ -47,7 +47,7 @@ export const Card = () => {
       </div>
       <div className={s.updateProfile}>
         <EditProfileButton className={s.editProfileButton} />
-        <UploadPhoto />
+        <UploadPhoto className={s.uploadPhoto} />
         <ProfileEditor />
       </div>
     </div>
