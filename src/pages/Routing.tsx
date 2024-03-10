@@ -32,10 +32,10 @@ export const Routing = () => {
         background: 'linear-gradient(90deg, #b9deed, #efefef)',
         borderRadius: borderRadiusLG,
         boxShadow: '1px -2px 19px -1px rgba(34, 60, 80, 0.2)',
+        height: '100%',
         margin: '24px 16px',
-        minHeight: 280,
+
         padding: 24,
-        position: 'relative',
       }}
     >
       <Switch>
