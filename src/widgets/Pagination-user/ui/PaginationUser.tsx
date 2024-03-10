@@ -13,7 +13,7 @@ export const PaginationUser = () => {
       defaultPageSize={5}
       onChange={onPageChanged}
       pageSizeOptions={[5, 10, 15, 20]}
-      showQuickJumper
+      size={'small'}
       total={totalUsersCount}
     />
   )
