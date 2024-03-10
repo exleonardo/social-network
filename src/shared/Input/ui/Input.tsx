@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
+import { clsx } from 'clsx'
+
 import s from '../style/input.module.scss'
 export type InputType = {
   className?: string
@@ -10,12 +12,7 @@ export type InputType = {
   type?: 'password' | 'search' | 'text'
 } & ComponentPropsWithoutRef<'input'>
 export const Input = ({ className, placeholder, type, ...props }: InputType) => {
-  return (
-    <input
-      className={className ? className : s.input}
-      placeholder={placeholder}
-      type={type}
-      {...props}
-    />
-  )
+  const classes = clsx(s.input, className)
+
+  return <input className={classes} placeholder={placeholder} type={type} {...props} />
 }
