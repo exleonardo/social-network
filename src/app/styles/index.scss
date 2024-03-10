@@ -8,7 +8,7 @@ body {
   overflow-y: auto;
   background: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db);
   box-shadow: 0 0 13px 2px rgb(34 60 80 / 20%) inset;
-
+  box-sizing: border-box;
   &::-webkit-scrollbar {
     width: 12px;
   }
@@ -31,6 +31,11 @@ body {
   min-height: 100%;
   margin: 0 auto;
   background: inherit;
+
+  @media screen and (width <= 768px) {
+    width: 90vw;
+    margin: 0;
+  }
 }
 
 .layoutContent {
