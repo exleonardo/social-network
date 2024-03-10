@@ -1,0 +1,7 @@
+.findUser {
+  width: 300px;
+
+  @media screen and (width <= 768px) {
+    width: 100%;
+  }
+}
