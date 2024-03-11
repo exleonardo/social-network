@@ -12,13 +12,12 @@ type MessageSendType = {
 export const MessageSend = ({ fullName, message, photo, userName }: MessageSendType) => {
   return (
     <>
-      {' '}
       {userName === fullName && (
         <div className={s.sendBlock}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className={s.user}>
             <UserTitle className={s.userTitleSend} moveToProfile={() => {}} userName={userName} />
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <p className={s.send}>{message}</p>
+            <div className={s.blockMessage}>
+              <p className={s.send + ' ' + s.p}>{message}</p>
               <UserAvatar className={s.chatSendAvatar} moveToProfile={() => {}} userPhoto={photo} />
             </div>
           </div>
