@@ -13,19 +13,19 @@ export const MessageReceive = ({ fullName, message, photo, userName }: MessageRe
     <>
       {userName !== fullName && (
         <div className={s.receiveBlock}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className={s.user}>
             <UserTitle
               className={s.userTitleReceive}
               moveToProfile={() => {}}
               userName={userName}
             />
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div className={s.blockMessage}>
               <UserAvatar
                 className={s.chatReceiveAvatar}
                 moveToProfile={() => {}}
                 userPhoto={photo}
               />
-              <p className={s.receive}>{message}</p>
+              <p className={s.receive + ' ' + s.p}>{message}</p>
             </div>
           </div>
         </div>
