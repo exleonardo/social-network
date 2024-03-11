@@ -13,7 +13,6 @@ import { Navigate } from '@/widgets/Navigate/ui/Navigate'
 import { Layout } from 'antd'
 
 import './styles/index.scss'
-
 const App = () => {
   const initialized = useAppSelector(state => state.app.initialized)
   const dispatch = useAppDispatch()
@@ -34,15 +33,17 @@ const App = () => {
   window.addEventListener('resize', handleResize)
 
   return (
-    <Layout className={'layout'}>
-      {!isTable && <Navigate />}
-      <Layout className={'layoutContent'}>
-        <Header />
-        {isTable && collapsed && <Navbar />}
-        <Routing />
-        <FooterContent />
+    <div className={'blockContent'}>
+      <Layout className={'layout'}>
+        {!isTable && <Navigate />}
+        <Layout className={'layoutContent'}>
+          <Header />
+          {isTable && collapsed && <Navbar />}
+          <Routing />
+          <FooterContent />
+        </Layout>
       </Layout>
-    </Layout>
+    </div>
   )
 }
 
