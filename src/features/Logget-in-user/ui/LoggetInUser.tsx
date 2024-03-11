@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { useLoggetInUser } from '@/features/Logget-in-user/hooks/useLoggetInUser'
 import { Button } from '@/shared/Button/ui/Button'
 
@@ -8,14 +10,15 @@ export const LoggetInUser = () => {
 
   return (
     <div className={s.loginBlock}>
-      {isAuth ? (
+      {isAuth && (
         <div>
           <Button className={s.logOut} onClick={loggedOut}>
             Log out
           </Button>
         </div>
-      ) : (
-        <Button as={'a'} className={s.logOut} href={'/login'} style={{ color: 'white' }}>
+      )}
+      {!isAuth && (
+        <Button as={Link} className={s.logOut} style={{ color: 'white' }} to={'/login'}>
           Login
         </Button>
       )}
