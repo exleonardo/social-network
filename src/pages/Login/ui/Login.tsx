@@ -9,11 +9,11 @@ export const Login = () => {
   const { captcha, formik, isAuth } = useLogin()
 
   if (isAuth) {
-    return <Redirect to={'/'} />
+    return <Redirect to={'/profile'} />
   }
 
   return (
-    <>
+    <div className={s.formBlock}>
       <form className={s.loginForm} onSubmit={formik.handleSubmit}>
         <div className={s.loginText}>Login</div>
         <div className={s.description}>
@@ -61,13 +61,18 @@ export const Login = () => {
             forgot password?
           </a>
         </div>
-        <button className={s.button} disabled={formik.isSubmitting} type={'submit'}>
+        <button
+          className={s.button}
+          disabled={formik.isSubmitting}
+          style={{ cursor: 'pointer' }}
+          type={'submit'}
+        >
           login
         </button>
       </form>
 
       <div className={s.underlayPhoto}></div>
       <div className={s.underlayBlack}></div>
-    </>
+    </div>
   )
 }
