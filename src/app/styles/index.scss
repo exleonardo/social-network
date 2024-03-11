@@ -1,6 +1,9 @@
-* {
-  margin: 0;
-  padding: 0;
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -9,6 +12,8 @@ body {
   overflow-y: auto;
 
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 
   background: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db);
   box-shadow: 0 0 13px 2px rgb(34 60 80 / 20%) inset;
@@ -32,16 +37,30 @@ body {
 
 .layout {
   width: 80vw;
-  min-height: 100%;
-  margin: 0 auto;
+  height: 100%;
   background: inherit;
 
   @media screen and (width <= 576px) {
-    width: calc(100vw - 40px);
+    width: 100vw;
+    height: 100%;
   }
 }
 
 .layoutContent {
   background: inherit;
   border: none;
+
+  @media screen and (width <= 576px) {
+    margin: 0;
+  }
+}
+
+.blockContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (width <= 576px) {
+    overflow-x: hidden;
+  }
 }
