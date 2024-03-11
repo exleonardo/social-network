@@ -23,20 +23,17 @@ export const AddMessage = memo(() => {
 
   return (
     <div className={s.addMessageContainer}>
-      <div style={{ width: '80%' }}>
-        <Input
-          className={s.input}
-          onChange={e => {
-            setMessage(e.currentTarget.value)
-          }}
-          value={message}
-        ></Input>
-      </div>
-      <div>
-        <Button className={s.button} disabled={status !== 'ready'} onClick={sendMessageHandler}>
-          send
-        </Button>
-      </div>
+      <Input
+        className={s.input}
+        onChange={e => {
+          setMessage(e.currentTarget.value)
+        }}
+        value={message}
+      ></Input>
+
+      <Button className={s.button} disabled={status !== 'ready'} onClick={sendMessageHandler}>
+        send
+      </Button>
     </div>
   )
 })

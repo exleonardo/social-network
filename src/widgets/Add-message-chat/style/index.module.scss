@@ -2,10 +2,10 @@
   transform: translate(0, 0) rotate(0deg);
 
   display: flex;
-  gap: 10px;
   align-items: center;
   justify-content: center;
 
+  max-width: 100px;
   padding: 16px 24px 16px 28px;
 
   font-family: inherit;
@@ -25,6 +25,11 @@
     4px 2px 16px 0 rgb(95 157 231 / 48%);
 
   transition: 0.2s;
+
+  @media screen and (width <= 576px) {
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
 }
 
 .button:hover {
@@ -47,8 +52,7 @@
   font-size: 14px;
   font-weight: 500;
 
-  border: none;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #394e7c;
   border-radius: 10px;
   outline: none;
 }
@@ -60,6 +64,13 @@
 
 .addMessageContainer {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-top: 20px;
+
+  @media screen and (width <= 576px) {
+    flex-direction: column;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
 }
